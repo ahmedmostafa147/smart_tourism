@@ -12,10 +12,10 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-        duration: 1000,
+        duration: 1200,
         splashIconSize: 150.h,
         splash: Image.asset(
-          'assets/Images/muslim.png',
+          'lib/Assets/Images/SplashViewImage.png',
         ),
         nextScreen: const HomePage(),
         splashTransition: SplashTransition.fadeTransition,
