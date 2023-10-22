@@ -1,184 +1,143 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:smart_tourism/constants/ImagesForFullApp.dart';
-import 'package:smart_tourism/constants/ThemesStyle.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:smart_tourism/constants/ImagesForFullApp.dart';
 import 'package:smart_tourism/presentation/View/Auth/Login/LoginView.dart';
+import 'package:smart_tourism/presentation/View/HomeView.dart';
 
-class SplashView extends StatelessWidget {
-  const SplashView({super.key});
-
+class MyCustomSplashScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return AnimatedSplashScreen(
-        duration: 2000,
-        splashIconSize: 150.h,
-        splash: Image.asset(
-          Assets.assetsImagesSplashViewImage,
-        ),
-        nextScreen: const IntroView(),
-        splashTransition: SplashTransition.slideTransition,
-        pageTransitionType: PageTransitionType.bottomToTop,
-        backgroundColor: Theme.of(context).brightness == Brightness.dark
-            ? darkTheme.scaffoldBackgroundColor
-            : lightTheme.scaffoldBackgroundColor);
-  }
+  _MyCustomSplashScreenState createState() => _MyCustomSplashScreenState();
 }
 
-class IntroView extends StatefulWidget {
-  const IntroView({super.key});
+class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
+    with TickerProviderStateMixin {
+  double _fontSize = 2;
+  double _containerSize = 1.5;
+  double _textOpacity = 0.0;
+  double _containerOpacity = 0.0;
 
-  @override
-  _IntroViewState createState() => _IntroViewState();
-}
+  late AnimationController _controller;
+  late Animation<double> animation1;
 
-class _IntroViewState extends State<IntroView> {
   @override
   void initState() {
     super.initState();
 
-    Timer(const Duration(milliseconds: 400), () {
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 3));
+
+    animation1 = Tween<double>(begin: 40, end: 20).animate(CurvedAnimation(
+        parent: _controller, curve: Curves.fastLinearToSlowEaseIn))
+      ..addListener(() {
+        setState(() {
+          _textOpacity = 1.0;
+        });
+      });
+
+    _controller.forward();
+
+    Timer(const Duration(seconds: 2), () {
       setState(() {
-        _a = true;
+        _fontSize = 1.06;
       });
     });
-    Timer(const Duration(milliseconds: 400), () {
+
+    Timer(const Duration(seconds: 2), () {
       setState(() {
-        _b = true;
+        _containerSize = 2;
+        _containerOpacity = 1;
       });
     });
-    Timer(const Duration(milliseconds: 1300), () {
+
+    Timer(const Duration(seconds: 4), () {
       setState(() {
-        _c = true;
-      });
-    });
-    Timer(const Duration(milliseconds: 1700), () {
-      setState(() {
-        _e = true;
-      });
-    });
-    Timer(const Duration(milliseconds: 3400), () {
-      setState(() {
-        _d = true;
-      });
-    });
-    Timer(const Duration(milliseconds: 3850), () {
-      setState(() {
-        Navigator.of(context).pushReplacement(
-          ThisIsFadeRoute(
-            route: const LoginView(),
-            page: const IntroView(),
-          ),
-        );
+        Navigator.pushReplacement(context, PageTransition( FirebaseAuth.instance.currentUser != null && FirebaseAuth.instance.currentUser!.emailVerified ? const HomeView():const LoginView()));
       });
     });
   }
 
-  bool _a = false;
-  bool _b = false;
-  bool _c = false;
-  bool _d = false;
-  bool _e = false;
-
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    double _h = MediaQuery.of(context).size.height;
-    double _w = MediaQuery.of(context).size.width;
+    double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: Column(
-          children: [
-            AnimatedContainer(
-              duration: Duration(milliseconds: _d ? 900 : 2500),
-              curve: _d ? Curves.fastLinearToSlowEaseIn : Curves.elasticOut,
-              height: _d
-                  ? 0
-                  : _a
-                      ? _h / 2
-                      : 20,
-              width: 20,
-              // color: Colors.deepPurpleAccent,
-            ),
-            AnimatedContainer(
-              duration: Duration(
-                  seconds: _d
-                      ? 1
-                      : _c
-                          ? 2
-                          : 0),
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              AnimatedContainer(
+                  duration: const Duration(milliseconds: 2000),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  height: _height / _fontSize),
+              AnimatedOpacity(
+                duration: const Duration(milliseconds: 1000),
+                opacity: _textOpacity,
+                child: Text(
+                  'SMART TOURISM',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: animation1.value,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Center(
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 2000),
               curve: Curves.fastLinearToSlowEaseIn,
-              height: _d
-                  ? _h
-                  : _c
-                      ? 80
-                      : 20,
-              width: _d
-                  ? _w
-                  : _c
-                      ? 200
-                      : 20,
-              decoration: BoxDecoration(
-                  color: _b ? Colors.white : Colors.transparent,
-                  // shape: _c? BoxShape.rectangle : BoxShape.circle,
-                  borderRadius: _d
-                      ? const BorderRadius.only()
-                      : BorderRadius.circular(30)),
-              child: Center(
-                child: _e
-                    ? AnimatedTextKit(
-                        totalRepeatCount: 1,
-                        animatedTexts: [
-                          FadeAnimatedText(
-                            'SMART TOURISM',
-                            duration: const Duration(milliseconds: 1700),
-                            textStyle:  TextStyle(
-                              fontSize: 20.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      )
-                    : const SizedBox(),
+              opacity: _containerOpacity,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 2000),
+                curve: Curves.fastLinearToSlowEaseIn,
+                height: _width / _containerSize,
+                width: _width / _containerSize,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                // child: Image.asset('assets/images/file_name.png')
+                child: Image.asset(Assets.imagesSplashViewImage),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class ThisIsFadeRoute extends PageRouteBuilder {
+class PageTransition extends PageRouteBuilder {
   final Widget page;
-  final Widget route;
 
-  ThisIsFadeRoute({required this.page, required this.route})
+  PageTransition(this.page)
       : super(
-          pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) =>
-              page,
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              FadeTransition(
-            opacity: animation,
-            child: route,
-          ),
+          pageBuilder: (context, animation, anotherAnimation) => page,
+          transitionDuration: const Duration(milliseconds: 2000),
+          transitionsBuilder: (context, animation, anotherAnimation, child) {
+            animation = CurvedAnimation(
+              curve: Curves.fastLinearToSlowEaseIn,
+              parent: animation,
+            );
+            return Align(
+              alignment: Alignment.bottomCenter,
+              child: SizeTransition(
+                sizeFactor: animation,
+                child: page,
+                axisAlignment: 0,
+              ),
+            );
+          },
         );
 }

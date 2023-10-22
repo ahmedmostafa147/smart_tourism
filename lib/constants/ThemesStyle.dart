@@ -8,7 +8,7 @@ final ThemeData lightTheme = ThemeData(
   dividerTheme: const DividerThemeData(
     thickness: 1.0,
   ),
-  fontFamily: TextFontStyle.cairoFont,
+  fontFamily: TextFontStyle.Rubik,
   useMaterial3: true,
   brightness: Brightness.light,
   appBarTheme: const AppBarTheme(centerTitle: true, elevation: 0),
@@ -21,6 +21,7 @@ final ThemeData darkTheme = ThemeData(
   dividerTheme: const DividerThemeData(
     thickness: 1.0,
   ),
+  fontFamily:TextFontStyle.Master ,
   useMaterial3: true,
   brightness: Brightness.dark,
   appBarTheme: const AppBarTheme(centerTitle: true, elevation: 0),
