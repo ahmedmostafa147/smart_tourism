@@ -10,7 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
-  await  Firebase.initializeApp();
+  await Firebase.initializeApp();
   initializeDateFormatting().then((_) => runApp(DevicePreview(
         enabled: false,
         builder: (context) => const SmartTourism(), // Wrap your app
@@ -48,7 +48,7 @@ class _SmartTourismState extends State<SmartTourism> {
             theme: lightTheme,
             darkTheme: darkTheme, // Set the dark theme
             themeMode: ThemeMode
-                .system, // Enable automatic theme switching based on device settings
+                .light, // Enable automatic theme switching based on device settings
             title: 'Smart Tourism',
             home: MyCustomSplashScreen(),
             debugShowCheckedModeBanner: false,

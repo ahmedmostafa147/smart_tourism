@@ -41,7 +41,9 @@ class _RegisterViewState extends State<RegisterView> {
                   Center(
                     child: Text("Welcome To Smart Tourism",
                         style: TextStyle(
-                            fontSize: 20.sp, fontWeight: FontWeight.w400,fontFamily: "Play")),
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "Play")),
                   ),
                   SizedBox(
                     height: 5.h,
@@ -94,8 +96,22 @@ class _RegisterViewState extends State<RegisterView> {
                           email: email.text,
                           password: password.text,
                         );
-                        FirebaseAuth.instance.currentUser!.sendEmailVerification();
-                        Get.off(() => const HomeView());
+                        FirebaseAuth.instance.currentUser!
+                            .sendEmailVerification();
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.success,
+                          animType: AnimType.rightSlide,
+                          title: 'Success',
+                          desc:
+                              'Please check your email to verify your account',
+                          btnCancelOnPress: () {
+                            Get.off(() => const LoginView());
+                          },
+                          btnOkOnPress: () {
+                            Get.off(() => const LoginView());
+                          },
+                        )..show();
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
                           AwesomeDialog(

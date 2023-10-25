@@ -1,27 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smart_tourism/presentation/View/Auth/AuthWidget/SocialMediaButtom.dart';
 import 'package:smart_tourism/presentation/View/HomeView.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+
 
 class socialMediaRowButtoms extends StatelessWidget {
   const socialMediaRowButtoms({super.key});
 
-  Future signInWithFacebook() async {
-    // Trigger the sign-in flow
-    final LoginResult loginResult = await FacebookAuth.instance.login();
 
-    // Create a credential from the access token
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
-
-    // Once signed in, return the UserCredential
-    await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-    Get.offAll(const HomeView());
-  }
 
   Future signInWithGoogle() async {
     // Trigger the authentication flow
@@ -54,16 +42,16 @@ class socialMediaRowButtoms extends StatelessWidget {
           SocialMediaButton(
             IconName: IconButton(
                 onPressed: () {
-                  signInWithFacebook();
+                  
                 },
                 icon:
-                    const Icon(FontAwesomeIcons.facebook, color: Colors.blue)),
+                    const Icon(Icons.facebook, color: Colors.blue)),
           ),
           const Spacer(),
           SocialMediaButton(
             IconName: IconButton(
                 onPressed: () {},
-                icon: const Icon(FontAwesomeIcons.apple, color: Colors.black)),
+                icon: const Icon(Icons.apple, color: Colors.black)),
           ),
           const Spacer(),
           SocialMediaButton(
@@ -71,7 +59,10 @@ class socialMediaRowButtoms extends StatelessWidget {
                 onPressed: () {
                   signInWithGoogle();
                 },
-                icon: const Icon(FontAwesomeIcons.google, color: Colors.red)),
+                
+                icon: const Icon(Icons.g_mobiledata_sharp, color: Colors.red)
+
+                ),
           ),
         ],
       ),
