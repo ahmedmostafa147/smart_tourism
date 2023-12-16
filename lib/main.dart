@@ -48,7 +48,7 @@ class _SmartTourismState extends State<SmartTourism> {
             theme: lightTheme,
             darkTheme: darkTheme, // Set the dark theme
             themeMode: ThemeMode
-                .light, // Enable automatic theme switching based on device settings
+                .dark, // Enable automatic theme switching based on device settings
             title: 'Smart Tourism',
             home: MyCustomSplashScreen(),
             debugShowCheckedModeBanner: false,
