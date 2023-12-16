@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:smart_tourism/presentation/View/Auth/AuthWidget/custombuttonauth.dart';
 import 'package:smart_tourism/presentation/View/Auth/AuthWidget/customlogoauth.dart';
 import 'package:smart_tourism/presentation/View/Auth/Login/LoginView.dart';
-import 'package:smart_tourism/presentation/View/HomeView.dart';
 import 'package:smart_tourism/presentation/View/Auth/AuthWidget/textformfield.dart';
 
 class RegisterView extends StatefulWidget {
