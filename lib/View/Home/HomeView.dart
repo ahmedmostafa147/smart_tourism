@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:smart_tourism/View/Home/widgets/container_center_home_screen.dart';
 import 'package:smart_tourism/constants/ImagesForFullApp.dart';
 import 'package:smart_tourism/data/Models/1.dart';
-import 'package:smart_tourism/presentation/View/Auth/Login/LoginView.dart';
-import 'package:smart_tourism/presentation/View/det.dart';
+import 'package:smart_tourism/View/Auth/Login/LoginView.dart';
+import 'package:smart_tourism/View/det.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -87,51 +89,17 @@ class _HomeViewState extends State<HomeView> {
             children: [
               RichText(
                 text: TextSpan(
-                    text: 'Discover',
-                    style: const TextStyle(
-                        color: Color(0xff8f294f), fontSize: 32, height: 1.3),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: ' the Best Places to Travel',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black.withOpacity(.8)))
-                    ]),
+                  text: 'Discover',
+                  style: const TextStyle(
+                      color: Colors.teal, fontSize: 32, height: 1.3),
+                ),
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 20),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        Assets.imagesSearch,
-                        width: 24,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Search Places'),
-                        ),
-                      ),
-                      Image.asset(
-                        Assets.imagesOption,
-                        width: 24,
-                      ),
-                    ],
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(.1),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
+              SizedBox(
+                height: 8.h,
+              ),
+              CustomOptionsWidget(),
+              SizedBox(
+                height: 24.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

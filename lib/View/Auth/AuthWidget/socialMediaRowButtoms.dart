@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:smart_tourism/presentation/View/Auth/AuthWidget/SocialMediaButtom.dart';
-import 'package:smart_tourism/presentation/View/HomeView.dart';
+import 'package:smart_tourism/View/Auth/AuthWidget/SocialMediaButtom.dart';
+import 'package:smart_tourism/View/Home/HomeView.dart';
 
 
 class socialMediaRowButtoms extends StatelessWidget {

@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_tourism/constants/ImagesForFullApp.dart';
-import 'package:smart_tourism/presentation/View/Auth/Login/LoginView.dart';
-import 'package:smart_tourism/presentation/View/HomeView.dart';
+import 'package:smart_tourism/View/Auth/Login/LoginView.dart';
+import 'package:smart_tourism/View/Home/HomeView.dart';
+import 'package:smart_tourism/widget/BottomNavigationBar/bottom_navigation_bar.dart';
 
 class MyCustomSplashScreen extends StatefulWidget {
   @override
@@ -50,9 +51,14 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
       });
     });
 
-    Timer(const Duration(seconds: 4), () {
+    Timer(Duration(seconds: 4), () {
       setState(() {
-        Navigator.pushReplacement(context, PageTransition( FirebaseAuth.instance.currentUser != null && FirebaseAuth.instance.currentUser!.emailVerified ? const HomeView():const LoginView()));
+        Navigator.pushReplacement(
+            context,
+            PageTransition(FirebaseAuth.instance.currentUser != null &&
+                    FirebaseAuth.instance.currentUser!.emailVerified
+                ? const BottomNavBar()
+                : const LoginView()));
       });
     });
   }

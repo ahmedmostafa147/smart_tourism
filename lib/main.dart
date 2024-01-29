@@ -4,15 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/constants/ThemesStyle.dart';
-import 'package:smart_tourism/presentation/View/SplashView.dart';
+import 'package:smart_tourism/View/SplashView.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-void main() async  {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   initializeDateFormatting().then((_) => runApp(DevicePreview(
-        enabled: false,
+        enabled: true,
         builder: (context) => const SmartTourism(), // Wrap your app
       )));
 }
@@ -48,7 +48,7 @@ class _SmartTourismState extends State<SmartTourism> {
             theme: lightTheme,
             darkTheme: darkTheme, // Set the dark theme
             themeMode: ThemeMode
-                .dark, // Enable automatic theme switching based on device settings
+                .light, // Enable automatic theme switching based on device settings
             title: 'Smart Tourism',
             home: MyCustomSplashScreen(),
             debugShowCheckedModeBanner: false,
