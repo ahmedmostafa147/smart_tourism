@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/custombuttonauth.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/customlogoauth.dart';
-import 'package:smart_tourism/View/Auth/Login/LoginView.dart';
+import 'package:smart_tourism/View/Auth/Login/login.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/textformfield.dart';
 
 class RegisterView extends StatefulWidget {

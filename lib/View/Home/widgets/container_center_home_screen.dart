@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smart_tourism/constants/ImagesForFullApp.dart';
 
 class CustomOptionsWidget extends StatelessWidget {
   @override
@@ -11,16 +11,24 @@ class CustomOptionsWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomOption(icon: FontAwesomeIcons.bowlFood, label: 'Restaurant'),
-            CustomOption(icon: FontAwesomeIcons.hotel, label: 'Hotel'),
+            CustomOption(
+                icon: ImageIcon(AssetImage(Assets.imagesRestaurant)),
+                label: 'Restaurant'),
+            CustomOption(
+                icon: ImageIcon(AssetImage(Assets.imagesBedAlt)),
+                label: 'Hotel'),
           ],
         ),
         SizedBox(height: 15.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomOption(icon: FontAwesomeIcons.houseChimney, label: 'Places'),
-            CustomOption(icon: FontAwesomeIcons.listCheck, label: 'To Do List'),
+            CustomOption(
+                icon: ImageIcon(AssetImage(Assets.imagesHouseBlank)),
+                label: 'Places'),
+            CustomOption(
+                icon: ImageIcon(AssetImage(Assets.imagesBallot)),
+                label: 'To Do List'),
           ],
         ),
       ],
@@ -29,7 +37,7 @@ class CustomOptionsWidget extends StatelessWidget {
 }
 
 class CustomOption extends StatelessWidget {
-  final IconData icon;
+  final ImageIcon icon;
   final String label;
 
   const CustomOption({Key? key, required this.icon, required this.label})
@@ -48,9 +56,7 @@ class CustomOption extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
         child: Row(
           children: [
-            Icon(
-              icon,
-            ),
+            icon,
             SizedBox(
               width: 10.w,
             ),

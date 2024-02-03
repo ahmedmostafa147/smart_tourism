@@ -108,7 +108,7 @@ class _DetailViewState extends State<DetailView> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
-                            Assets.imagesStar,
+                            Assets.imagesBallot,
                             width: 30,
                           ),
                           Text(
@@ -159,7 +159,7 @@ class _DetailViewState extends State<DetailView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Image.asset(
-                            Assets.imagesPin,
+                            Assets.imagesBedAlt,
                             width: 20,
                           ),
                           const SizedBox(

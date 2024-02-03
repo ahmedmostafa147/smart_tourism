@@ -1,9 +1,25 @@
 class Assets {
   Assets._();
   
-  /// Assets for imagesClock
-  /// Assets/Images/clock.png
-  static const String imagesClock = "Assets/Images/clock.png";
+  /// Assets for imagesBallot
+  /// Assets/Images/ballot.png
+  static const String imagesBallot = "Assets/Images/ballot.png";
+
+  /// Assets for imagesBedAlt
+  /// Assets/Images/bed-alt.png
+  static const String imagesBedAlt = "Assets/Images/bed-alt.png";
+
+  /// Assets for imagesCircleUser
+  /// Assets/Images/circle-user.png
+  static const String imagesCircleUser = "Assets/Images/circle-user.png";
+
+  /// Assets for imagesGoogle
+  /// Assets/Images/Google.png
+  static const String imagesGoogle = "Assets/Images/Google.png";
+
+  /// Assets for imagesHouseBlank
+  /// Assets/Images/house-blank.png
+  static const String imagesHouseBlank = "Assets/Images/house-blank.png";
 
   /// Assets for imagesImg1
   /// Assets/Images/img1.jpg
@@ -33,29 +49,25 @@ class Assets {
   /// Assets/Images/menu.png
   static const String imagesMenu = "Assets/Images/menu.png";
 
-  /// Assets for imagesOption
-  /// Assets/Images/option.png
-  static const String imagesOption = "Assets/Images/option.png";
-
-  /// Assets for imagesPin
-  /// Assets/Images/pin.png
-  static const String imagesPin = "Assets/Images/pin.png";
-
   /// Assets for imagesProfile
   /// Assets/Images/profile.png
   static const String imagesProfile = "Assets/Images/profile.png";
 
-  /// Assets for imagesSearch
-  /// Assets/Images/search.png
-  static const String imagesSearch = "Assets/Images/search.png";
+  /// Assets for imagesRestaurant
+  /// Assets/Images/restaurant.png
+  static const String imagesRestaurant = "Assets/Images/restaurant.png";
 
   /// Assets for imagesSplashViewImage
   /// Assets/Images/SplashViewImage.png
   static const String imagesSplashViewImage = "Assets/Images/SplashViewImage.png";
 
-  /// Assets for imagesStar
-  /// Assets/Images/star.png
-  static const String imagesStar = "Assets/Images/star.png";
+  /// Assets for imagesSquareHeart
+  /// Assets/Images/square-heart.png
+  static const String imagesSquareHeart = "Assets/Images/square-heart.png";
+
+  /// Assets for imagesSquareStar
+  /// Assets/Images/square-star.png
+  static const String imagesSquareStar = "Assets/Images/square-star.png";
 
   /// Assets for imagesThumbnail1
   /// Assets/Images/thumbnail1.png
@@ -77,3 +89,4 @@ class Assets {
   /// Assets/Images/thumbnail5.png
   static const String imagesThumbnail5 = "Assets/Images/thumbnail5.png";
 }
+

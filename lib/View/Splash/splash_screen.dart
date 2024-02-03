@@ -2,8 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_tourism/constants/ImagesForFullApp.dart';
-import 'package:smart_tourism/View/Auth/Login/LoginView.dart';
-import 'package:smart_tourism/View/Home/HomeView.dart';
+import 'package:smart_tourism/View/Auth/Login/login.dart';
 import 'package:smart_tourism/widget/BottomNavigationBar/bottom_navigation_bar.dart';
 
 class MyCustomSplashScreen extends StatefulWidget {

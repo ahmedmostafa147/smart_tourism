@@ -5,10 +5,11 @@ import 'package:get/get.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/custombuttonauth.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/customlogoauth.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/socialMediaRowButtoms.dart';
-import 'package:smart_tourism/View/Auth/Register/RegisterView.dart';
-import 'package:smart_tourism/View/Home/HomeView.dart';
+import 'package:smart_tourism/View/Auth/Register/register.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/textformfield.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:smart_tourism/View/Survey/survey.dart';
+import 'package:smart_tourism/widget/BottomNavigationBar/bottom_navigation_bar.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -128,61 +129,68 @@ class _LoginViewState extends State<LoginView> {
                     title: "Login",
                     onPressed: () async {
                       if (fromkey.currentState!.validate()) {
-                        try {
-                          final credential = await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                            email: email.text,
-                            password: password.text,
-                          );
-                          if (credential.user!.emailVerified) {
-                            Get.off(() => const HomeView());
-                          } else {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.leftSlide,
-                              title: 'Error ',
-                              desc:
-                                  'Please verify your email, check your inbox and click on the link we sent you.',
-                              btnCancelOnPress: () {},
-                              btnOkOnPress: () {},
-                            )..show();
+                         try {
+                            final credential = await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: email.text,
+                              password: password.text,
+                            );
+
+                            // Check if the user is new (just created)
+                            if (credential.user!.metadata.creationTime ==
+                                credential.user!.metadata.lastSignInTime) {
+                              // User is new, navigate to the survey page
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Survey(),
+                                ),
+                              );
+                            } else {
+                              // User is not new, navigate to the home page
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BottomNavBar(),
+                                ),
+                              );
+                            }
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'user-not-found') {
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                title: 'Error ',
+                                desc: 'No user found for that email.',
+                                btnCancelOnPress: () {},
+                                btnOkOnPress: () {},
+                              )..show();
+                            } else if (e.code == 'wrong-password') {
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.leftSlide,
+                                title: 'Error ',
+                                desc: 'Wrong password provided for that user.',
+                                btnCancelOnPress: () {},
+                                btnOkOnPress: () {},
+                              )..show();
+                            }
                           }
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'user-not-found') {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.rightSlide,
-                              title: 'Error ',
-                              desc: 'No user found for that email.',
-                              btnCancelOnPress: () {},
-                              btnOkOnPress: () {},
-                            )..show();
-                          } else if (e.code == 'wrong-password') {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.leftSlide,
-                              title: 'Error ',
-                              desc: 'Wrong password provided for that user.',
-                              btnCancelOnPress: () {},
-                              btnOkOnPress: () {},
-                            )..show();
-                          }
+                        } else {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.leftSlide,
+                            title: 'Error ',
+                            desc: 'Please enter your email and password.',
+                            btnCancelOnPress: () {},
+                            btnOkOnPress: () {},
+                          )..show();
                         }
-                      } else {
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.error,
-                          animType: AnimType.leftSlide,
-                          title: 'Error ',
-                          desc: 'Please enter your email and password.',
-                          btnCancelOnPress: () {},
-                          btnOkOnPress: () {},
-                        )..show();
-                      }
-                    }),
+                      },
+                    ),
                 Row(
                   children: [
                     const Expanded(

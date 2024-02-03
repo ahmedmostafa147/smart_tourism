@@ -16,6 +16,8 @@ dependencies:
   google_sign_in: ^6.1.5
   persistent_bottom_nav_bar: ^5.0.2
   font_awesome_flutter: ^10.7.0
+  path_provider: ^2.1.2
+  image_picker: ^1.0.7
 
   
 
