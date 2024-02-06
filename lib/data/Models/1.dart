@@ -1,4 +1,4 @@
-import 'package:smart_tourism/constants/ImagesForFullApp.dart';
+import '../../constants/images.dart';
 
 class Travel{
   //model variables

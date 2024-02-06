@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:smart_tourism/constants/ImagesForFullApp.dart';
+import '../../../../../constants/images.dart';
+
 
 class DisplayImage extends StatelessWidget {
   final String imagePath;

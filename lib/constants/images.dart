@@ -9,6 +9,14 @@ class Assets {
   /// Assets/Images/bed-alt.png
   static const String imagesBedAlt = "Assets/Images/bed-alt.png";
 
+  /// Assets for imagesBuilding
+  /// Assets/Images/building.png
+  static const String imagesBuilding = "Assets/Images/building.png";
+
+  /// Assets for imagesBusinessPlan
+  /// Assets/Images/business-plan.png
+  static const String imagesBusinessPlan = "Assets/Images/business-plan.png";
+
   /// Assets for imagesCircleUser
   /// Assets/Images/circle-user.png
   static const String imagesCircleUser = "Assets/Images/circle-user.png";
@@ -56,6 +64,10 @@ class Assets {
   /// Assets for imagesRestaurant
   /// Assets/Images/restaurant.png
   static const String imagesRestaurant = "Assets/Images/restaurant.png";
+
+  /// Assets for imagesSearch
+  /// Assets/Images/search.png
+  static const String imagesSearch = "Assets/Images/search.png";
 
   /// Assets for imagesSplashViewImage
   /// Assets/Images/SplashViewImage.png

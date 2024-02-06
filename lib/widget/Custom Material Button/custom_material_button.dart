@@ -16,29 +16,16 @@ class CustomMaterialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10), // Add border radius
-        boxShadow: [
-          // Add box shadow
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          ),
-        ],
+    return MaterialButton(
+      height: 40.h,
+      minWidth: double.infinity,
+      color: color ?? Colors.teal,
+      textColor: Colors.white,
+      onPressed: onPressed as void Function()?,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
       ),
-      child: MaterialButton(
-        height: 40.h,
-        color: color ?? Colors.teal,
-        textColor: Colors.white,
-        onPressed: onPressed as void Function()?,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Text(buttonText),
-      ),
+      child: Text(buttonText),
     );
   }
 }

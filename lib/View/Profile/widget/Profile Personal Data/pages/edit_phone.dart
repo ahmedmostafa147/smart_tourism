@@ -1,31 +1,33 @@
-import 'package:smart_tourism/view/Profile/user/user_data.dart';
-import 'package:smart_tourism/view/Profile/widgets/appbar_widget.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../Profile%20Personal%20Data/user/user_data.dart';
+import '../../Profile%20Personal%20Data/widgets/appbar_widget.dart';
 
-// This class handles the Page to edit the Email Section of the User Profile.
-class EditEmailFormPage extends StatefulWidget {
-  const EditEmailFormPage({Key? key}) : super(key: key);
-
+// This class handles the Page to edit the Phone Section of the User Profile.
+class EditPhoneFormPage extends StatefulWidget {
+  const EditPhoneFormPage({Key? key}) : super(key: key);
   @override
-  EditEmailFormPageState createState() {
-    return EditEmailFormPageState();
+  EditPhoneFormPageState createState() {
+    return EditPhoneFormPageState();
   }
 }
 
-class EditEmailFormPageState extends State<EditEmailFormPage> {
+class EditPhoneFormPageState extends State<EditPhoneFormPage> {
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
   var user = UserData.myUser;
 
   @override
   void dispose() {
-    emailController.dispose();
+    phoneController.dispose();
     super.dispose();
   }
 
-  void updateUserValue(String email) {
-    user.email = email;
+  void updateUserValue(String phone) {
+    String formattedPhoneNumber =
+        "(${phone.substring(0, 3)}) ${phone.substring(3, 6)}-${phone.substring(6, phone.length)}";
+    user.phone = formattedPhoneNumber;
   }
 
   @override
@@ -42,10 +44,9 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                   SizedBox(
                       width: 320,
                       child: Text(
-                        "What's your email?",
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.left,
+                        "What's Your Phone Number?",
+                        style: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
                       )),
                   Padding(
                       padding: const EdgeInsets.only(top: 40),
@@ -54,15 +55,11 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                           width: 320,
                           child: TextFormField(
                             // Handles Form Validation
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your email.';
-                              }
-                              return null;
-                            },
+
+                            controller: phoneController,
                             decoration: InputDecoration(
-                                labelText: 'Your email address'),
-                            controller: emailController,
+                              labelText: 'Your Phone Number',
+                            ),
                           ))),
                   Padding(
                       padding: const EdgeInsets.only(top: 150),
@@ -75,7 +72,7 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                               onPressed: () {},
                               child: Text(
                                 'Update',
-                                style: TextStyle(fontSize: 15),
+                                style: const TextStyle(fontSize: 15),
                               ),
                             ),
                           )))

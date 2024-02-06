@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_tourism/View/Home/widgets/list_view_discover_places.dart';
+import '../Home/widgets/list_view_discover_places.dart';
 
 class ListFavoritePlaces extends StatelessWidget {
   const ListFavoritePlaces({super.key});

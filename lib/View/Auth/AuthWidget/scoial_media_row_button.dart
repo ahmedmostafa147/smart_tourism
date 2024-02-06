@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:smart_tourism/View/Auth/AuthWidget/SocialMediaButtom.dart';
-import 'package:smart_tourism/View/Home/home.dart';
-import 'package:smart_tourism/View/Survey/survey.dart';
-import 'package:smart_tourism/widget/BottomNavigationBar/bottom_navigation_bar.dart';
+import 'social_media_button.dart';
+import '../../Home/home.dart';
+import '../../Survey/survey.dart';
+import '../../../widget/BottomNavigationBar/bottom_navigation_bar.dart';
 
 class socialMediaRowButtoms extends StatelessWidget {
   const socialMediaRowButtoms({super.key});

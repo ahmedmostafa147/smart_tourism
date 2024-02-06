@@ -38,19 +38,20 @@ flutter:
     - Assets/Database/
     - Assets/Fonts/
   fonts:
-    - family: Master
-      fonts:
-         - asset: Assets/Fonts/Poppins-Regular.ttf
-         - asset: Assets/Fonts/Poppins-Bold.ttf
-    # - family: Noto
-    #   fonts:
-    #     - asset: Assets/Fonts/NotoNastaliqUrdu-Bold.ttf
-    #     - asset: Assets/Fonts/NotoNastaliqUrdu-Regular.ttf
     - family: Rubik
       fonts:
-        - asset: Assets/Fonts/Rubik-Bold.ttf
-        - asset: Assets/Fonts/Rubik-Regular.ttf
+        - asset: Assets/Fonts/Rubik/Rubik-Bold.ttf
+        - asset: Assets/Fonts/Rubik/Rubik-Regular.ttf
     - family: Play   
       fonts:
-        - asset: Assets/Fonts/PlaypenSans-Bold.ttf
-        - asset: Assets/Fonts/PlaypenSans-Regular.ttf 
+        - asset: Assets/Fonts/Play/PlaypenSans-Bold.ttf
+        - asset: Assets/Fonts/Play/PlaypenSans-Regular.ttf 
+    - family: Cairo   
+      fonts:
+        - asset: Assets/Fonts/Cairo/Cairo-Bold.ttf
+        - asset: Assets/Fonts/Cairo/Cairo-Regular.ttf 
+        - asset: Assets/Fonts/Cairo/Cairo-Medium.ttf
+    - family: Mano   
+      fonts:
+        - asset: Assets/Fonts/Mano/manolomono.otf
+                

@@ -4,12 +4,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/constants/ThemesStyle.dart';
-import 'package:smart_tourism/View/Splash/splash_screen.dart';
+import 'routes.dart';
+import 'Core/Localization/change_lang.dart';
+import 'Core/Localization/translation.dart';
+import 'Core/Service/service.dart';
+import 'constants/style.dart';
+import 'View/Splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initialServices();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   initializeDateFormatting().then((_) => runApp(DevicePreview(
@@ -41,21 +47,24 @@ class _SmartTourismState extends State<SmartTourism> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.teal, 
-      
+      statusBarColor: Colors.teal,
     ));
     return ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
+          LocaleController controller = Get.put(LocaleController());
           return GetMaterialApp(
+            translations: MyTranslation(),
+            locale: controller.language,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: ThemeMode.light,
+            themeMode: ThemeMode.system,
             title: 'Smart Tourism',
             home: MyCustomSplashScreen(),
             debugShowCheckedModeBanner: false,
+            routes: routes,
           );
         });
   }

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:smart_tourism/View/Home/widgets/app_bar_home.dart';
-import 'package:smart_tourism/View/Home/widgets/container_center_home_screen.dart';
-import 'package:smart_tourism/View/Home/widgets/container_display_nearest.dart';
-import 'package:smart_tourism/View/Home/widgets/list_view_discover_places.dart';
-import 'package:smart_tourism/View/Home/widgets/det.dart';
-import 'package:smart_tourism/constants/ImagesForFullApp.dart';
+import 'widgets/app_bar_home.dart';
+import 'widgets/container_center_home_screen.dart';
+import 'widgets/container_display_nearest.dart';
+import 'widgets/list_view_discover_places.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -26,17 +23,18 @@ class _HomeViewState extends State<HomeView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RichText(
-                text: TextSpan(
-                  text: 'Discover',
-                  style: const TextStyle(
-                      color: Colors.teal, fontSize: 32, height: 1.3),
-                ),
+              Text(
+                'Discover',
+                style: TextStyle(
+                    color: Colors.teal,
+                    fontSize: 32.sp,
+                    height: 1.3.sp,
+                    fontFamily: "Mano"),
               ),
               SizedBox(
                 height: 8.h,
               ),
-              CustomOptionsWidget(),
+              ContainerOPtionsSearch(),
               SizedBox(
                 height: 24.h,
               ),
@@ -56,10 +54,12 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ],
               ),
-             ContainerDisplayNearestHome(),
+              ContainerDisplayNearestHome(),
+               
               SizedBox(
                 height: 24.h,
               ),
+               Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -76,7 +76,28 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ],
               ),
+               Divider(),
               ListDiscoverPlaces(),
+               Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Discover Places',
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    'View All',
+                    style: TextStyle(fontSize: 17.sp, color: Colors.teal),
+                  ),
+                ],
+              ),
+               Divider(),
+              ContainerDisplayNearestHome(),
+             
             ],
           ),
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/View/Auth/Login/login.dart';
+import '../Login/login.dart';
 
 class DeleteAccountButton extends StatefulWidget {
   const DeleteAccountButton({Key? key}) : super(key: key);

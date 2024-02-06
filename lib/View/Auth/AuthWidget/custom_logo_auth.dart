@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_tourism/constants/ImagesForFullApp.dart';
+import '../../../constants/images.dart';
 
 class CustomLogoAuth extends StatelessWidget {
   const CustomLogoAuth({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_tourism/constants/TextFontStyle.dart';
+import 'font.dart';
 
 final ThemeData lightTheme = ThemeData(
   iconButtonTheme: IconButtonThemeData(
@@ -32,7 +32,6 @@ final ThemeData lightTheme = ThemeData(
 );
 
 final ThemeData darkTheme = ThemeData(
-  
   buttonTheme: ButtonThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
   ),

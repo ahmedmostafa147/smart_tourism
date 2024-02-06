@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/View/Home/widgets/container_display_nearest.dart';
-import 'package:smart_tourism/View/Search/Search.dart';
-import 'package:smart_tourism/widget/BottomNavigationBar/bottom_navigation_bar.dart';
-import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_button.dart';
+import '../Home/widgets/container_display_nearest.dart';
+import '../Search/Search.dart';
+import '../../widget/BottomNavigationBar/bottom_navigation_bar.dart';
+import '../../widget/Custom%20Material%20Button/custom_material_button.dart';
 
 class Plan extends StatefulWidget {
   const Plan({super.key});
@@ -34,11 +34,11 @@ class _PlanState extends State<Plan> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Select Your Preferred Types of Tourism',
+                'Select What you want to do your plan',
                 style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal),
+                    fontSize: 20.0.sp,
+                    fontWeight: FontWeight.w400,
+                    ),
               ),
               SizedBox(height: 20.0),
               // Display GridView with tourism types
@@ -71,8 +71,8 @@ class _PlanState extends State<Plan> {
               Text("This is the best plan from AI",
                   style: TextStyle(
                       fontSize: 20.0.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
+                      fontWeight: FontWeight.w400,
+                     )),
               ContainerDisplayNearestHome(),
             ],
           ),

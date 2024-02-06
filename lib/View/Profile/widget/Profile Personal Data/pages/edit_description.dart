@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/View/Profile/user/user_data.dart';
-import 'package:smart_tourism/View/Profile/widgets/appbar_widget.dart';
+import '../user/user_data.dart';
+import '../widgets/appbar_widget.dart';
 
 // This class handles the Page to edit the About Me Section of the User Profile.
 class EditDescriptionFormPage extends StatefulWidget {

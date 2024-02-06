@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:smart_tourism/View/Auth/Login/login.dart';
-import 'package:smart_tourism/constants/ImagesForFullApp.dart';
+import '../../Auth/Login/login.dart';
+import '../../../constants/images.dart';
 
 class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBarHome({Key? key}) : super(key: key);

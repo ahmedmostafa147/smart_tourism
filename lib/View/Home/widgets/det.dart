@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_tourism/constants/ImagesForFullApp.dart';
-import 'package:smart_tourism/data/Models/1.dart';
+import '../../../constants/images.dart';
+import '../../../data/Models/1.dart';
 
 class DetailView extends StatefulWidget {
   final int id;

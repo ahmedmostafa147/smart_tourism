@@ -3,13 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:smart_tourism/View/Favorite/favorite.dart';
-import 'package:smart_tourism/View/Home/home.dart';
-import 'package:smart_tourism/View/Plan/plan.dart';
-import 'package:smart_tourism/View/Profile/pages/profile_page.dart';
-import 'package:smart_tourism/View/Search/Search.dart';
-import 'package:smart_tourism/View/Survey/survey.dart';
-import 'package:smart_tourism/constants/ImagesForFullApp.dart';
+import '../../View/Profile/profile.dart';
+import '../../View/Plan/model.dart';
+import '../../View/Lang/lang.dart';
+import '../../View/Favorite/favorite.dart';
+import '../../View/Home/home.dart';
+import '../../View/Plan/plan.dart';
+
+import '../../View/Search/Search.dart';
+import '../../View/Survey/survey.dart';
+import '../../constants/images.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -29,17 +32,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<Widget> _buildScreens() => [
         const HomeView(),
-        const ListFavoritePlaces(),
         SearchScreen(),
-        const Plan(),
-        const ProfilePage(),
+        Plan(),
+         Survey(),
+        Profile(),
       ];
 
   List<PersistentBottomNavBarItem> _navBarsItems() => [
-
         PersistentBottomNavBarItem(
-         
-          title: "Explore",
+          textStyle: TextStyle(
+              fontSize: 12.sp, fontFamily: "Mano", fontWeight: FontWeight.w600),
+          title: "Discover",
           icon: ImageIcon(
             AssetImage(
               Assets.imagesHouseBlank,
@@ -49,6 +52,33 @@ class _BottomNavBarState extends State<BottomNavBar> {
           inactiveColorPrimary: Colors.grey,
         ),
         PersistentBottomNavBarItem(
+          textStyle: TextStyle(
+              fontSize: 12.sp, fontFamily: "Mano", fontWeight: FontWeight.w600),
+          title: "Search",
+          icon: ImageIcon(
+            AssetImage(
+              Assets.imagesSearch,
+            ),
+          ),
+          activeColorPrimary: Colors.teal,
+          inactiveColorPrimary: Colors.grey,
+        ),
+        PersistentBottomNavBarItem(
+          textStyle: TextStyle(
+              fontSize: 12.sp, fontFamily: "Mano", fontWeight: FontWeight.w600),
+          title: "Plan",
+          iconSize: 29.r,
+          icon: ImageIcon(
+            AssetImage(
+              Assets.imagesBusinessPlan,
+            ),
+          ),
+          activeColorPrimary: Colors.teal,
+          inactiveColorPrimary: Colors.grey,
+        ),
+        PersistentBottomNavBarItem(
+          textStyle: TextStyle(
+              fontSize: 12.sp, fontFamily: "Mano", fontWeight: FontWeight.w600),
           title: "Favorite",
           icon: ImageIcon(
             AssetImage(
@@ -59,26 +89,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           inactiveColorPrimary: Colors.grey,
         ),
         PersistentBottomNavBarItem(
-          title: "Search",
-          icon: ImageIcon(
-            AssetImage(
-              Assets.imagesHouseBlank,
-            ),
-          ),
-          activeColorPrimary: Colors.teal,
-          inactiveColorPrimary: Colors.grey,
-        ),
-        PersistentBottomNavBarItem(
-          title: "Plan",
-          icon: ImageIcon(
-            AssetImage(
-              Assets.imagesHouseBlank,
-            ),
-          ),
-          activeColorPrimary: Colors.teal,
-          inactiveColorPrimary: Colors.grey,
-        ),
-        PersistentBottomNavBarItem(
+          textStyle: TextStyle(
+              fontSize: 12.sp, fontFamily: "Mano", fontWeight: FontWeight.w600),
           title: "Account",
           icon: ImageIcon(
             AssetImage(
@@ -96,9 +108,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       screens: _buildScreens(),
       items: _navBarsItems(),
       navBarHeight: 60.h,
-      bottomScreenMargin: 15.h,
-      resizeToAvoidBottomInset: true,
-      confineInSafeArea: true,
+      bottomScreenMargin: 60.h,
       popAllScreensOnTapOfSelectedTab: true,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       itemAnimationProperties: const ItemAnimationProperties(

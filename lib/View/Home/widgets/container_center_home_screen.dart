@@ -1,6 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_tourism/constants/ImagesForFullApp.dart';
+import '../../../constants/images.dart';
+
+class ContainerOPtionsSearch extends StatelessWidget {
+  const ContainerOPtionsSearch({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 150.h,
+        padding: EdgeInsets.all(5.0),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: Colors.teal, width: 1.0),
+        ),
+        child: CustomOptionsWidget());
+  }
+}
 
 class CustomOptionsWidget extends StatelessWidget {
   @override
@@ -24,7 +41,7 @@ class CustomOptionsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomOption(
-                icon: ImageIcon(AssetImage(Assets.imagesHouseBlank)),
+                icon: ImageIcon(AssetImage(Assets.imagesBuilding)),
                 label: 'Places'),
             CustomOption(
                 icon: ImageIcon(AssetImage(Assets.imagesBallot)),
@@ -46,7 +63,7 @@ class CustomOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 160.w,
+      width: 150.w,
       height: 50.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),

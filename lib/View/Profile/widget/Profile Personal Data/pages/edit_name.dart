@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smart_tourism/view/Profile/user/user_data.dart';
-import 'package:smart_tourism/view/Profile/widgets/appbar_widget.dart';
+import '../../Profile%20Personal%20Data/user/user_data.dart';
+import '../../Profile%20Personal%20Data/widgets/appbar_widget.dart';
+
 import 'package:get/get.dart';
+import '../../Profile%20Personal%20Data/user/user_data.dart';
 
 // This class handles the Page to edit the Name Section of the User Profile.
 class EditNameFormPage extends StatefulWidget {

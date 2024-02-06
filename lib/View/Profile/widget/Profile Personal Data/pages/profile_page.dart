@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_tourism/View/Profile/pages/edit_description.dart';
-import 'package:smart_tourism/View/Profile/pages/edit_email.dart';
-import 'package:smart_tourism/View/Profile/pages/edit_image.dart';
-import 'package:smart_tourism/View/Profile/pages/edit_name.dart';
-import 'package:smart_tourism/View/Profile/pages/edit_phone.dart';
+import 'edit_description.dart';
+import 'edit_email.dart';
+import 'edit_image.dart';
+import 'edit_name.dart';
+import 'edit_phone.dart';
 import '../user/user.dart';
 import '../widgets/display_image_widget.dart';
 import '../user/user_data.dart';
@@ -29,12 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: Text(
           'Profile',
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w700,
-          ),
         ),
-        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {},
@@ -51,7 +46,6 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-
             children: [
               InkWell(
                   onTap: () {
@@ -82,18 +76,18 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 15,
+                style:  TextStyle(
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey,
                 ),
               ),
-              const SizedBox(
-                height: 1,
+               SizedBox(
+                height: 1.h,
               ),
               Container(
-                  width: 350,
-                  height: 40,
+                  width: 350.w,
+                  height: 40.h,
                   decoration: const BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
@@ -113,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: Colors.teal,
                           ),
                         )),
-                        Spacer(),
+                    Spacer(),
                     const Icon(
                       Icons.keyboard_arrow_right,
                       color: Colors.grey,
