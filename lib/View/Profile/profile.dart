@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Auth/Login/login.dart';
 import 'widget/Delete%20acc/delete_acc.dart';
 import 'widget/Lang/lang.dart';
 import 'widget/Row%20user/row_user.dart';

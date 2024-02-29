@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/get_utils.dart';
 import '../../../../Controller/local_controller.dart';
 import '../../../../widget/Custom%20Material%20Button/custom_material_button.dart';
 

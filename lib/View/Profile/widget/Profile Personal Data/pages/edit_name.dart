@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../../Profile%20Personal%20Data/user/user_data.dart';
 import '../../Profile%20Personal%20Data/widgets/appbar_widget.dart';
 
-import 'package:get/get.dart';
-import '../../Profile%20Personal%20Data/user/user_data.dart';
 
 // This class handles the Page to edit the Name Section of the User Profile.
 class EditNameFormPage extends StatefulWidget {

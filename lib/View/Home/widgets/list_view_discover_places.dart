@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'det.dart';
 import '../../../constants/images.dart';
-import '../../../data/1.dart';
 
 class ListDiscoverPlaces extends StatelessWidget {
   const ListDiscoverPlaces({super.key});

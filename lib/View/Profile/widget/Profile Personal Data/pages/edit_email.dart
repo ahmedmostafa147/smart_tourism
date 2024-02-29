@@ -1,7 +1,6 @@
 import '../../Profile%20Personal%20Data/widgets/appbar_widget.dart';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../user/user_data.dart';
 
