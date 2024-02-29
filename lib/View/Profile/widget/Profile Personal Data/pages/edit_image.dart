@@ -1,14 +1,12 @@
 import 'dart:io';
-import '../../Profile%20Personal%20Data/user/user_data.dart';
-import '../../Profile%20Personal%20Data/widgets/appbar_widget.dart';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+
 import '../../Profile%20Personal%20Data/user/user_data.dart';
+import '../../Profile%20Personal%20Data/widgets/appbar_widget.dart';
 
 class EditImagePage extends StatefulWidget {
   const EditImagePage({Key? key}) : super(key: key);

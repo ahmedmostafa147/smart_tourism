@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../constants/images.dart';
 
 class ContainerOPtionsSearch extends StatelessWidget {
@@ -7,15 +8,7 @@ class ContainerOPtionsSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 150.h,
-        padding: EdgeInsets.all(5.0),
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: Colors.teal, width: 1.0),
-        ),
-        child: CustomOptionsWidget());
+    return CustomOptionsWidget();
   }
 }
 
@@ -30,10 +23,10 @@ class CustomOptionsWidget extends StatelessWidget {
           children: [
             CustomOption(
                 icon: ImageIcon(AssetImage(Assets.imagesRestaurant)),
-                label: 'Restaurant'),
+                label: 'Restaurant'.tr),
             CustomOption(
                 icon: ImageIcon(AssetImage(Assets.imagesBedAlt)),
-                label: 'Hotel'),
+                label: 'Hotel'.tr),
           ],
         ),
         SizedBox(height: 15.h),
@@ -42,10 +35,10 @@ class CustomOptionsWidget extends StatelessWidget {
           children: [
             CustomOption(
                 icon: ImageIcon(AssetImage(Assets.imagesBuilding)),
-                label: 'Places'),
+                label: 'Places'.tr),
             CustomOption(
                 icon: ImageIcon(AssetImage(Assets.imagesBallot)),
-                label: 'To Do List'),
+                label: 'To Do List'.tr),
           ],
         ),
       ],
@@ -63,14 +56,14 @@ class CustomOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150.w,
+      width: 160.w,
       height: 50.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(20),
         color: Colors.teal[300],
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
             icon,

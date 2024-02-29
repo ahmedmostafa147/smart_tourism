@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import '../Login/login.dart';
 
@@ -15,7 +14,7 @@ class _DeleteAccountButtonState extends State<DeleteAccountButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
-        await FirebaseAuth.instance.currentUser?.delete();
+       
         Get.offAll(LoginView());
       },
       child: Text('Delete'),

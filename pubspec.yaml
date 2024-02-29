@@ -8,16 +8,15 @@ dependencies:
   flutter:
     sdk: flutter
   device_preview: ^1.1.0
-  firebase_auth: ^4.11.1
-  firebase_core: ^2.19.0
   awesome_dialog: ^3.1.0
   flutter_screenutil: ^5.9.0
   get: ^4.6.6
-  google_sign_in: ^6.1.5
   persistent_bottom_nav_bar: ^5.0.2
-  font_awesome_flutter: ^10.7.0
-  path_provider: ^2.1.2
   image_picker: ^1.0.7
+  shimmer: ^3.0.0
+  loading_indicator: ^3.1.1
+  path_provider: ^2.1.2
+  dio: ^5.4.1
 
   
 
@@ -28,7 +27,7 @@ dev_dependencies:
 flutter_assets:
   assets_path: Assets/Images/
   output_path: lib/constants
-  filename: ImagesForFullApp.dart
+  filename: images.dart
   field_prefix: null
   flutter_lints: ^2.0.0
 flutter:

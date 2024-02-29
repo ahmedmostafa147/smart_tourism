@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:smart_tourism/Controller/local_controller.dart';
 import 'font.dart';
+ 
+
 
 final ThemeData lightTheme = ThemeData(
   iconButtonTheme: IconButtonThemeData(
@@ -18,7 +22,9 @@ final ThemeData lightTheme = ThemeData(
   dividerTheme: const DividerThemeData(
     thickness: 1.0,
   ),
-  fontFamily: TextFontStyle.Rubik,
+    fontFamily: Get.find<LocaleController>().language == const Locale('ar')
+      ? TextFontStyle.Cairo
+      : TextFontStyle.Rubik,
   useMaterial3: true,
   brightness: Brightness.light,
   appBarTheme: AppBarTheme(
@@ -46,7 +52,9 @@ final ThemeData darkTheme = ThemeData(
       ),
     ),
   ),
-  fontFamily: TextFontStyle.Rubik,
+  fontFamily: Get.find<LocaleController>().language == const Locale('ar')
+      ? TextFontStyle.Cairo
+      : TextFontStyle.Rubik,
   useMaterial3: true,
   brightness: Brightness.dark,
   appBarTheme: AppBarTheme(

@@ -2,27 +2,40 @@ import 'package:flutter/material.dart';
 
 class CustomTextForm extends StatelessWidget {
   final String HintText;
-  final TextEditingController mycontroller;
+  final TextEditingController? myController;
   final String LabelText;
   final String validator;
+  final bool isPassword;
+  final TextInputType? keyboardType;
 
   const CustomTextForm({
-    super.key,
+    Key? key,
     required this.HintText,
-    required this.mycontroller,
+    required this.myController,
     required this.LabelText,
     required this.validator,
-  });
+    required this.isPassword,
+    this.keyboardType,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: mycontroller,
+      controller: myController,
       textInputAction: TextInputAction.next,
-      validator: (val) => val!.isEmpty ? validator : null,
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return validator;
+        }
+        return null;
+      },
+      obscureText: isPassword,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
+        alignLabelWithHint: true,
         hintText: HintText,
         label: Text(LabelText),
+      
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.teal),
           borderRadius: BorderRadius.circular(20),

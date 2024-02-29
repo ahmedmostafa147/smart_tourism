@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_tourism/constants/images.dart';
+import '../../../../constants/images.dart';
 
 class RowUser extends StatelessWidget {
   const RowUser({super.key});
@@ -9,7 +9,6 @@ class RowUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60.h,
-
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
@@ -58,7 +57,7 @@ class RowUser extends StatelessWidget {
                       width: 2.w,
                     ),
                     Text(
-                      'London',
+                      'Egypt',
                       style: TextStyle(fontSize: 16.sp),
                     ),
                     Icon(

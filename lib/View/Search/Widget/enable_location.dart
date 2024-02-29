@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../Home/widgets/container_center_home_screen.dart';
+import 'package:get/get.dart';
 import '../../Home/widgets/container_display_nearest.dart';
-import '../../Home/widgets/list_view_discover_places.dart';
-
 class ContainerEnableLocation extends StatelessWidget {
   const ContainerEnableLocation({super.key});
 
@@ -16,19 +14,19 @@ class ContainerEnableLocation extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Nearest to you',
+              'Nearest to you'.tr,
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),
             Text(
-              'View All',
+              'View All'.tr,
               style: TextStyle(fontSize: 17.sp, color: Colors.teal),
             ),
           ],
         ),
-        ContainerDisplayNearestHome(),
+        ContainerDisplayHot(),
         SizedBox(
           height: 24.h,
         ),
@@ -37,23 +35,20 @@ class ContainerEnableLocation extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Discover Places',
+              'Discover Places'.tr,
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),
             Text(
-              'View All',
+              'View All'.tr,
               style: TextStyle(fontSize: 17.sp, color: Colors.teal),
             ),
           ],
         ),
         Divider(),
-       
         ContainerDisplayNearestHome(),
-        
-       
       ],
     );
   }

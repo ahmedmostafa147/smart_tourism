@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../constants/images.dart';
-import '../../../data/Models/1.dart';
+import '../../../data/1.dart';
 
 class DetailView extends StatefulWidget {
   final int id;
@@ -20,15 +20,16 @@ class _DetailViewState extends State<DetailView> {
       body: Stack(
         children: [
           Positioned(
-            top: 0,
+            top: 150,
             left: 0,
             right: 0,
+            bottom: 50,
             child: SizedBox(
               height: size.height,
               width: double.infinity,
               child: FittedBox(
                 child: Image.asset(_travelList[widget.id].imageUrl[0]),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
           ),
@@ -103,26 +104,7 @@ class _DetailViewState extends State<DetailView> {
                             fontSize: 30,
                             fontWeight: FontWeight.w600),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            Assets.imagesBallot,
-                            width: 30,
-                          ),
-                          Text(
-                            _travelList[widget.id].rating.toString(),
-                            style: TextStyle(
-                              fontSize: 16.0,
-                            ),
-                          )
-                        ],
-                      ),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -202,29 +184,29 @@ class _DetailViewState extends State<DetailView> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Icon(
-                          Icons.favorite_border,
-                          color: Color(0xff8f294f),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Icon(
+                            Icons.favorite_border,
                             color: Color(0xff8f294f),
                           ),
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(
+                              color: Color(0xff8f294f),
+                            ),
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Expanded(
-                        child: Container(
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Container(
                           padding: const EdgeInsets.all(9),
                           child: const Center(
                             child: Text(
@@ -244,8 +226,8 @@ class _DetailViewState extends State<DetailView> {
                                 const BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

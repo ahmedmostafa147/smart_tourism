@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../constants/images.dart';
 import '../Home/widgets/container_display_nearest.dart';
-import '../Search/Search.dart';
-import '../../widget/BottomNavigationBar/bottom_navigation_bar.dart';
-import '../../widget/Custom%20Material%20Button/custom_material_button.dart';
 
 class Plan extends StatefulWidget {
   const Plan({super.key});
@@ -19,12 +17,16 @@ class _PlanState extends State<Plan> {
     List<String> selectedTypes = [];
 
     final List<String> tourismTypes = [
-      'AI',
-      'You',
+      'AI'.tr,
+      'You'.tr,
+    ];
+    List<Image> tourismImages = [
+      Image.asset(Assets.imagesRoboticsAmico),
+      Image.asset(Assets.imagesinspirationPana),
     ];
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Plan'),
+        title:  Text('Plan'.tr),
       ),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
@@ -34,11 +36,11 @@ class _PlanState extends State<Plan> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Select What you want to do your plan',
+                'Select What you want to do your plan'.tr,
                 style: TextStyle(
-                    fontSize: 20.0.sp,
-                    fontWeight: FontWeight.w400,
-                    ),
+                  fontSize: 20.0.sp,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
               SizedBox(height: 20.0),
               // Display GridView with tourism types
@@ -47,12 +49,12 @@ class _PlanState extends State<Plan> {
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 5.0,
-                  mainAxisSpacing: 5.0,
+                  crossAxisSpacing: 10.0,
                 ),
                 itemCount: tourismTypes.length,
                 itemBuilder: (context, index) {
                   return TourismTypeItem(
+                    image: tourismImages[index],
                     type: tourismTypes[index],
                     isSelected: selectedTypes.contains(tourismTypes[index]),
                     onTap: () {
@@ -68,11 +70,12 @@ class _PlanState extends State<Plan> {
                 },
               ),
               SizedBox(height: 20.0),
-              Text("This is the best plan from AI",
+              Divider(),
+              Text("This is the best plan from AI".tr,
                   style: TextStyle(
-                      fontSize: 20.0.sp,
-                      fontWeight: FontWeight.w400,
-                     )),
+                    fontSize: 20.0.sp,
+                    fontWeight: FontWeight.w400,
+                  )),
               ContainerDisplayNearestHome(),
             ],
           ),
@@ -86,11 +89,13 @@ class TourismTypeItem extends StatelessWidget {
   final String type;
   final bool isSelected;
   final VoidCallback onTap;
+  final Image image;
 
   const TourismTypeItem({
     required this.type,
     required this.isSelected,
     required this.onTap,
+    required this.image,
   });
 
   @override
@@ -102,14 +107,17 @@ class TourismTypeItem extends StatelessWidget {
           color: isSelected ? Colors.teal : Colors.grey[200],
           borderRadius: BorderRadius.circular(10.0),
         ),
-        child: Center(
-          child: Text(
-            type,
-            style: TextStyle(
-              color: isSelected ? Colors.white : Colors.black,
-              fontSize: 16.0,
+        child: Column(
+          children: [
+            SizedBox(height: 100.h, child: image),
+            Text(
+              type,
+              style: TextStyle(
+                color: isSelected ? Colors.white : Colors.black,
+                fontSize: 16.0,
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

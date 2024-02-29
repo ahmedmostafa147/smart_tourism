@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TextFieldSearch extends StatelessWidget {
   const TextFieldSearch({super.key});
@@ -7,7 +8,7 @@ class TextFieldSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
               decoration: InputDecoration(
-                hintText: 'Where to?',
+                hintText: 'Where to?'.tr,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

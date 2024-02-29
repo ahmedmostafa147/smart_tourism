@@ -1,9 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import '../../Auth/Login/login.dart';
 import '../../../constants/images.dart';
 
@@ -45,7 +42,7 @@ class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
                 width: 2,
               ),
               Text(
-                'London',
+                'Egypt',
                 style: TextStyle(fontSize: 16.sp),
               ),
               Icon(
@@ -71,11 +68,9 @@ class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () async {
-            await FirebaseAuth.instance.signOut();
-            GoogleSignIn googleSignIn = GoogleSignIn();
-            await googleSignIn.signOut();
+           
 
-            Get.offAll(() => const LoginView());
+            Get.offAll(() =>  LoginView());
           },
           icon: Icon(
             Icons.logout,

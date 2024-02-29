@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'det.dart';
 import '../../../constants/images.dart';
-import '../../../data/Models/1.dart';
+import '../../../data/1.dart';
 
 class ListDiscoverPlaces extends StatelessWidget {
   const ListDiscoverPlaces({super.key});
@@ -24,9 +23,9 @@ class ListDiscoverPlaces extends StatelessWidget {
         ];
     
         List<String> titles = [
-          "Title 1",
-          "Title 2",
-          "Title 3",
+          "Magic Tower",
+          "Dubai Burg",
+          "Mall of the Emirates",
           
         ];
     
@@ -97,19 +96,37 @@ class ListDiscoverPlaces extends StatelessWidget {
                             
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Icon(
-                                FontAwesomeIcons.plusCircle,
-                                color: Colors.teal,
-                                size: 25.r,
+                               IconButton(
+                              onPressed: () {},
+                              icon: ImageIcon(
+                                AssetImage(
+                                  Assets.imagesMenu,
+                                ),
+                                size: 20.r,
+                                color: Colors.black,
                               ),
+                          ),
+                          IconButton(
+                              onPressed: () {},
+                              icon:
+                                  ImageIcon(
+                                    AssetImage(
+                                      Assets.imagesMenu,
+                                    ),
+                                    size: 20.r,
+                                    color: Colors.black,
+                                  ),
+                          ),
                                SizedBox(
                                 width: 5.w,
                               ),
-                               Icon(
-                                FontAwesomeIcons.heart,
+                               ImageIcon(
+                                AssetImage(
+                                  Assets.imagesMenu,
+                                ),
+                                size: 15.r,
                                 color: Colors.teal,
-                                size: 25.r,
-                              ),
+                               ),
                                SizedBox(
                                 width: 5.w,
                               ),

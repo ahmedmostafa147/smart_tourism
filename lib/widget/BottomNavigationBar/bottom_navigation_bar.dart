@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../View/Profile/widget/Lang/lang.dart';
 import '../../View/Profile/profile.dart';
-import '../../View/Plan/model.dart';
-import '../../View/Lang/lang.dart';
-import '../../View/Favorite/favorite.dart';
 import '../../View/Home/home.dart';
 import '../../View/Plan/plan.dart';
-
 import '../../View/Search/Search.dart';
 import '../../View/Survey/survey.dart';
 import '../../constants/images.dart';
@@ -34,7 +30,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         const HomeView(),
         SearchScreen(),
         Plan(),
-         Survey(),
+        Survey(),
         Profile(),
       ];
 
@@ -42,7 +38,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         PersistentBottomNavBarItem(
           textStyle: TextStyle(
               fontSize: 12.sp, fontFamily: "Mano", fontWeight: FontWeight.w600),
-          title: "Discover",
+          title: "Discover".tr,
           icon: ImageIcon(
             AssetImage(
               Assets.imagesHouseBlank,
@@ -54,7 +50,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         PersistentBottomNavBarItem(
           textStyle: TextStyle(
               fontSize: 12.sp, fontFamily: "Mano", fontWeight: FontWeight.w600),
-          title: "Search",
+          title: "Search".tr,
           icon: ImageIcon(
             AssetImage(
               Assets.imagesSearch,
@@ -66,12 +62,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
         PersistentBottomNavBarItem(
           textStyle: TextStyle(
               fontSize: 12.sp, fontFamily: "Mano", fontWeight: FontWeight.w600),
-          title: "Plan",
-          iconSize: 29.r,
+          title: "Plan".tr,
           icon: ImageIcon(
-            AssetImage(
-              Assets.imagesBusinessPlan,
-            ),
+            AssetImage(Assets.imagesBusiness),
           ),
           activeColorPrimary: Colors.teal,
           inactiveColorPrimary: Colors.grey,
@@ -79,7 +72,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         PersistentBottomNavBarItem(
           textStyle: TextStyle(
               fontSize: 12.sp, fontFamily: "Mano", fontWeight: FontWeight.w600),
-          title: "Favorite",
+          title: "Favorite".tr,
           icon: ImageIcon(
             AssetImage(
               Assets.imagesSquareHeart,
@@ -91,7 +84,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         PersistentBottomNavBarItem(
           textStyle: TextStyle(
               fontSize: 12.sp, fontFamily: "Mano", fontWeight: FontWeight.w600),
-          title: "Account",
+          title: "Account".tr,
           icon: ImageIcon(
             AssetImage(
               Assets.imagesCircleUser,

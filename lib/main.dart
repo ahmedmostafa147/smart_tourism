@@ -5,19 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:get/get.dart';
 import 'routes.dart';
-import 'Core/Localization/change_lang.dart';
+import 'Controller/local_controller.dart';
 import 'Core/Localization/translation.dart';
 import 'Core/Service/service.dart';
 import 'constants/style.dart';
-import 'View/Splash/splash_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialServices();
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
   initializeDateFormatting().then((_) => runApp(DevicePreview(
         enabled: false,
         builder: (context) => const SmartTourism(), // Wrap your app
@@ -33,22 +29,11 @@ class SmartTourism extends StatefulWidget {
 
 class _SmartTourismState extends State<SmartTourism> {
   @override
-  void initState() {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        debugPrint('User is currently signed out!');
-      } else {
-        debugPrint('User is signed in!');
-      }
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.teal,
     ));
+
     return ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,
@@ -60,11 +45,11 @@ class _SmartTourismState extends State<SmartTourism> {
             locale: controller.language,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: ThemeMode.system,
+            themeMode: controller.themeData!,
             title: 'Smart Tourism',
-            home: MyCustomSplashScreen(),
             debugShowCheckedModeBanner: false,
             routes: routes,
+            initialRoute: AppRoute.splash,
           );
         });
   }

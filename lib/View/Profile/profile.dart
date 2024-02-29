@@ -1,12 +1,13 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_tourism/View/Lang/lang.dart';
-import 'package:smart_tourism/View/Profile/widget/Row%20user/row_user.dart';
-import 'package:smart_tourism/View/Profile/widget/notifications.dart';
-import 'package:smart_tourism/View/Profile/widget/personal_data.dart';
-import 'package:smart_tourism/View/Profile/widget/Row%20Options/row_options.dart';
-import 'package:smart_tourism/constants/images.dart';
+import 'package:get/get.dart';
+import '../Auth/Login/login.dart';
+import 'widget/Delete%20acc/delete_acc.dart';
+import 'widget/Lang/lang.dart';
+import 'widget/Row%20user/row_user.dart';
+import 'widget/Row%20Options/row_options.dart';
+import 'widget/Theme/dark_mode.dart';
+import '../../constants/images.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -14,43 +15,65 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String selectedLanguage = 'English';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
+        title:  Text("Profile".tr),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             RowUser(),
-            
             RowOptions(
-                text: "Personal Data",
-                IconName: const ImageIcon(AssetImage(Assets.imagesHouseBlank))),
+                onTap: () {
+                  Get.to(Profile());
+                },
+                text: "Personal Data".tr,
+                IconName: const ImageIcon(AssetImage(Assets.imagesCircleUser))),
             RowOptions(
-                text: "Plans",
-                IconName: const ImageIcon(AssetImage(Assets.imagesHouseBlank))),
+                onTap: () {},
+                text: "Plans".tr,
+                IconName: const ImageIcon(AssetImage(Assets.imagesBusiness))),
             RowOptions(
-                text: "Notifications",
-                IconName: const ImageIcon(AssetImage(Assets.imagesHouseBlank))),
+                onTap: () {},
+                text: "Notifications".tr,
+                IconName: const ImageIcon(AssetImage(Assets.imagesRinging))),
             RowOptions(
+                onTap: () {
+                  Get.bottomSheet(const Language());
+                },
                 text: "Language,تغير اللغة",
-                IconName: const ImageIcon(AssetImage(Assets.imagesHouseBlank))),
+                IconName: const ImageIcon(AssetImage(Assets.imagesArabic))),
             RowOptions(
-                text: "Dark Mode",
-                IconName: const ImageIcon(AssetImage(Assets.imagesHouseBlank))),
+              onTap: () {
+                Get.bottomSheet(const ChooseThemeMode());
+              },
+              text: "Dark Mode".tr,
+              IconName: const ImageIcon(AssetImage(Assets.imagesDayAndNight)),
+            ),
             RowOptions(
-                text: "Delete Account",
-                IconName: const ImageIcon(AssetImage(Assets.imagesHouseBlank))),
+                onTap: () {
+                  Get.bottomSheet(DeleteAccountScreen());
+                },
+                text: "Delete Account".tr,
+                IconName: const ImageIcon(AssetImage(Assets.imagesDelete))),
             RowOptions(
-                text: "About",
-                IconName: const ImageIcon(AssetImage(Assets.imagesHouseBlank))),
+                onTap: () {},
+                text: "About".tr,
+                IconName: const ImageIcon(AssetImage(Assets.imagesAbout))),
             RowOptions(
-                text: "Logout",
-                IconName: const ImageIcon(AssetImage(Assets.imagesHouseBlank))),
+                onTap: () async {
+                  {
+                    
+
+                    Get.offAll(() =>  "/login");
+                  }
+                  ;
+                },
+                text: "Logout".tr,
+                IconName: const ImageIcon(AssetImage(Assets.imagesLogout))),
           ],
         ),
       ),

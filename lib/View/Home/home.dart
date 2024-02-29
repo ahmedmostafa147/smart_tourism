@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'widgets/app_bar_home.dart';
 import 'widgets/container_center_home_screen.dart';
 import 'widgets/container_display_nearest.dart';
@@ -24,7 +25,7 @@ class _HomeViewState extends State<HomeView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Discover',
+                'Discover'.tr,
                 style: TextStyle(
                     color: Colors.teal,
                     fontSize: 32.sp,
@@ -42,62 +43,60 @@ class _HomeViewState extends State<HomeView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Nearest to you',
+                    'Nearest to you'.tr,
                     style: TextStyle(
                       fontSize: 24.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    'View All',
+                    'View All'.tr,
                     style: TextStyle(fontSize: 17.sp, color: Colors.teal),
                   ),
                 ],
               ),
               ContainerDisplayNearestHome(),
-               
               SizedBox(
                 height: 24.h,
               ),
-               Divider(),
+              Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Discover Places',
+                    'Discover Places'.tr,
                     style: TextStyle(
                       fontSize: 24.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    'View All',
+                    'View All'.tr,
                     style: TextStyle(fontSize: 17.sp, color: Colors.teal),
                   ),
                 ],
               ),
-               Divider(),
+              Divider(),
               ListDiscoverPlaces(),
-               Divider(),
+              Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Discover Places',
+                    'Discover Restaurant'.tr,
                     style: TextStyle(
-                      fontSize: 24.sp,
+                      fontSize: 22.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    'View All',
+                    'View All'.tr,
                     style: TextStyle(fontSize: 17.sp, color: Colors.teal),
                   ),
                 ],
               ),
-               Divider(),
-              ContainerDisplayNearestHome(),
-             
+              Divider(),
+             ContainerDisplayRes(),
             ],
           ),
         ),

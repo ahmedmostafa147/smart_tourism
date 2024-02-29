@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../constants/images.dart';
-import '../Auth/Login/login.dart';
-import '../../widget/BottomNavigationBar/bottom_navigation_bar.dart';
+import 'package:get/get.dart';
+import 'package:smart_tourism/View/Auth/Login/login.dart';
+import 'package:smart_tourism/constants/images.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_tourism/widget/BottomNavigationBar/bottom_navigation_bar.dart';
 
 class MyCustomSplashScreen extends StatefulWidget {
   @override
@@ -37,28 +38,36 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
 
     _controller.forward();
 
-    Timer(const Duration(seconds: 2), () {
-      setState(() {
-        _fontSize = 1.06;
-      });
-    });
+    Timer(const Duration(seconds: 2), _updateFontSize);
 
-    Timer(const Duration(seconds: 2), () {
-      setState(() {
-        _containerSize = 2;
-        _containerOpacity = 1;
-      });
-    });
+    Timer(const Duration(seconds: 2), _updateContainerSize);
 
     Timer(Duration(seconds: 4), () {
-      setState(() {
-        Navigator.pushReplacement(
-            context,
-            PageTransition(FirebaseAuth.instance.currentUser != null &&
-                    FirebaseAuth.instance.currentUser!.emailVerified
-                ? const BottomNavBar()
-                : const LoginView()));
-      });
+      checkLoginStatus();
+    });
+  }
+
+  void checkLoginStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+
+    if (token != null) {
+      Get.off(() => BottomNavBar());
+    } else {
+      Get.off(() => LoginView());
+    }
+  }
+
+  void _updateFontSize() {
+    setState(() {
+      _fontSize = 1.06;
+    });
+  }
+
+  void _updateContainerSize() {
+    setState(() {
+      _containerSize = 2;
+      _containerOpacity = 1;
     });
   }
 
@@ -74,7 +83,6 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
     double _height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Column(
@@ -89,7 +97,6 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
                 child: Text(
                   'SMART TOURISM',
                   style: TextStyle(
-                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: animation1.value,
                   ),
@@ -109,10 +116,8 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
                 width: _width / _containerSize,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Colors.white,
                   borderRadius: BorderRadius.circular(30),
                 ),
-                // child: Image.asset('assets/images/file_name.png')
                 child: Image.asset(Assets.imagesSplashViewImage),
               ),
             ),

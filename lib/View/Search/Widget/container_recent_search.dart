@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ContainerRecentSearch extends StatelessWidget {
   const ContainerRecentSearch({super.key});
@@ -13,13 +14,10 @@ class ContainerRecentSearch extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         reverse: true,
         children: [
-          RecentSearchItem(text: 'Cairo'),
-          RecentSearchItem(text: 'Luxor'),
-          RecentSearchItem(text: 'Egypt'),
-          RecentSearchItem(text: 'Aswan'),
-          RecentSearchItem(text: 'Alexandria'),
-          RecentSearchItem(text: "united arab emirates"),
-          RecentSearchItem(text: 'Egypt'),
+          RecentSearchItem(text: 'Cairo'.tr),
+          RecentSearchItem(text: 'Luxor'.tr),
+          RecentSearchItem(text: 'Egypt'.tr),
+         
 
         ],
       ),

@@ -35,9 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () {},
             icon: Icon(
               Icons.edit,
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.white
-                  : Colors.black,
+              color: Colors.white,
             ),
           )
         ],
@@ -76,13 +74,13 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Text(
                 title,
-                style:  TextStyle(
+                style: TextStyle(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey,
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 1.h,
               ),
               Container(
