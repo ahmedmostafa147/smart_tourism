@@ -3,10 +3,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Controller/local_controller.dart';
 import 'font.dart';
- 
-
 
 final ThemeData lightTheme = ThemeData(
+  primaryColor: Colors.teal,
+  colorScheme: const ColorScheme.light(
+    primary: Colors.teal,
+    secondary: Colors.teal,
+    surface: Colors.white,
+    background: Colors.white,
+    error: Colors.red,
+    onPrimary: Colors.white,
+    onSecondary: Colors.white,
+    onSurface: Colors.black,
+    onBackground: Colors.black,
+    onError: Colors.white,
+    brightness: Brightness.light,
+  ),
   iconButtonTheme: IconButtonThemeData(
     style: ButtonStyle(
       iconColor: MaterialStateProperty.all<Color>(Colors.teal),
@@ -22,7 +34,7 @@ final ThemeData lightTheme = ThemeData(
   dividerTheme: const DividerThemeData(
     thickness: 1.0,
   ),
-    fontFamily: Get.find<LocaleController>().language == const Locale('ar')
+  fontFamily: Get.find<LocaleController>().language == const Locale('ar')
       ? TextFontStyle.Cairo
       : TextFontStyle.Rubik,
   useMaterial3: true,
@@ -38,6 +50,20 @@ final ThemeData lightTheme = ThemeData(
 );
 
 final ThemeData darkTheme = ThemeData(
+  primaryColor: Colors.teal,
+  colorScheme: const ColorScheme.dark(
+    primary: Colors.teal,
+    secondary: Colors.teal,
+    surface: Color(0xFF212121),
+    background: Color(0xFF121212),
+    error: Colors.red,
+    onPrimary: Colors.white,
+    onSecondary: Colors.white,
+    onSurface: Colors.white,
+    onBackground: Colors.white,
+    onError: Colors.white,
+    brightness: Brightness.dark,
+  ),
   buttonTheme: ButtonThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
   ),

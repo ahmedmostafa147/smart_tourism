@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../constants/images.dart';
-import '../../../data/1.dart';
+import '../../../Core/constants/images.dart';
+import '1.dart';
 
 class DetailView extends StatefulWidget {
   final int id;

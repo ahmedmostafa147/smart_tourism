@@ -5,10 +5,10 @@ import 'package:smart_tourism/Controller/delete_acc_controller.dart';
 import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_button.dart';
 
 class DeleteAccountScreen extends StatelessWidget {
-  final DeleteAccController deleteAccController =
-      Get.put(DeleteAccController());
   @override
   Widget build(BuildContext context) {
+    final DeleteAccController deleteAccController =
+        Get.put(DeleteAccController());
     return Scaffold(
       appBar: AppBar(
         title: Text('Delete Account'.tr),
@@ -31,7 +31,7 @@ class DeleteAccountScreen extends StatelessWidget {
                   deleteAccController.isLoading.value
                       ? null
                       : () async {
-                          await deleteAccController.deleteAccount(2);
+                          await deleteAccController.deleteUserAccount();
                         };
                 })
           ],

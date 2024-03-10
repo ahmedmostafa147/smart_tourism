@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../constants/images.dart';
+import '../../Core/constants/images.dart';
 import '../Home/widgets/container_display_nearest.dart';
 
 class Plan extends StatefulWidget {

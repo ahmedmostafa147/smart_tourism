@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../constants/images.dart';
+import '../../../../Core/constants/images.dart';
 
 class RowUser extends StatelessWidget {
   const RowUser({super.key});

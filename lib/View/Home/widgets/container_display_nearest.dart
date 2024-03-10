@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../constants/images.dart';
+import '../../../Core/constants/images.dart';
 import 'det.dart';
 
 class ContainerDisplayNearestHome extends StatefulWidget {

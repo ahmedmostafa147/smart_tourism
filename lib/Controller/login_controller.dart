@@ -32,11 +32,11 @@ class LoginController extends GetxController {
 
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
-        var token = json['access_token']; // Access 'access_token' directly
+        var token = json['access_token'];
         if (token != null) {
           final SharedPreferences? prefs = await _prefs;
           await prefs?.setString('token', token);
-
+          print('Token: $token');
           Get.off(BottomNavBar());
           Get.snackbar("Success", "Login Success",
               snackPosition: SnackPosition.BOTTOM,

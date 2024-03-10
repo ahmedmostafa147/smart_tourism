@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
+import 'package:smart_tourism/View/Auth/Login/login.dart';
 
 class RegistrationController extends GetxController {
   TextEditingController first = TextEditingController();
@@ -43,6 +44,8 @@ class RegistrationController extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.teal,
             colorText: Colors.white);
+        Get.off(() => LoginView());
+      
       } else {
         throw jsonDecode(response.body)["Message"];
       }

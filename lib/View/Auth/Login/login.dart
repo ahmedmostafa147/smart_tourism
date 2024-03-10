@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Controller/login_controller.dart';
-import 'package:smart_tourism/View/Auth/AuthWidget/scoial_media_row_button.dart';
+import 'package:smart_tourism/View/Auth/AuthWidget/google_button.dart';
 import 'package:smart_tourism/View/Auth/Register/register.dart';
+import 'package:smart_tourism/View/Auth/Reset%20Password/reset_password.dart';
 
 import '../AuthWidget/custom_button_auth.dart';
 import '../AuthWidget/custom_logo_auth.dart';
@@ -55,7 +56,7 @@ class LoginView extends StatelessWidget {
                       fontWeight: FontWeight.w200,
                     ),
                   ),
-                   Text(
+                  Text(
                     "Login To Continue Using Smart Tourism".tr,
                     style: TextStyle(
                       color: Colors.grey,
@@ -90,7 +91,9 @@ class LoginView extends StatelessWidget {
                         keyboardType: TextInputType.visiblePassword,
                       ),
                       InkWell(
-                        onTap: () async {},
+                        onTap: () async {
+                          Get.to(() => ResetPasswordScreen());
+                        },
                         child: Container(
                           margin: const EdgeInsets.only(top: 10, bottom: 20),
                           alignment: Alignment.topRight,
@@ -129,7 +132,7 @@ class LoginView extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 20.h),
-                  socialMediaRowButtoms(),
+                  GoogleLogin(),
                   SizedBox(height: 30.h),
                   InkWell(
                     onTap: () {

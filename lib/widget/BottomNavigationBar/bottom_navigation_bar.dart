@@ -7,7 +7,7 @@ import '../../View/Home/home.dart';
 import '../../View/Plan/plan.dart';
 import '../../View/Search/Search.dart';
 import '../../View/Survey/survey.dart';
-import '../../constants/images.dart';
+import '../../Core/constants/images.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});

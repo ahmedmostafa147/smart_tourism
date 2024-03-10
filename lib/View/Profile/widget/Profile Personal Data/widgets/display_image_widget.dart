@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import '../../../../../constants/images.dart';
+import '../../../../../Core/constants/images.dart';
 
 
 class DisplayImage extends StatelessWidget {

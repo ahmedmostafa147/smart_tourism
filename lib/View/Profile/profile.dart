@@ -1,12 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/Controller/logout_controller.dart';
+import 'package:smart_tourism/View/Profile/widget/Logout/logout.dart';
+import 'package:smart_tourism/View/Profile/widget/Profile%20Personal%20Data/pages/profile_page.dart';
 import 'widget/Delete%20acc/delete_acc.dart';
 import 'widget/Lang/lang.dart';
 import 'widget/Row%20user/row_user.dart';
 import 'widget/Row%20Options/row_options.dart';
 import 'widget/Theme/dark_mode.dart';
-import '../../constants/images.dart';
+import '../../Core/constants/images.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -18,7 +20,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text("Profile".tr),
+        title: Text("Profile".tr),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -27,7 +29,7 @@ class _ProfileState extends State<Profile> {
             RowUser(),
             RowOptions(
                 onTap: () {
-                  Get.to(Profile());
+                  Get.to(ProfilePage());
                 },
                 text: "Personal Data".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesCircleUser))),
@@ -65,9 +67,7 @@ class _ProfileState extends State<Profile> {
             RowOptions(
                 onTap: () async {
                   {
-                    
-
-                    Get.offAll(() =>  "/login");
+                    Get.bottomSheet(Logout());
                   }
                   ;
                 },

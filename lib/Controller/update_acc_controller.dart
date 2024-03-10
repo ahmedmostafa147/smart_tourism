@@ -1,13 +1,17 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
 
-class DeleteAccController extends GetxController {
+class UpdateController extends GetxController {
   final RxBool isLoading = false.obs;
 
-  Future<void> deleteUserAccount() async {
+  Future<void> updateUserProfile(
+      {required String firstName,
+      required String lastName,
+      required String userLocation}) async {
     try {
       isLoading.value = true;
 
@@ -20,31 +24,29 @@ class DeleteAccController extends GetxController {
         throw 'User is not logged in';
       }
 
-      // Send the delete account request with the authentication token in the headers
       final Uri url = Uri.parse(
-          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.deleteEmail);
-      final http.Response response = await http.delete(
+          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.UpdateProfile);
+
+      final http.Response response = await http.put(
         url,
         headers: <String, String>{
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
+        body: jsonEncode({
+          "first_name": firstName,
+          "last_name": lastName,
+          "user_location": userLocation,
+        }),
       );
 
-      // Check the response status code
       if (response.statusCode == 200) {
-        // Clear token from shared preferences
-        await prefs.remove('token');
-
-        Get.snackbar("Success", "Account Deleted Successfully",
+        Get.snackbar("Success", "User Profile Updated Successfully",
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.teal,
             colorText: Colors.white);
-
-        // Navigate to login screen
-        Get.offNamed('/login');
       } else {
-        throw 'Account deletion failed: ${response.statusCode}';
+        throw 'User profile update failed: ${response.statusCode}';
       }
     } catch (error) {
       Get.snackbar("Error", error.toString(),

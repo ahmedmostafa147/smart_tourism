@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/View/Auth/Login/login.dart';
-import 'package:smart_tourism/constants/images.dart';
+import 'package:smart_tourism/Core/constants/images.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_tourism/widget/BottomNavigationBar/bottom_navigation_bar.dart';
 

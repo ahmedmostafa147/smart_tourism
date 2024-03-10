@@ -8,7 +8,7 @@ import 'routes.dart';
 import 'Controller/local_controller.dart';
 import 'Core/Localization/translation.dart';
 import 'Core/Service/service.dart';
-import 'constants/style.dart';
+import 'Core/constants/style.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
