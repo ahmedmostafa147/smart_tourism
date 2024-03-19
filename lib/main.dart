@@ -20,14 +20,9 @@ void main() async {
       )));
 }
 
-class SmartTourism extends StatefulWidget {
+class SmartTourism extends StatelessWidget {
   const SmartTourism({Key? key}) : super(key: key);
 
-  @override
-  State<SmartTourism> createState() => _SmartTourismState();
-}
-
-class _SmartTourismState extends State<SmartTourism> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

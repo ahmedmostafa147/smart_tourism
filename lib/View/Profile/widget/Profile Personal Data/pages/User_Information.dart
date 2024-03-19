@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Controller/user_information_controller.dart';
 
@@ -26,7 +27,7 @@ class UserInfoScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 20),
+          SizedBox(height: 20.h),
           UserInfoTile(label: 'First Name', value: user['first_name'] ?? ''),
           UserInfoTile(label: 'Last Name', value: user['last_name'] ?? ''),
           UserInfoTile(label: 'Email', value: user['email'] ?? ''),
