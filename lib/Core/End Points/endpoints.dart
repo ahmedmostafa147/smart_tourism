@@ -1,5 +1,5 @@
 class ApiEndPoints {
-  static final String baseUrl = 'http://52.90.144.144:8080/';
+  static final String baseUrl = 'https://smart-tourism-mjyq.onrender.com/';
   static _AuthEndPoints authEndpoints = _AuthEndPoints();
 }
 

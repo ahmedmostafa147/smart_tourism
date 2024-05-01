@@ -68,9 +68,7 @@ class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () async {
-           
-
-            Get.offAll(() =>  LoginView());
+            Get.offAll(() => LoginView());
           },
           icon: Icon(
             Icons.logout,

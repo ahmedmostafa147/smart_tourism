@@ -16,7 +16,7 @@ void main() async {
 
   initializeDateFormatting().then((_) => runApp(DevicePreview(
         enabled: false,
-        builder: (context) => const SmartTourism(), // Wrap your app
+        builder: (context) => const SmartTourism(),
       )));
 }
 

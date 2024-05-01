@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/View/Home/widgets/you_may_like_this.dart';
 import 'widgets/app_bar_home.dart';
 import 'widgets/container_center_home_screen.dart';
 import 'widgets/container_display_nearest.dart';
+import 'widgets/last_plan_home.dart';
 import 'widgets/list_view_discover_places.dart';
 
 class HomeView extends StatefulWidget {
@@ -33,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
                     fontFamily: "Mano"),
               ),
               SizedBox(
-                height: 8.h,
+                height: 15.h,
               ),
               ContainerOPtionsSearch(),
               SizedBox(
@@ -59,44 +61,23 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(
                 height: 24.h,
               ),
-              Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Discover Places'.tr,
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    'View All'.tr,
-                    style: TextStyle(fontSize: 17.sp, color: Colors.teal),
-                  ),
-                ],
+              LastPlan(),
+              SizedBox(
+                height: 24.h,
               ),
-              Divider(),
+             
+              SizedBox(
+                height: 24.h,
+              ),
               ListDiscoverPlaces(),
-              Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Discover Restaurant'.tr,
-                    style: TextStyle(
-                      fontSize: 22.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    'View All'.tr,
-                    style: TextStyle(fontSize: 17.sp, color: Colors.teal),
-                  ),
-                ],
+              SizedBox(
+                height: 24.h,
               ),
-              Divider(),
-             ContainerDisplayRes(),
+              YouMayLikeThis(),
+              SizedBox(
+                height: 24.h,
+              ),
+              ContainerDisplayRes(),
             ],
           ),
         ),

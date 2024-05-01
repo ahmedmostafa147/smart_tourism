@@ -20,38 +20,7 @@ class SearchScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Country'),
-                onChanged: (value) => searchController.country.value = value,
-              ),
               SizedBox(height: 16),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Governorate'),
-                onChanged: (value) =>
-                    searchController.governorate.value = value,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Category'),
-                onChanged: (value) => searchController.category.value = value,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Name'),
-                onChanged: (value) => searchController.name.value = value,
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  searchController.search(
-                    country: searchController.country.value,
-                    governorate: searchController.governorate.value,
-                    category: searchController.category.value,
-                    name: searchController.name.value,
-                  );
-                },
-                child: Text('Search'),
-              ),
               Divider(),
               SizedBox(height: 10.h),
               Text(
@@ -73,3 +42,54 @@ class SearchScreen extends StatelessWidget {
     );
   }
 }
+
+class SearchBar extends StatelessWidget {
+  const SearchBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          hintText: 'Search',
+          prefixIcon: Icon(Icons.search),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
+}
+  // TextFormField(
+  //               decoration: InputDecoration(labelText: 'Country'),
+  //               onChanged: (value) => searchController.country.value = value,
+  //             ),
+  //             SizedBox(height: 16),
+  //             TextFormField(
+  //               decoration: InputDecoration(labelText: 'Governorate'),
+  //               onChanged: (value) =>
+  //                   searchController.governorate.value = value,
+  //             ),
+  //             SizedBox(height: 16),
+  //             TextFormField(
+  //               decoration: InputDecoration(labelText: 'Category'),
+  //               onChanged: (value) => searchController.category.value = value,
+  //             ),
+  //             SizedBox(height: 16),
+  //             TextFormField(
+  //               decoration: InputDecoration(labelText: 'Name'),
+  //               onChanged: (value) => searchController.name.value = value,
+  //             ),
+  //  ElevatedButton(
+  //               onPressed: () {
+  //                 searchController.search(
+  //                   country: searchController.country.value,
+  //                   governorate: searchController.governorate.value,
+  //                   category: searchController.category.value,
+  //                   name: searchController.name.value,
+  //                 );
+  //               },
+  //               child: Text('Search'),
+  //             ),
