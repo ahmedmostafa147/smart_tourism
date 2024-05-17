@@ -42,7 +42,7 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
 
     Timer(const Duration(seconds: 2), _updateContainerSize);
 
-    Timer(Duration(seconds: 4), () {
+    Timer(Duration(seconds: 3), () {
       checkLoginStatus();
     });
   }
@@ -52,7 +52,7 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
     final String? token = prefs.getString('token');
 
     if (token != null) {
-      Get.off(() => BottomNavBar());
+      Get.off(() => NavBar());
     } else {
       Get.off(() => LoginView());
     }

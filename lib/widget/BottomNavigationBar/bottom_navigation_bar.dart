@@ -9,14 +9,14 @@ import '../../View/Search/Search.dart';
 import '../../View/Survey/survey.dart';
 import '../../Core/constants/images.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+class NavBar extends StatefulWidget {
+  const NavBar({super.key});
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
+  State<NavBar> createState() => _NavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
+class _NavBarState extends State<NavBar> {
   PersistentTabController? _controller;
 
   @override

@@ -27,6 +27,7 @@ final ThemeData lightTheme = ThemeData(
       ),
     ),
   ),
+  iconTheme: const IconThemeData(color: Colors.black),
   buttonTheme: ButtonThemeData(
     buttonColor: Colors.teal,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -70,6 +71,7 @@ final ThemeData darkTheme = ThemeData(
   dividerTheme: const DividerThemeData(
     thickness: 1.0,
   ),
+  iconTheme: const IconThemeData(color: Colors.white),
   iconButtonTheme: IconButtonThemeData(
     style: ButtonStyle(
       iconColor: MaterialStateProperty.all<Color>(Colors.teal),

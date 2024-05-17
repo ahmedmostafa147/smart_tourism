@@ -25,7 +25,6 @@ class _SurveyState extends State<Survey> {
     'Wildlife',
     'Mountain',
     'Safari',
-   
   ];
 
   @override
@@ -46,9 +45,9 @@ class _SurveyState extends State<Survey> {
                   Text(
                     'Select Your Preferred Types of Tourism'.tr,
                     style: TextStyle(
-                        fontSize: 20.0.sp,
-                        fontWeight: FontWeight.w400,
-                        ),
+                      fontSize: 20.0.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                   SizedBox(height: 20.0.sp),
                   // Display GridView with tourism types
@@ -83,8 +82,7 @@ class _SurveyState extends State<Survey> {
               CustomMaterialButton(
                   buttonText: "Submit".tr,
                   onPressed: () {
-                    Get.off(BottomNavBar());
-                    print('Selected Types: $selectedTypes');
+                    Get.off(NavBar());
                   }),
             ],
           ),

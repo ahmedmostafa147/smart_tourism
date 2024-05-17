@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/scearch_controller.dart';
-import 'package:smart_tourism/View/Search/Widget/container_recent_search.dart';
-import 'package:smart_tourism/View/Search/Widget/enable_location.dart';
+import 'package:smart_tourism/View/Search/Widget/recent_search.dart';
+import 'package:smart_tourism/View/Search/Widget/text_field_search.dart';
 
 class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final SearchControllerFunction searchController =
-        Get.put(SearchControllerFunction());
     return Scaffold(
       appBar: AppBar(
         title: Text('Search'.tr),
@@ -20,21 +16,8 @@ class SearchScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 16),
-              Divider(),
-              SizedBox(height: 10.h),
-              Text(
-                'Your Recent Searches'.tr,
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(height: 10.h),
-              ContainerRecentSearch(),
-              Divider(),
-              SizedBox(height: 20.h),
-              ContainerEnableLocation()
+              GestureDetector(onTap: () {}, child: TextFieldSearch()),
+              RecentSearchesWidget()
             ],
           ),
         ),
@@ -42,54 +25,3 @@ class SearchScreen extends StatelessWidget {
     );
   }
 }
-
-class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: TextFormField(
-        decoration: InputDecoration(
-          hintText: 'Search',
-          prefixIcon: Icon(Icons.search),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
-    );
-  }
-}
-  // TextFormField(
-  //               decoration: InputDecoration(labelText: 'Country'),
-  //               onChanged: (value) => searchController.country.value = value,
-  //             ),
-  //             SizedBox(height: 16),
-  //             TextFormField(
-  //               decoration: InputDecoration(labelText: 'Governorate'),
-  //               onChanged: (value) =>
-  //                   searchController.governorate.value = value,
-  //             ),
-  //             SizedBox(height: 16),
-  //             TextFormField(
-  //               decoration: InputDecoration(labelText: 'Category'),
-  //               onChanged: (value) => searchController.category.value = value,
-  //             ),
-  //             SizedBox(height: 16),
-  //             TextFormField(
-  //               decoration: InputDecoration(labelText: 'Name'),
-  //               onChanged: (value) => searchController.name.value = value,
-  //             ),
-  //  ElevatedButton(
-  //               onPressed: () {
-  //                 searchController.search(
-  //                   country: searchController.country.value,
-  //                   governorate: searchController.governorate.value,
-  //                   category: searchController.category.value,
-  //                   name: searchController.name.value,
-  //                 );
-  //               },
-  //               child: Text('Search'),
-  //             ),

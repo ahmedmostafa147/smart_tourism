@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class TextFieldSearch extends StatelessWidget {
@@ -6,13 +7,27 @@ class TextFieldSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-              decoration: InputDecoration(
-                hintText: 'Where to?'.tr,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          height: 40.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.grey),
+          ),
+          child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text(
+                "Search".tr,
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20,
                 ),
-                contentPadding: EdgeInsets.all(16),
-    ));
+              )),
+        ),
+      ],
+    );
   }
 }

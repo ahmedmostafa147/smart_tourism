@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
-import '../../Auth/Login/login.dart';
-import '../../../Core/constants/images.dart';
+import 'package:smart_tourism/Controller/location_controller.dart';
+import 'package:smart_tourism/Core/constants/images.dart';
+import 'package:smart_tourism/View/Profile/widget/Logout/logout.dart';
 
 class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBarHome({Key? key}) : super(key: key);
@@ -12,55 +16,61 @@ class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    LocationController locationController = Get.put(LocationController());
     return AppBar(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          IconButton(
-            onPressed: () {},
-            icon: ImageIcon(
-              AssetImage(
-                Assets.imagesMenu,
-              ),
-              size: 35.r,
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.white
-                  : Colors.black,
+          GestureDetector(
+            onTap: () {
+              locationController.getCurrentLocation();
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.pin_drop_outlined,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.white
+                      : Colors.black,
+                ),
+                const SizedBox(
+                  width: 2,
+                ),
+                Obx(() {
+                  return locationController.isLoading.value
+                      ? Text(
+                          'Loading...',
+                          style: TextStyle(fontSize: 16.sp),
+                        )
+                      : Text(
+                          locationController.addressCountry.value,
+                          style: TextStyle(fontSize: 16.sp),
+                        );
+                }),
+                Icon(
+                  Icons.keyboard_arrow_down,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.white
+                      : Colors.black,
+                )
+              ],
             ),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.pin_drop_outlined,
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.white
-                    : Colors.black,
+          GestureDetector(
+            onTap: () {
+              Get.toNamed('/profile');
+            },
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
               ),
-              const SizedBox(
-                width: 2,
+              child: Image.asset(
+                Assets.imagesProfile,
+                width: 40.h,
+                height: 40.w,
               ),
-              Text(
-                'Egypt',
-                style: TextStyle(fontSize: 16.sp),
-              ),
-              Icon(
-                Icons.keyboard_arrow_down,
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.white
-                    : Colors.black,
-              )
-            ],
-          ),
-          ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-            child: Image.asset(
-              Assets.imagesProfile,
-              width: 40.h,
-              height: 40.w,
             ),
           ),
         ],
@@ -68,7 +78,7 @@ class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () async {
-            Get.offAll(() => LoginView());
+            Get.bottomSheet(Logout());
           },
           icon: Icon(
             Icons.logout,

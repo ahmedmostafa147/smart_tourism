@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/View/Home/widgets/you_may_like_this.dart';
+import 'package:smart_tourism/View/Profile/profile.dart';
 import 'widgets/app_bar_home.dart';
 import 'widgets/container_center_home_screen.dart';
 import 'widgets/container_display_nearest.dart';
@@ -65,7 +66,6 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(
                 height: 24.h,
               ),
-             
               SizedBox(
                 height: 24.h,
               ),
@@ -78,6 +78,10 @@ class _HomeViewState extends State<HomeView> {
                 height: 24.h,
               ),
               ContainerDisplayRes(),
+              SizedBox(
+                height: 24.h,
+              ),
+               MayLikedView(),
             ],
           ),
         ),

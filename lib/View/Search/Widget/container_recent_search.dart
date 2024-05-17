@@ -17,13 +17,12 @@ class ContainerRecentSearch extends StatelessWidget {
           RecentSearchItem(text: 'Cairo'.tr),
           RecentSearchItem(text: 'Luxor'.tr),
           RecentSearchItem(text: 'Egypt'.tr),
-         
-
         ],
       ),
     );
   }
 }
+
 class RecentSearchItem extends StatelessWidget {
   final String text;
 
@@ -34,7 +33,6 @@ class RecentSearchItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        
         padding: EdgeInsets.all(10.r),
         decoration: BoxDecoration(
           color: Colors.transparent,

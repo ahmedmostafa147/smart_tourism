@@ -1,5 +1,7 @@
 class ApiEndPoints {
   static final String baseUrl = 'https://smart-tourism-mjyq.onrender.com/';
+  
+
   static _AuthEndPoints authEndpoints = _AuthEndPoints();
 }
 
@@ -13,5 +15,7 @@ class _AuthEndPoints {
   final String changePassword = 'change_password';
   final String loginGoogle = 'login_google';
   final String search = 'search';
+  final String recentSearches = 'recent_searches';
+  final String mayLikedItems = 'may liked it';
   final String getProfile = 'protected';
 }

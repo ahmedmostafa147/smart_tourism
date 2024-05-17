@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/View/Plan/model_screen.dart';
 import '../../Core/constants/images.dart';
 import '../Home/widgets/container_display_nearest.dart';
+
 
 class Plan extends StatefulWidget {
   const Plan({super.key});
@@ -63,6 +65,9 @@ class _PlanState extends State<Plan> {
                           selectedTypes.remove(tourismTypes[index]);
                         } else {
                           selectedTypes.add(tourismTypes[index]);
+                        }
+                        if (tourismTypes[index] == 'AI'.tr) {
+                          Get.to(RecommendationScreen()); // Navigate to recommendation screen
                         }
                       });
                     },

@@ -17,6 +17,22 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? validatePassword(String? value) {
+      if (value == null || value.isEmpty) {
+        return 'Password is required';
+      }
+
+      return null;
+    }
+
+    String? validateEmail(String? value) {
+      if (value == null || value.isEmpty) {
+        return 'Email is required';
+      }
+
+      return null;
+    }
+
     return SafeArea(
         child: Scaffold(
       resizeToAvoidBottomInset: true,
@@ -72,10 +88,10 @@ class LoginView extends StatelessWidget {
                         height: 10.h,
                       ),
                       CustomTextForm(
-                        HintText: "Enter Your Email".tr,
-                        myController: loginController.emailController,
-                        LabelText: "Email".tr,
-                        validator: "Please enter your email!".tr,
+                        hintText: "Enter Your Email".tr,
+                        controller: loginController.emailController,
+                        labelText: "Email".tr,
+                        validator: validateEmail,
                         isPassword: false,
                         keyboardType: TextInputType.emailAddress,
                       ),
@@ -83,12 +99,11 @@ class LoginView extends StatelessWidget {
                         height: 10.h,
                       ),
                       CustomTextForm(
-                        HintText: "Enter Your Password".tr,
-                        myController: loginController.passwordController,
-                        LabelText: "Password".tr,
-                        validator: "Please enter your password!".tr,
+                        hintText: "Enter Your Password".tr,
+                        controller: loginController.passwordController,
+                        labelText: "Password".tr,
+                        validator: validatePassword,
                         isPassword: true,
-                        keyboardType: TextInputType.visiblePassword,
                       ),
                       InkWell(
                         onTap: () async {
