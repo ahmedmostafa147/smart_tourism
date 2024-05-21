@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/google_auth_controller.dart';
+import '../../../Controller/Auth_controller/google_auth_controller.dart';
+
 
 class GoogleLogin extends StatelessWidget {
   final GoogleSignInController _googleSignInController =

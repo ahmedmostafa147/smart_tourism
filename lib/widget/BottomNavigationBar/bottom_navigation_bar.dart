@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:smart_tourism/View/Favorite/favorite.dart';
 import '../../View/Profile/profile.dart';
 import '../../View/Home/home.dart';
 import '../../View/Plan/plan.dart';
@@ -29,7 +30,7 @@ class _NavBarState extends State<NavBar> {
         const HomeView(),
         SearchScreen(),
         Plan(),
-        Survey(),
+        ListFavoritePlaces(),
         Profile(),
       ];
 

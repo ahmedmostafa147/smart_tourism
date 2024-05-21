@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../widget/BottomNavigationBar/bottom_navigation_bar.dart';
 import '../../widget/Custom%20Material%20Button/custom_material_button.dart';
 
@@ -26,6 +27,11 @@ class _SurveyState extends State<Survey> {
     'Mountain',
     'Safari',
   ];
+
+  Future<void> saveSurvey() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('survey', selectedTypes);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +86,12 @@ class _SurveyState extends State<Survey> {
                 ],
               ),
               CustomMaterialButton(
-                  buttonText: "Submit".tr,
-                  onPressed: () {
-                    Get.off(NavBar());
-                  }),
+                buttonText: "Submit".tr,
+                onPressed: () async {
+                  await saveSurvey();
+                  Get.off(NavBar());
+                },
+              ),
             ],
           ),
         ),

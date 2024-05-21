@@ -1,16 +1,13 @@
-import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/material.dart';
-import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
+import '../../Core/End%20Points/endpoints.dart';
 
-class ChangePasswordController extends GetxController {
+class DeleteAccController extends GetxController {
   final RxBool isLoading = false.obs;
 
-  Future<void> changePassword(
-      String currentPassword, String newPassword) async {
+  Future<void> deleteUserAccount() async {
     try {
       isLoading.value = true;
 
@@ -18,29 +15,36 @@ class ChangePasswordController extends GetxController {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final String? token = prefs.getString('token');
 
-      final Uri url = Uri.parse(ApiEndPoints.baseUrl +
-          ApiEndPoints.authEndpoints.changePassword +
-          '?current_password=$currentPassword&new_password=$newPassword');
+      // Make sure token exists
+      if (token == null) {
+        throw 'User is not logged in';
+      }
 
-      final http.Response response = await http.put(
+      // Send the delete account request with the authentication token in the headers
+      final Uri url = Uri.parse(
+          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.deleteEmail);
+      final http.Response response = await http.delete(
         url,
         headers: <String, String>{
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
-          if (token != null) 'Authorization': 'Bearer $token',
         },
-        body: jsonEncode({
-          'current_password': currentPassword,
-          'new_password': newPassword,
-        }),
       );
 
+      // Check the response status code
       if (response.statusCode == 200) {
-        Get.snackbar("Success", "Password Changed Successfully",
+        // Clear token from shared preferences
+        await prefs.remove('token');
+
+        Get.snackbar("Success", "Account Deleted Successfully",
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.teal,
             colorText: Colors.white);
+
+        // Navigate to login screen
+        Get.offNamed('/login');
       } else {
-        throw 'Password change failed: ${response.statusCode}';
+        throw 'Account deletion failed: ${response.statusCode}';
       }
     } catch (error) {
       Get.snackbar("Error", error.toString(),

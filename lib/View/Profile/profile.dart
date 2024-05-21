@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/View/Profile/widget/Logout/logout.dart';
-import 'package:smart_tourism/View/Profile/widget/Profile%20Personal%20Data/pages/profile_page.dart';
+import 'widget/Logout/logout.dart';
+import 'widget/Profile%20Personal%20Data/pages/profile_page.dart';
 import 'widget/Delete%20acc/delete_acc.dart';
 import 'widget/Lang/lang.dart';
 import 'widget/Row%20user/row_user.dart';

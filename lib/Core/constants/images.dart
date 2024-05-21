@@ -157,10 +157,6 @@ class Assets {
   /// Assets/Images/delete.png
   static const String imagesDelete = "Assets/Images/delete.png";
 
-  /// Assets for imagesDesign inspirationPana
-  /// Assets/Images/Design inspiration-pana.png
-  static const String imagesinspirationPana = "Assets/Images/Design inspiration-pana.png";
-
   /// Assets for imagesGoogle
   /// Assets/Images/Google.png
   static const String imagesGoogle = "Assets/Images/Google.png";
@@ -189,6 +185,10 @@ class Assets {
   /// Assets/Images/img5.jpg
   static const String imagesImg5 = "Assets/Images/img5.jpg";
 
+  /// Assets for imagesInspirationpana
+  /// Assets/Images/inspirationpana.png
+  static const String imagesInspirationpana = "Assets/Images/inspirationpana.png";
+
   /// Assets for imagesLogo
   /// Assets/Images/logo.png
   static const String imagesLogo = "Assets/Images/logo.png";
@@ -196,6 +196,10 @@ class Assets {
   /// Assets for imagesLogout
   /// Assets/Images/logout.png
   static const String imagesLogout = "Assets/Images/logout.png";
+
+  /// Assets for imagesMap
+  /// Assets/Images/map.png
+  static const String imagesMap = "Assets/Images/map.png";
 
   /// Assets for imagesMenu
   /// Assets/Images/menu.png
@@ -213,9 +217,9 @@ class Assets {
   /// Assets/Images/ringing.png
   static const String imagesRinging = "Assets/Images/ringing.png";
 
-  /// Assets for imagesRoboticsAmico
-  /// Assets/Images/Robotics-amico.png
-  static const String imagesRoboticsAmico = "Assets/Images/Robotics-amico.png";
+  /// Assets for imagesRoboticsamico
+  /// Assets/Images/Roboticsamico.png
+  static const String imagesRoboticsamico = "Assets/Images/Roboticsamico.png";
 
   /// Assets for imagesSearch
   /// Assets/Images/search.png

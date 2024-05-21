@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/change_password_controller.dart';
+import '../../../../../Controller/Auth_controller/change_password_controller.dart';
 
 class ChangePasswordView extends StatelessWidget {
   final ChangePasswordController _controller =

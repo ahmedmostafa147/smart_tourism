@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/user_information_controller.dart';
+import '../../../../../Controller/Auth_controller/user_information_controller.dart';
 
 class UserInfoScreen extends StatelessWidget {
   final UserInformation userInformation = Get.put(UserInformation());

@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:smart_tourism/Controller/may_like.dart';
-import 'package:smart_tourism/Core/constants/images.dart';
+import '../../../Controller/may_like.dart';
+import '../../../Core/constants/images.dart';
 
 class YouMayLikeThis extends StatelessWidget {
   const YouMayLikeThis({super.key});
@@ -75,9 +75,14 @@ class MayLikedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: (){
-      controller.fetchMayLikedItems();
-    }, child: Text('Fetch May Liked'));
-    }
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      } else {
+        return YouMayLikeThis();
+      }
+    });
   }
-
+}

@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
-import 'package:smart_tourism/View/Auth/Login/login.dart';
+import '../location_controller.dart';
+import '../../Core/End%20Points/endpoints.dart';
+import '../../View/Auth/Login/login.dart';
 
 class RegistrationController extends GetxController {
+  LocationController locationController = Get.put(LocationController());
   TextEditingController first = TextEditingController();
   TextEditingController last = TextEditingController();
   TextEditingController email = TextEditingController();
@@ -33,7 +35,7 @@ class RegistrationController extends GetxController {
         "last_name": last.text,
         "user_password": password.text,
         "user_email": email.text.trim(),
-        "user_location": location.text
+        "user_location": locationController.addressCountry.value,
       };
 
       http.Response response =
@@ -45,7 +47,6 @@ class RegistrationController extends GetxController {
             backgroundColor: Colors.teal,
             colorText: Colors.white);
         Get.off(() => LoginView());
-      
       } else {
         throw jsonDecode(response.body)["Message"];
       }

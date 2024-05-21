@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/delete_acc_controller.dart';
-import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_button.dart';
+import '../../../../Controller/Auth_controller/delete_acc_controller.dart';
+import '../../../../widget/Custom%20Material%20Button/custom_material_button.dart';
 
 class DeleteAccountScreen extends StatelessWidget {
   @override

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/registration_controller.dart';
+import 'package:smart_tourism/View/Auth/AuthWidget/text_form_field.dart';
+import 'package:smart_tourism/widget/BottomNavigationBar/bottom_navigation_bar.dart';
+import '../../../Controller/location_controller.dart';
+import '../../../Controller/Auth_controller/registration_controller.dart';
 import '../AuthWidget/custom_button_auth.dart';
 import '../AuthWidget/custom_logo_auth.dart';
 import '../Login/login.dart';
-import '../AuthWidget/textformfield.dart';
 
 class RegisterView extends StatelessWidget {
   RegisterView({Key? key}) : super(key: key);
 
   final RegistrationController registrationController =
       Get.put(RegistrationController());
+  final LocationController locationController = Get.put(LocationController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,6 @@ class RegisterView extends StatelessWidget {
       if (value == null || value.isEmpty) {
         return 'First name is required';
       }
-      // Add any additional validation rules here if needed
       return null;
     }
 
@@ -27,7 +29,6 @@ class RegisterView extends StatelessWidget {
       if (value == null || value.isEmpty) {
         return 'Last name is required';
       }
-      // Add any additional validation rules here if needed
       return null;
     }
 
@@ -47,7 +48,6 @@ class RegisterView extends StatelessWidget {
       if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
         return 'Password must contain at least one special character';
       }
-
       return null;
     }
 
@@ -72,7 +72,6 @@ class RegisterView extends StatelessWidget {
         '@mail.com',
         '@inbox.com'
       ];
-
       if (domains.any((domain) => value.endsWith(domain))) {
         return 'This domain is not allowed';
       }
@@ -154,6 +153,51 @@ class RegisterView extends StatelessWidget {
                         keyboardType: TextInputType.visiblePassword,
                       ),
                       SizedBox(height: 15.h),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            locationController.getCurrentLocation();
+                          },
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.pin_drop_outlined,
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Obx(() {
+                                return locationController.isLoading.value
+                                    ? Text(
+                                        'Loading...',
+                                        style: TextStyle(fontSize: 16.sp),
+                                      )
+                                    : Text(
+                                        locationController.address.value.isEmpty
+                                            ? 'Select Location'
+                                            : locationController.address.value,
+                                        style: TextStyle(fontSize: 16.sp),
+                                      );
+                              }),
+                              Icon(
+                                Icons.keyboard_arrow_down,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   CustomButtonAuth(
@@ -163,7 +207,20 @@ class RegisterView extends StatelessWidget {
                     onPressed: registrationController.isLoading.value
                         ? null
                         : () async {
-                            await registrationController.registerWithEmail();
+                            if (locationController.address.value ==
+                                'Location') {
+                              Get.snackbar(
+                                "Error",
+                                "Please select your location",
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                              );
+                            } else {
+                              await registrationController.registerWithEmail();
+                              // The location is already saved in getCurrentLocation
+                              Get.off(NavBar());
+                            }
                           },
                   ),
                   Container(height: 10.h),

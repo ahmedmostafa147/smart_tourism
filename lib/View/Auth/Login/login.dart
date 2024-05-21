@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/login_controller.dart';
-import 'package:smart_tourism/View/Auth/AuthWidget/google_button.dart';
-import 'package:smart_tourism/View/Auth/Register/register.dart';
-import 'package:smart_tourism/View/Auth/Reset%20Password/reset_password.dart';
+import '../../../Controller/Auth_controller/login_controller.dart';
+import '../AuthWidget/google_button.dart';
+import '../Register/register.dart';
+import '../Reset%20Password/reset_password.dart';
 
 import '../AuthWidget/custom_button_auth.dart';
 import '../AuthWidget/custom_logo_auth.dart';
-import '../AuthWidget/textformfield.dart';
+import '../AuthWidget/text_form_field.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);

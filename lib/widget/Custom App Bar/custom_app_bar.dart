@@ -2,42 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String text;
-  CustomAppBar({Key? key, required this.text}) : super(key: key);
+  final String title;
+  final bool showBackButton;
+  final Color? backgroundColor;
+  final List<Widget>? actions;
+
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+    this.showBackButton = true,
+    this.backgroundColor,
+    this.actions,
+  }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(60.0);
+  Size get preferredSize => Size.fromHeight(50.h);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.arrow_back_ios_new,
-              size: 35.r,
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.white
-                  : Colors.black,
-            ),
-          ),
-          Center(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  text,
-                  style: TextStyle(fontSize: 16.sp),
-                ),
-              ],
-            ),
-          ),
-        ],
+      backgroundColor:
+          backgroundColor ?? Theme.of(context).appBarTheme.backgroundColor,
+      title: Text(
+        title,
+        style: TextStyle(
+          color: Theme.of(context).appBarTheme.titleTextStyle?.color,
+          fontSize: Theme.of(context).appBarTheme.titleTextStyle?.fontSize,
+        ),
       ),
+      leading: showBackButton
+          ? IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).appBarTheme.iconTheme?.color,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          : null,
+      actions: actions,
     );
   }
 }

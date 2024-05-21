@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../Controller/model_ai_controller.dart';
-import '../../Model/model_get_recommendation.dart';
 
-class RecommendationScreen extends StatelessWidget {
-  final ModelAIController controller = Get.put(ModelAIController());
+class localPlan extends StatelessWidget {
+  const localPlan({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recommendations'),
+        title: Text('Local Plan'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             Text(
-              'AI Will Make Recommendations for your next trip !',
+              'Create your next trip by self!',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -60,7 +57,6 @@ class RecommendationScreen extends StatelessWidget {
               onChanged: (value) {},
             ),
             Text("budget : "),
-            SizedBox(height: 16.0),
             DropdownButton(
               items: <int>[1000, 2000, 3000, 4000, 5000].map((int value) {
                 return DropdownMenuItem<int>(
@@ -70,44 +66,12 @@ class RecommendationScreen extends StatelessWidget {
               }).toList(),
               onChanged: (value) {},
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Form(
-                  key: controller.formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 16.0),
-                      ElevatedButton(
-                        onPressed: () => controller.getRecommendations(),
-                        child: Text('Get Recommendations'),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 20),
-                Obx(
-                  () => controller.isLoading.value
-                      ? Center(child: CircularProgressIndicator())
-                      : Expanded(
-                          child: ListView.builder(
-                            itemCount: controller.recommendations.length,
-                            itemBuilder: (context, index) {
-                              final Recommendation recommendation =
-                                  controller.recommendations[index];
-                              return ListTile(
-                                title: Text(recommendation.title),
-                                subtitle: Text(recommendation.tags),
-                                trailing: Text(
-                                    '\$${recommendation.price.toStringAsFixed(2)}'),
-                              );
-                            },
-                          ),
-                        ),
-                ),
-              ],
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Get Recommendations'),
             ),
+            SizedBox(height: 16.0),
           ],
         ),
       ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/update_acc_controller.dart';
-import 'package:smart_tourism/View/Profile/widget/Profile%20Personal%20Data/pages/change_password.dart';
-import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_button.dart';
+import '../../../../../Controller/Auth_controller/update_acc_controller.dart';
+import '../../Profile%20Personal%20Data/pages/change_password.dart';
+import '../../../../../widget/Custom%20Material%20Button/custom_material_button.dart';
 
 class UpdateUserProfileScreen extends StatelessWidget {
   final UpdateController updateController = Get.put(UpdateController());

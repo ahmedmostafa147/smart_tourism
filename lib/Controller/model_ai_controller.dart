@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
 import 'dart:convert';
-import 'package:smart_tourism/Model/model_get_recommendation.dart';
+import '../Model/model_get_recommendation.dart';
 
 class ModelAIController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();

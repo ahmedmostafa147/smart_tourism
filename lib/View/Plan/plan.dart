@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/View/Plan/model_screen.dart';
+import 'model_screen.dart';
 import '../../Core/constants/images.dart';
 import '../Home/widgets/container_display_nearest.dart';
-
 
 class Plan extends StatefulWidget {
   const Plan({super.key});
@@ -23,12 +22,12 @@ class _PlanState extends State<Plan> {
       'You'.tr,
     ];
     List<Image> tourismImages = [
-      Image.asset(Assets.imagesRoboticsAmico),
-      Image.asset(Assets.imagesinspirationPana),
+      Image.asset(Assets.imagesRoboticsamico),
+      Image.asset(Assets.imagesInspirationpana),
     ];
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Plan'.tr),
+        title: Text('Plan'.tr),
       ),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
@@ -67,7 +66,8 @@ class _PlanState extends State<Plan> {
                           selectedTypes.add(tourismTypes[index]);
                         }
                         if (tourismTypes[index] == 'AI'.tr) {
-                          Get.to(RecommendationScreen()); // Navigate to recommendation screen
+                          Get.to(
+                              RecommendationScreen()); // Navigate to recommendation screen
                         }
                       });
                     },

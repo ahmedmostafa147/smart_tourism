@@ -4,9 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/location_controller.dart';
-import 'package:smart_tourism/Core/constants/images.dart';
-import 'package:smart_tourism/View/Profile/widget/Logout/logout.dart';
+import '../../../Controller/location_controller.dart';
+import '../../../Core/constants/images.dart';
+import '../../Profile/widget/Logout/logout.dart';
 
 class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBarHome({Key? key}) : super(key: key);

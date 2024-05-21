@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
+import '../../Core/End%20Points/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 

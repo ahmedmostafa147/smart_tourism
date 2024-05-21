@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/reset_password.dart';
+import '../../../Controller/Auth_controller/reset_password.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   final ResetPasswordController resetPasswordController =

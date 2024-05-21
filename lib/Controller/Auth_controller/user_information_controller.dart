@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
+import '../../Core/End Points/endpoints.dart';
 
 class UserInformation extends GetxController {
   final RxMap<String, dynamic> userInfo = <String, dynamic>{}.obs;
