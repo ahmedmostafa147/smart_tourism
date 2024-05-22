@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomTextForm extends StatefulWidget {
   final String hintText;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final String labelText;
   final String? Function(String?)? validator;
   final bool isPassword;
@@ -38,7 +38,8 @@ class _CustomTextFormState extends State<CustomTextForm> {
         labelText: widget.labelText,
         suffixIcon: widget.isPassword
             ? IconButton(
-                icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+                icon: Icon(
+                    _obscureText ? Icons.visibility : Icons.visibility_off),
                 onPressed: () {
                   setState(() {
                     _obscureText = !_obscureText;

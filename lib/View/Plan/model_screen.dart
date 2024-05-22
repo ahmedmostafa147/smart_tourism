@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../Controller/model_ai_controller.dart';
-import '../../Model/model_get_recommendation.dart';
+import 'package:smart_tourism/Controller/model_ai_controller.dart';
+import 'package:smart_tourism/Model/model_get_recommendation.dart';
 
 class RecommendationScreen extends StatelessWidget {
   final ModelAIController controller = Get.put(ModelAIController());
@@ -70,43 +70,34 @@ class RecommendationScreen extends StatelessWidget {
               }).toList(),
               onChanged: (value) {},
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Form(
-                  key: controller.formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 16.0),
-                      ElevatedButton(
-                        onPressed: () => controller.getRecommendations(),
-                        child: Text('Get Recommendations'),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                if (controller.formKey.currentState!.validate()) {
+                  controller.getRecommendations();
+                }
+              },
+              child: Text('Get Recommendations'),
+            ),
+            SizedBox(height: 20),
+            Obx(
+              () => controller.isLoading.value
+                  ? Center(child: CircularProgressIndicator())
+                  : Flexible(
+                      child: ListView.builder(
+                        itemCount: controller.recommendations.length,
+                        itemBuilder: (context, index) {
+                          final Recommendation recommendation =
+                              controller.recommendations[index];
+                          return ListTile(
+                            title: Text(recommendation.title),
+                            subtitle: Text(recommendation.tags),
+                            trailing: Text(
+                                '\$${recommendation.price.toStringAsFixed(2)}'),
+                          );
+                        },
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 20),
-                Obx(
-                  () => controller.isLoading.value
-                      ? Center(child: CircularProgressIndicator())
-                      : Expanded(
-                          child: ListView.builder(
-                            itemCount: controller.recommendations.length,
-                            itemBuilder: (context, index) {
-                              final Recommendation recommendation =
-                                  controller.recommendations[index];
-                              return ListTile(
-                                title: Text(recommendation.title),
-                                subtitle: Text(recommendation.tags),
-                                trailing: Text(
-                                    '\$${recommendation.price.toStringAsFixed(2)}'),
-                              );
-                            },
-                          ),
-                        ),
-                ),
-              ],
+                    ),
             ),
           ],
         ),

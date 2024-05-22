@@ -12,7 +12,14 @@ class SearchParameters {
   String? name;
 
   SearchParameters({this.country, this.governorate, this.category, this.name});
-
+  factory SearchParameters.fromJson(Map<String, dynamic> json) {
+    return SearchParameters(
+      country: json['country'] as String?,
+      governorate: json['governorate'] as String?,
+      category: json['category'] as String?,
+      name: json['name'] as String?,
+    );
+  }
   Map<String, dynamic> toJson() {
     return {
       'country': country,
@@ -20,15 +27,6 @@ class SearchParameters {
       'category': category,
       'name': name,
     };
-  }
-
-  factory SearchParameters.fromJson(Map<String, dynamic> json) {
-    return SearchParameters(
-      country: json['country'],
-      governorate: json['governorate'],
-      category: json['category'],
-      name: json['name'],
-    );
   }
 }
 
@@ -92,9 +90,15 @@ class SearchControllerOne extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> jsonResponse = jsonDecode(response.body);
-        searchResults.value =
-            jsonResponse.map((data) => SearchResult.fromJson(data)).toList();
+        dynamic jsonResponse = jsonDecode(response.body);
+        if (jsonResponse is List) {
+          searchResults.value =
+              jsonResponse.map((data) => SearchResult.fromJson(data)).toList();
+        } else if (jsonResponse is Map<String, dynamic>) {
+          searchResults.value.add(SearchResult.fromJson(jsonResponse));
+        } else {
+          throw 'Unexpected response format';
+        }
         saveRecentSearch(jsonEncode(params.toJson()));
       } else if (response.statusCode == 401) {
         Get.snackbar("Error", "Unauthorized: Please login again",
@@ -105,9 +109,11 @@ class SearchControllerOne extends GetxController {
         throw 'Error: ${response.statusCode}, Message: ${response.body}';
       }
     } catch (error) {
+      print(error.toString());
       Get.snackbar("Error", error.toString(),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
+          duration: Duration(seconds: 5),
           colorText: Colors.white);
     }
   }

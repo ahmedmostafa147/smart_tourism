@@ -66,7 +66,7 @@ class _PlanState extends State<Plan> {
                           selectedTypes.add(tourismTypes[index]);
                         }
                         if (tourismTypes[index] == 'AI'.tr) {
-                          Get.to(
+                          Get.to(() =>
                               RecommendationScreen()); // Navigate to recommendation screen
                         }
                       });
@@ -81,7 +81,7 @@ class _PlanState extends State<Plan> {
                     fontSize: 20.0.sp,
                     fontWeight: FontWeight.w400,
                   )),
-              ContainerDisplayNearestHome(),
+              //ContainerDisplayNearestHome(),
             ],
           ),
         ),

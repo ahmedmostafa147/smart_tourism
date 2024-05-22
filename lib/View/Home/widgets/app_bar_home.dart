@@ -31,9 +31,6 @@ class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 Icon(
                   Icons.pin_drop_outlined,
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Colors.white
-                      : Colors.black,
                 ),
                 const SizedBox(
                   width: 2,
@@ -51,9 +48,6 @@ class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
                 }),
                 Icon(
                   Icons.keyboard_arrow_down,
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Colors.white
-                      : Colors.black,
                 )
               ],
             ),
@@ -82,9 +76,6 @@ class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
           },
           icon: Icon(
             Icons.logout,
-            color: Theme.of(context).brightness == Brightness.light
-                ? Colors.white
-                : Colors.black,
           ),
         )
       ],

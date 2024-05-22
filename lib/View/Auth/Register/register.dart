@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/text_form_field.dart';
-import 'package:smart_tourism/widget/BottomNavigationBar/bottom_navigation_bar.dart';
 import '../../../Controller/location_controller.dart';
 import '../../../Controller/Auth_controller/registration_controller.dart';
 import '../AuthWidget/custom_button_auth.dart';
@@ -11,10 +10,9 @@ import '../Login/login.dart';
 
 class RegisterView extends StatelessWidget {
   RegisterView({Key? key}) : super(key: key);
-
+  final LocationController locationController = Get.put(LocationController());
   final RegistrationController registrationController =
       Get.put(RegistrationController());
-  final LocationController locationController = Get.put(LocationController());
 
   @override
   Widget build(BuildContext context) {
@@ -58,23 +56,6 @@ class RegisterView extends StatelessWidget {
       if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
         return 'Invalid email format';
       }
-      List<String> domains = [
-        '@gmail.com',
-        '@yahoo.com',
-        '@hotmail.com',
-        '@outlook.com',
-        'mail.com',
-        '@aol.com',
-        '@zoho.com',
-        '@yandex.com',
-        '@icloud.com',
-        '@gmx.com',
-        '@mail.com',
-        '@inbox.com'
-      ];
-      if (domains.any((domain) => value.endsWith(domain))) {
-        return 'This domain is not allowed';
-      }
       return null;
     }
 
@@ -92,7 +73,7 @@ class RegisterView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const CustomLogoAuth(),
-                      Container(height: 20.h),
+                      Container(height: 15.h),
                       Center(
                         child: Text(
                           "Welcome To Smart Tourism",
@@ -107,11 +88,11 @@ class RegisterView extends StatelessWidget {
                       Text(
                         "REGISTER",
                         style: TextStyle(
-                          fontSize: 30.sp,
+                          fontSize: 25.sp,
                           fontWeight: FontWeight.w200,
                         ),
                       ),
-                      Container(height: 10.h),
+                      Container(height: 5.h),
                       const Text(
                         "Register To Continue Using Smart Tourism",
                         style: TextStyle(color: Colors.grey),
@@ -154,6 +135,7 @@ class RegisterView extends StatelessWidget {
                       ),
                       SizedBox(height: 15.h),
                       Container(
+                        height: 50.h,
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 10,
@@ -163,7 +145,7 @@ class RegisterView extends StatelessWidget {
                           border: Border.all(
                             color: Colors.grey,
                           ),
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: GestureDetector(
                           onTap: () {
@@ -172,11 +154,9 @@ class RegisterView extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.pin_drop_outlined,
-                              ),
-                              const SizedBox(
-                                width: 2,
+                              Icon(Icons.share_location_outlined),
+                              SizedBox(
+                                width: 5.w,
                               ),
                               Obx(() {
                                 return locationController.isLoading.value
@@ -185,15 +165,14 @@ class RegisterView extends StatelessWidget {
                                         style: TextStyle(fontSize: 16.sp),
                                       )
                                     : Text(
-                                        locationController.address.value.isEmpty
-                                            ? 'Select Location'
-                                            : locationController.address.value,
+                                        locationController
+                                                .addressCountry.value.isEmpty
+                                            ? 'Tap to select your location'
+                                            : locationController
+                                                .addressCountry.value.tr,
                                         style: TextStyle(fontSize: 16.sp),
                                       );
                               }),
-                              Icon(
-                                Icons.keyboard_arrow_down,
-                              )
                             ],
                           ),
                         ),
@@ -218,8 +197,6 @@ class RegisterView extends StatelessWidget {
                               );
                             } else {
                               await registrationController.registerWithEmail();
-                              // The location is already saved in getCurrentLocation
-                              Get.off(NavBar());
                             }
                           },
                   ),

@@ -41,8 +41,8 @@ final ThemeData lightTheme = ThemeData(
     elevation: 0,
     actionsIconTheme: const IconThemeData(color: Colors.white),
     iconTheme: const IconThemeData(color: Colors.white),
-    backgroundColor: Colors.teal,
-    foregroundColor: Colors.teal,
+    backgroundColor: Colors.blueGrey[900],
+    foregroundColor: Colors.black,
     titleTextStyle: TextStyle(color: Colors.white, fontSize: 20.sp),
   ),
 );
@@ -79,12 +79,12 @@ final ThemeData darkTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.dark,
   appBarTheme: AppBarTheme(
-    color: Colors.teal,
-    foregroundColor: Colors.teal,
     centerTitle: false,
     elevation: 0,
-    actionsIconTheme: const IconThemeData(color: Colors.black),
-    iconTheme: const IconThemeData(color: Colors.black),
-    titleTextStyle: TextStyle(color: Colors.black, fontSize: 20.sp),
+    actionsIconTheme: const IconThemeData(color: Colors.white),
+    iconTheme: const IconThemeData(color: Colors.white),
+    backgroundColor: Colors.blueGrey[900],
+    foregroundColor: Colors.black,
+    titleTextStyle: TextStyle(color: Colors.white, fontSize: 16.sp),
   ),
 );

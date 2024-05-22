@@ -10,11 +10,8 @@ class DeleteAccController extends GetxController {
   Future<void> deleteUserAccount() async {
     try {
       isLoading.value = true;
-
-      // Get the authentication token from shared preferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final String? token = prefs.getString('token');
-
       // Make sure token exists
       if (token == null) {
         throw 'User is not logged in';

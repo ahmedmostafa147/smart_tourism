@@ -7,7 +7,7 @@ import '../../../Controller/search_controller/search_controller.dart';
 class ResultSearch extends StatelessWidget {
   final SearchControllerOne searchController = Get.put(SearchControllerOne());
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +21,8 @@ class ResultSearch extends StatelessWidget {
           ),
           style: TextStyle(color: Colors.white),
           onSubmitted: (query) {
-            var params = SearchParameters(name: query); // Use the query to create search params
+            var params = SearchParameters(
+                name: query); // Use the query to create search params
             searchController.search(params);
           },
         ),
@@ -51,10 +52,11 @@ class ResultSearch extends StatelessWidget {
                   title: Text(search),
                   trailing: IconButton(
                     icon: Icon(Icons.delete),
-                    onPressed: () => searchController.removeRecentSearch(search),
+                    onPressed: () =>
+                        searchController.removeRecentSearch(search),
                   ),
                   onTap: () {
-                    var params = SearchParameters.fromJson(jsonDecode(search));
+                    var params = SearchParameters();
                     searchController.search(params);
                     searchController.searchController.text = params.name ?? '';
                   },

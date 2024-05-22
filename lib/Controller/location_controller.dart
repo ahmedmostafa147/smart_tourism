@@ -23,10 +23,12 @@ class LocationController extends GetxController {
       LocationPermission permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         address.value = 'Permission denied';
-        return Future.error('Location permissions are denied');
+        isLoading.value = false;
+        return;
       } else if (permission == LocationPermission.deniedForever) {
         address.value = 'Permission denied';
-        return Future.error('Location permissions are permanently denied');
+        isLoading.value = false;
+        return;
       }
 
       Position position = await Geolocator.getCurrentPosition(
@@ -37,18 +39,22 @@ class LocationController extends GetxController {
         position.longitude,
       );
 
-      Placemark place = placemarks.first;
-      address.value = "${place.locality} ${place.country}";
-      addressCountry.value = "${place.country}";
-      latitude.value = position.latitude;
-      longitude.value = position.longitude;
+      if (placemarks.isNotEmpty) {
+        Placemark place = placemarks.first;
+        address.value = "${place.locality} ${place.country}";
+        addressCountry.value = place.country ?? 'Unknown';
+        latitude.value = position.latitude;
+        longitude.value = position.longitude;
 
-      _saveLocationData(address.value, addressCountry.value, position.latitude,
-          position.longitude);
-      Get.snackbar("Success", "Location has been set successfully",
-          backgroundColor: Get.theme.primaryColor,
-          colorText: Colors.white,
-          snackPosition: SnackPosition.BOTTOM);
+        _saveLocationData(address.value, addressCountry.value,
+            position.latitude, position.longitude);
+        Get.snackbar("Success", "Location has been set successfully",
+            backgroundColor: Get.theme.primaryColor,
+            colorText: Colors.white,
+            snackPosition: SnackPosition.BOTTOM);
+      } else {
+        address.value = 'No placemarks found';
+      }
     } catch (e) {
       Get.snackbar("Error", e.toString(),
           backgroundColor: Colors.red,

@@ -10,8 +10,8 @@ class Logout extends StatelessWidget {
   Widget build(BuildContext context) {
     final LogoutController logoutController = Get.put(LogoutController());
     return Container(
-      padding: EdgeInsets.all(20),
-      height: 150.h,
+      padding: EdgeInsets.all(20.r),
+      height: 120.h,
       decoration: BoxDecoration(
         color: Get.theme.primaryColor,
         borderRadius: BorderRadius.only(

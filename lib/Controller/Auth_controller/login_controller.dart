@@ -40,6 +40,7 @@ class LoginController extends GetxController {
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: Colors.teal,
               colorText: Colors.white);
+              
         } else {
           throw 'Access token not found in response';
         }

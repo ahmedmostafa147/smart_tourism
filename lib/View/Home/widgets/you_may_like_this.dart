@@ -14,57 +14,68 @@ class YouMayLikeThis extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'You may like this',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+        Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'You may like this',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              'View All',
+              style: TextStyle(
+                fontSize: 17,
+                color: Colors.teal,
+              ),
+            ),
+          ],
         ),
-        Container(
-          height: 200.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Flexible(
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      width: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Flexible(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            ),
-                            image: DecorationImage(
-                              image: AssetImage(Assets.images1hot),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    'Magic Tower',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
+        // Container(
+        //   height: 200.h,
+        //   child: ListView.builder(
+        //     scrollDirection: Axis.horizontal,
+        //     itemCount: 5,
+        //     itemBuilder: (context, index) {
+        //       return Column(
+        //         children: [
+        //           Flexible(
+        //             child: Container(
+        //               margin: EdgeInsets.all(10),
+        //               width: 150,
+        //               decoration: BoxDecoration(
+        //                 color: Colors.grey,
+        //                 borderRadius: BorderRadius.circular(10),
+        //               ),
+        //               child: Flexible(
+        //                 child: Container(
+        //                   decoration: BoxDecoration(
+        //                     borderRadius: BorderRadius.only(
+        //                       topLeft: Radius.circular(10),
+        //                       topRight: Radius.circular(10),
+        //                     ),
+        //                     image: DecorationImage(
+        //                       image: AssetImage(Assets.images1hot),
+        //                       fit: BoxFit.cover,
+        //                     ),
+        //                   ),
+        //                 ),
+        //               ),
+        //             ),
+        //           ),
+        //           Text(
+        //             'Magic Tower',
+        //             style: TextStyle(
+        //               fontSize: 12,
+        //               fontWeight: FontWeight.bold,
+        //             ),
+        //           ),
+        //         ],
+        //       );
+        //     },
+        //   ),
+        // ),
       ],
     );
   }

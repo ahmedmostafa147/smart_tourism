@@ -136,95 +136,95 @@ class _ContainerDisplayResState extends State<ContainerDisplayRes> {
             ),
           ],
         ),
-        Container(
-          margin: const EdgeInsets.only(top: 16),
-          height: 250.h,
-          child: ListView.builder(
-            itemCount: 5,
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (BuildContext context, int index) {
-              List<String> imagePaths = [
-                Assets.images8res,
-                Assets.images2res,
-                Assets.images5res,
-                Assets.images4res,
-                Assets.images9res,
-              ];
+        // Container(
+        //   margin: const EdgeInsets.only(top: 16),
+        //   height: 250.h,
+        //   child: ListView.builder(
+        //     itemCount: 5,
+        //     physics: BouncingScrollPhysics(),
+        //     scrollDirection: Axis.horizontal,
+        //     itemBuilder: (BuildContext context, int index) {
+        //       List<String> imagePaths = [
+        //         Assets.images8res,
+        //         Assets.images2res,
+        //         Assets.images5res,
+        //         Assets.images4res,
+        //         Assets.images9res,
+        //       ];
 
-              return Padding(
-                padding: EdgeInsets.only(right: 16.0),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(24),
-                        ),
-                        child: Image.asset(
-                          imagePaths[index],
-                          fit: BoxFit.cover,
-                          width: 250.w,
-                          height: 230.h,
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 30,
-                        left: 20,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 5,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                "5km".tr,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: ImageIcon(
-                                  AssetImage(
-                                    Assets.imagesMenu,
-                                  ),
-                                  size: 20.r,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: ImageIcon(
-                                  AssetImage(
-                                    Assets.imagesMenu,
-                                  ),
-                                  size: 20.r,
-                                  color: Colors.black,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
+        //       return Padding(
+        //         padding: EdgeInsets.only(right: 16.0),
+        //         child: GestureDetector(
+        //           onTap: () {},
+        //           child: Stack(
+        //             children: [
+        //               ClipRRect(
+        //                 borderRadius: const BorderRadius.all(
+        //                   Radius.circular(24),
+        //                 ),
+        //                 child: Image.asset(
+        //                   imagePaths[index],
+        //                   fit: BoxFit.cover,
+        //                   width: 250.w,
+        //                   height: 230.h,
+        //                 ),
+        //               ),
+        //               Positioned(
+        //                 bottom: 30,
+        //                 left: 20,
+        //                 child: Container(
+        //                   padding: EdgeInsets.symmetric(
+        //                     horizontal: 10,
+        //                     vertical: 5,
+        //                   ),
+        //                   decoration: const BoxDecoration(
+        //                     color: Colors.white,
+        //                     borderRadius: BorderRadius.all(
+        //                       Radius.circular(10),
+        //                     ),
+        //                   ),
+        //                   child: Row(
+        //                     mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //                     children: [
+        //                       Text(
+        //                         "5km".tr,
+        //                         style: const TextStyle(
+        //                           color: Colors.black,
+        //                           fontSize: 18,
+        //                           fontWeight: FontWeight.w300,
+        //                         ),
+        //                       ),
+        //                       IconButton(
+        //                         onPressed: () {},
+        //                         icon: ImageIcon(
+        //                           AssetImage(
+        //                             Assets.imagesMenu,
+        //                           ),
+        //                           size: 20.r,
+        //                           color: Colors.black,
+        //                         ),
+        //                       ),
+        //                       IconButton(
+        //                         onPressed: () {},
+        //                         icon: ImageIcon(
+        //                           AssetImage(
+        //                             Assets.imagesMenu,
+        //                           ),
+        //                           size: 20.r,
+        //                           color: Colors.black,
+        //                         ),
+        //                       )
+        //                     ],
+        //                   ),
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // ),
       ],
     );
   }

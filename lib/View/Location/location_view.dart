@@ -46,14 +46,14 @@ class LocationView extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Text(
                 'Please enable location services to continue, this will help us to find the best service providers near you.',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 20.sp,
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 16.h),
             ],
           ),
           Obx(() => CustomButtonAuth(

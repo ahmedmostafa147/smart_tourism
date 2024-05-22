@@ -54,7 +54,7 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
     if (token != null) {
       Get.off(() => NavBar());
     } else {
-      Get.off(() => NavBar());
+      Get.off(() => LoginView());
     }
   }
 

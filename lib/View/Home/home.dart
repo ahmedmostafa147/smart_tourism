@@ -58,14 +58,11 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ],
               ),
-              ContainerDisplayNearestHome(),
+              // ContainerDisplayNearestHome(),
               SizedBox(
                 height: 24.h,
               ),
               LastPlan(),
-              SizedBox(
-                height: 24.h,
-              ),
               SizedBox(
                 height: 24.h,
               ),
@@ -81,7 +78,6 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(
                 height: 24.h,
               ),
-               MayLikedView(),
             ],
           ),
         ),
