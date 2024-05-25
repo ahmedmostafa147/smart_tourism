@@ -1,6 +1,5 @@
 class ApiEndPoints {
   static final String baseUrl = 'https://smart-tourism-mjyq.onrender.com/';
-  
 
   static _AuthEndPoints authEndpoints = _AuthEndPoints();
 }
@@ -18,4 +17,11 @@ class _AuthEndPoints {
   final String recentSearches = 'recent_searches';
   final String mayLikedItems = 'may liked it';
   final String getProfile = 'protected';
+  final String createPlan = 'create_plan';
+  final String historyPlans = 'history plans';
+  final String favorites = 'favorites';
+  final String deleteFavorite = 'favorites';
+  final String deletePlan = 'delete_plan';
+  final String updatePlan = 'update';
+
 }

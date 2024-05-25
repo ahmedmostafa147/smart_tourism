@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../Controller/location_controller.dart';
 import '../../Core/constants/images.dart';
 import '../Auth/AuthWidget/custom_button_auth.dart';
-import '../../widget/BottomNavigationBar/bottom_navigation_bar.dart';
 
 class LocationView extends StatelessWidget {
   const LocationView({super.key});
@@ -12,6 +12,7 @@ class LocationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LocationController controller = Get.put(LocationController());
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Location'),
@@ -59,7 +60,14 @@ class LocationView extends StatelessWidget {
           Obx(() => CustomButtonAuth(
                 onPressed: () async {
                   await controller.getCurrentLocation();
-                  Get.offAll(() => NavBar());
+                  final SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  final List<String>? survey = prefs.getStringList('survey');
+                  if (survey == null || survey.isEmpty) {
+                    Get.offNamed('/survey');
+                  } else {
+                    Get.offNamed('/bottomNavBar');
+                  }
                 },
                 title: controller.isLoading.value
                     ? 'Loading...'

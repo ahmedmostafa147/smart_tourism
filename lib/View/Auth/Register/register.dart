@@ -20,12 +20,18 @@ class RegisterView extends StatelessWidget {
       if (value == null || value.isEmpty) {
         return 'First name is required';
       }
+      if (value.length < 3) {
+        return 'First name must be at least 3 characters long';
+      }
       return null;
     }
 
     String? validateLastName(String? value) {
       if (value == null || value.isEmpty) {
         return 'Last name is required';
+      }
+      if (value.length < 3) {
+        return 'Last name must be at least 3 characters long';
       }
       return null;
     }
@@ -169,7 +175,7 @@ class RegisterView extends StatelessWidget {
                                                 .addressCountry.value.isEmpty
                                             ? 'Tap to select your location'
                                             : locationController
-                                                .addressCountry.value.tr,
+                                                .addressCountry.value,
                                         style: TextStyle(fontSize: 16.sp),
                                       );
                               }),
@@ -186,8 +192,8 @@ class RegisterView extends StatelessWidget {
                     onPressed: registrationController.isLoading.value
                         ? null
                         : () async {
-                            if (locationController.address.value ==
-                                'Location') {
+                            if (locationController
+                                .addressCountry.value.isEmpty) {
                               Get.snackbar(
                                 "Error",
                                 "Please select your location",
@@ -195,7 +201,9 @@ class RegisterView extends StatelessWidget {
                                 backgroundColor: Colors.red,
                                 colorText: Colors.white,
                               );
-                            } else {
+                            } else if (registrationController
+                                .formKey.currentState!
+                                .validate()) {
                               await registrationController.registerWithEmail();
                             }
                           },

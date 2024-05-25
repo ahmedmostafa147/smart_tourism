@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'local_plan.dart';
 import 'model_screen.dart';
 import '../../Core/constants/images.dart';
 import '../Home/widgets/container_display_nearest.dart';
@@ -68,6 +69,10 @@ class _PlanState extends State<Plan> {
                         if (tourismTypes[index] == 'AI'.tr) {
                           Get.to(() =>
                               RecommendationScreen()); // Navigate to recommendation screen
+                        }
+                        if (tourismTypes[index] == 'You'.tr) {
+                          Get.to(() =>
+                              LocalPlanScreen()); // Navigate to model screen
                         }
                       });
                     },

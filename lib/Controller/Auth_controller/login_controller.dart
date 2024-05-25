@@ -35,12 +35,11 @@ class LoginController extends GetxController {
           final SharedPreferences? prefs = await _prefs;
           await prefs?.setString('token', token);
           print('Token: $token');
-          navigateAfterLogin();
           Get.snackbar("Success", "Login Success",
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: Colors.teal,
               colorText: Colors.white);
-              
+          navigateAfterLogin();
         } else {
           throw 'Access token not found in response';
         }
@@ -59,17 +58,13 @@ class LoginController extends GetxController {
 
   Future<void> navigateAfterLogin() async {
     final SharedPreferences prefs = await _prefs;
-    final String? location = prefs.getString('location');
+    final String? savedAddressCountry = prefs.getString('addressCountry');
     final List<String>? survey = prefs.getStringList('survey');
-
-    if (location == null) {
-      // Location not saved, navigate to location screen
+    if (savedAddressCountry == null) {
       Get.offNamed('/location');
     } else if (survey == null || survey.isEmpty) {
-      // Survey not saved, navigate to survey screen
       Get.offNamed('/survey');
     } else {
-      // Both location and survey are saved, navigate to home screen
       Get.offNamed('/bottomNavBar');
     }
   }

@@ -1,77 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smart_tourism/Controller/plan_controller/create_plan_controller.dart';
 
-class localPlan extends StatelessWidget {
-  const localPlan({super.key});
+class LocalPlanScreen extends StatelessWidget {
+  final PlanController planController = Get.put(PlanController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Local Plan'),
+        title: Text('Create Plan'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(
-              'Create your next trip by self!',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+            TextField(
+              onChanged: (value) {
+                planController.plan.update((plan) {
+                  plan?.planReview = value;
+                });
+              },
+              decoration: InputDecoration(labelText: 'Plan Review'),
             ),
-            SizedBox(height: 16.0),
-            Text("Choose Country: "),
-            SizedBox(height: 16.0),
-            DropdownButton<String>(
-              items: <String>['Egypt', 'USA', 'France', 'Italy']
-                  .map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (value) {},
+            TextField(
+              onChanged: (value) {
+                planController.plan.update((plan) {
+                  plan?.planBudget = int.parse(value);
+                });
+              },
+              decoration: InputDecoration(labelText: 'Plan Budget'),
             ),
-            Text("Choose Governorate: "),
-            DropdownButton(
-              items: <String>['Alexandria', 'Cairo', 'Giza', 'Luxor']
-                  .map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (value) {},
+            TextField(
+              onChanged: (value) {
+                planController.plan.update((plan) {
+                  plan?.planDuration = int.parse(value);
+                });
+              },
+              decoration: InputDecoration(labelText: 'Plan Duration'),
             ),
-            SizedBox(height: 16.0),
-            Text("num_days : "),
-            SizedBox(height: 16.0),
-            DropdownButton(
-              items: <int>[1, 2, 3, 4, 5].map((int value) {
-                return DropdownMenuItem<int>(
-                  value: value,
-                  child: Text(value.toString()),
-                );
-              }).toList(),
-              onChanged: (value) {},
+            TextField(
+              onChanged: (value) {
+                planController.plan.update((plan) {
+                  plan?.destination = value;
+                });
+              },
+              decoration: InputDecoration(labelText: 'Destination'),
             ),
-            Text("budget : "),
-            DropdownButton(
-              items: <int>[1000, 2000, 3000, 4000, 5000].map((int value) {
-                return DropdownMenuItem<int>(
-                  value: value,
-                  child: Text(value.toString()),
-                );
-              }).toList(),
-              onChanged: (value) {},
-            ),
-            SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () {},
-              child: Text('Get Recommendations'),
+              onPressed: () {
+                planController.createPlan(planController.plan.value);
+              },
+              child: Text('Create Plan'),
             ),
-            SizedBox(height: 16.0),
           ],
         ),
       ),

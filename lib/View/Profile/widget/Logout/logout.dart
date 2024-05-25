@@ -25,21 +25,25 @@ class Logout extends StatelessWidget {
             style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 20.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    logoutController.logout();
-                  },
-                  child: Text('Yes'.tr)),
-              ElevatedButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: Text('No'.tr)),
-            ],
-          )
+          Obx(() => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        await logoutController.logout();
+                      },
+                      child: Text(
+                        logoutController.isLoading.value
+                            ? 'Loading...'
+                            : 'Yes'.tr,
+                      )),
+                  ElevatedButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text('No'.tr)),
+                ],
+              ))
         ],
       ),
     );

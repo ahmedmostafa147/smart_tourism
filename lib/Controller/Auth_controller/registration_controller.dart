@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:http/http.dart' as http;
 import '../location_controller.dart';
 import '../../Core/End%20Points/endpoints.dart';
@@ -47,11 +45,34 @@ class RegistrationController extends GetxController {
             backgroundColor: Colors.teal,
             colorText: Colors.white);
         Get.off(() => LoginView());
+      } else if (response.statusCode == 400) {
+        var responseBody = jsonDecode(response.body);
+        var errorDetails = responseBody["detail"] as List;
+
+        // Extracting and formatting the error messages
+        var errorMessage = errorDetails.map((error) {
+          var loc = (error['loc'] as List).join('.');
+          return '${error['msg']} at ${loc}';
+        }).join('\n');
+
+        Get.snackbar("Validation Error", errorMessage,
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
       } else {
-        throw jsonDecode(response.body)["Message"];
+        var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["msg"] ?? 'Unknown error occurred';
+        Get.snackbar("Error", errorMessage,
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
       }
     } catch (e) {
-      Get.snackbar("Error", e.toString());
+      print(e.toString());
+      Get.snackbar("Error", "An error occurred: $e",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     } finally {
       isLoading.value = false;
     }

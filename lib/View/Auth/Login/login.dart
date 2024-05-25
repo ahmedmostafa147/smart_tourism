@@ -150,8 +150,8 @@ class LoginView extends StatelessWidget {
                   GoogleLogin(),
                   SizedBox(height: 30.h),
                   InkWell(
-                    onTap: () {
-                      Get.off(() => RegisterView());
+                    onTap: () async{
+                    await  Get.off(() => RegisterView());
                     },
                     child: const Center(
                       child: Text.rich(TextSpan(children: [

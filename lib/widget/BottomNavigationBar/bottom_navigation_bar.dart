@@ -30,7 +30,7 @@ class _NavBarState extends State<NavBar> {
         const HomeView(),
         SearchScreen(),
         Plan(),
-        ListFavoritePlaces(),
+        FavoritesScreen(),
         Profile(),
       ];
 
@@ -102,8 +102,8 @@ class _NavBarState extends State<NavBar> {
       items: _navBarsItems(),
       navBarHeight: 60.h,
       bottomScreenMargin: 60.h,
-      popAllScreensOnTapOfSelectedTab: true,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      popAllScreensOnTapOfSelectedTab: true,
       itemAnimationProperties: const ItemAnimationProperties(
         duration: Duration(milliseconds: 100),
         curve: Curves.ease,

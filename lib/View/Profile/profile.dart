@@ -64,7 +64,7 @@ class _ProfileState extends State<Profile> {
                 text: "About".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesAbout))),
             RowOptions(
-                onTap: () async {
+                onTap: () {
                   {
                     Get.bottomSheet(Logout());
                   }
