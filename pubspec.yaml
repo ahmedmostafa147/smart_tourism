@@ -5,21 +5,19 @@ version: 1.0.0+1
 environment:
   sdk: '>=3.1.4 <4.0.0'
 dependencies:
+  awesome_dialog: ^3.1.0
   flutter:
     sdk: flutter
-  awesome_dialog: ^3.1.0
   flutter_screenutil: ^5.9.0
-  get: ^4.6.6
-  image_picker: ^1.0.7
-  loading_indicator: ^3.1.1
-  google_sign_in: ^6.2.1
-  shared_preferences: ^2.2.3
   geocoding: ^3.0.0
   geolocator: ^12.0.0
+  get: ^4.6.6
+  google_sign_in: ^6.2.1
+  image_picker: ^1.0.7
+  loading_indicator: ^3.1.1
+  package_info_plus: ^8.0.0
   persistent_bottom_nav_bar: ^5.0.2
-  
-
-  
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -42,16 +40,15 @@ flutter:
       fonts:
         - asset: Assets/Fonts/Rubik/Rubik-Bold.ttf
         - asset: Assets/Fonts/Rubik/Rubik-Regular.ttf
-    - family: Play   
+    - family: Play
       fonts:
         - asset: Assets/Fonts/Play/PlaypenSans-Bold.ttf
-        - asset: Assets/Fonts/Play/PlaypenSans-Regular.ttf 
-    - family: Cairo   
+        - asset: Assets/Fonts/Play/PlaypenSans-Regular.ttf
+    - family: Cairo
       fonts:
         - asset: Assets/Fonts/Cairo/Cairo-Bold.ttf
-        - asset: Assets/Fonts/Cairo/Cairo-Regular.ttf 
+        - asset: Assets/Fonts/Cairo/Cairo-Regular.ttf
         - asset: Assets/Fonts/Cairo/Cairo-Medium.ttf
-    - family: Mano   
+    - family: Mano
       fonts:
         - asset: Assets/Fonts/Mano/manolomono.otf
-                

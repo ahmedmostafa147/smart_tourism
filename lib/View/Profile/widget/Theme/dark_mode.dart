@@ -43,7 +43,7 @@ class ChooseThemeMode extends GetView<LocaleController> {
               controller.changeTheme(ThemeMode.dark);
               Get.back();
             },
-            child: Text('"Dark"'.tr),
+            child: Text('Dark'.tr),
           ),
         ],
       ),

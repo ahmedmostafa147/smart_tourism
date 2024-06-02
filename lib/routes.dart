@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'View/Auth/Register/register.dart';
 import 'View/Plan/plan.dart';
-import 'View/Profile/profile.dart';
+import 'View/Profile/Information Screen.dart';
 import 'View/Profile/widget/Logout/logout.dart';
 import 'View/Search/Search.dart';
 import 'View/Survey/survey.dart';

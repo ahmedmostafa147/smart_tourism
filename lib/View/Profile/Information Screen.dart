@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/View/Profile/widget/about/about.dart';
 import 'widget/Logout/logout.dart';
-import 'widget/Profile%20Personal%20Data/pages/profile_page.dart';
+import 'widget/Notification/notifiction.dart';
+import 'widget/Profile Personal Data/profile_page.dart';
 import 'widget/Delete%20acc/delete_acc.dart';
 import 'widget/Lang/lang.dart';
 import 'widget/Row%20user/row_user.dart';
@@ -28,7 +30,7 @@ class _ProfileState extends State<Profile> {
             RowUser(),
             RowOptions(
                 onTap: () {
-                  Get.to(ProfilePage());
+                  Get.to(() => ProfilePage());
                 },
                 text: "Personal Data".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesCircleUser))),
@@ -37,7 +39,9 @@ class _ProfileState extends State<Profile> {
                 text: "Plans".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesBusiness))),
             RowOptions(
-                onTap: () {},
+                onTap: () {
+                  Get.bottomSheet(NotificationView());
+                },
                 text: "Notifications".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesRinging))),
             RowOptions(
@@ -55,14 +59,16 @@ class _ProfileState extends State<Profile> {
             ),
             RowOptions(
                 onTap: () {
+                  Get.bottomSheet(AboutView());
+                },
+                text: "About".tr,
+                IconName: const ImageIcon(AssetImage(Assets.imagesAbout))),
+            RowOptions(
+                onTap: () {
                   Get.bottomSheet(DeleteAccountScreen());
                 },
                 text: "Delete Account".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesDelete))),
-            RowOptions(
-                onTap: () {},
-                text: "About".tr,
-                IconName: const ImageIcon(AssetImage(Assets.imagesAbout))),
             RowOptions(
                 onTap: () {
                   {

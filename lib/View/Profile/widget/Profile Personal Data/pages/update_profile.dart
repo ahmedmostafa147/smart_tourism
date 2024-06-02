@@ -19,34 +19,81 @@ class UpdateUserProfileScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: firstNameController,
-              decoration: InputDecoration(labelText: 'First Name'),
-            ),
-            TextField(
-              controller: lastNameController,
-              decoration: InputDecoration(labelText: 'Last Name'),
-            ),
-            TextField(
-              controller: locationController,
-              decoration: InputDecoration(labelText: 'Location'),
-            ),
-            SizedBox(height: 20.h),
-            CustomMaterialButton(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20.h),
+              _buildSectionTitle('Personal Information'),
+              SizedBox(height: 10.h),
+              _buildTextField(
+                controller: firstNameController,
+                label: 'First Name',
+                icon: Icons.person,
+              ),
+              SizedBox(height: 10.h),
+              _buildTextField(
+                controller: lastNameController,
+                label: 'Last Name',
+                icon: Icons.person_outline,
+              ),
+              SizedBox(height: 10.h),
+              _buildTextField(
+                controller: locationController,
+                label: 'Location',
+                icon: Icons.location_on,
+              ),
+              SizedBox(height: 20.h),
+              CustomMaterialButton(
                 buttonText: "Change Password",
                 onPressed: () {
                   Get.to(ChangePasswordView());
-                }),
-            SizedBox(height: 20.h),
-            ElevatedButton(
-              onPressed: () => updateUserProfile(),
-              child: Text('Update Profile'),
-            ),
-          ],
+                },
+              ),
+              SizedBox(height: 20.h),
+              ElevatedButton(
+                onPressed: () => updateUserProfile(),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 15.h),
+                  textStyle: TextStyle(fontSize: 18.sp),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Center(
+                  child: Text('Update Profile'),
+                ),
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+  }) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontSize: 20.sp,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

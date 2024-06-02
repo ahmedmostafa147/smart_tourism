@@ -1,8 +1,4 @@
-
 import 'package:flutter/material.dart';
-
-import '../../../../../Core/constants/images.dart';
-
 
 class DisplayImage extends StatelessWidget {
   final String imagePath;
@@ -32,13 +28,11 @@ class DisplayImage extends StatelessWidget {
 
   // Builds Profile Image
   Widget buildImage(Color color) {
-    
-
     return CircleAvatar(
       radius: 75,
       backgroundColor: color,
       child: CircleAvatar(
-        backgroundImage: AssetImage(Assets.imagesProfile),
+        backgroundImage: AssetImage(imagePath),
         radius: 70,
       ),
     );

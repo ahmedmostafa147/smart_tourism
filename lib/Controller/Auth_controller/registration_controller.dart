@@ -16,6 +16,65 @@ class RegistrationController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final RxBool isLoading = false.obs;
+  final RxString firstNameError = ''.obs;
+  final RxString lastNameError = ''.obs;
+  final RxString emailError = ''.obs;
+  final RxString passwordError = ''.obs;
+
+  String? validateFirstName(String? value) {
+    if (value == null || value.isEmpty) {
+      firstNameError.value = 'First name is required';
+    } else if (value.length < 3) {
+      firstNameError.value = 'First name must be at least 3 characters long';
+    } else if (!RegExp(r'[a-zA-Z]').hasMatch(value)) {
+      firstNameError.value = 'First name must contain only alphabets';
+    } else {
+      firstNameError.value = '';
+    }
+    return firstNameError.value.isEmpty ? null : firstNameError.value;
+  }
+
+  String? validateLastName(String? value) {
+    if (value == null || value.isEmpty) {
+      lastNameError.value = 'Last name is required';
+    } else if (value.length < 3) {
+      lastNameError.value = 'Last name must be at least 3 characters long';
+    } else if (!RegExp(r'[a-zA-Z]').hasMatch(value)) {
+      lastNameError.value = 'Last name must contain only alphabets';
+    } else {
+      lastNameError.value = '';
+    }
+    return lastNameError.value.isEmpty ? null : lastNameError.value;
+  }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      passwordError.value = 'Password is required';
+    } else if (!RegExp(
+            r'^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$&*~]).{8,64}$')
+        .hasMatch(value)) {
+      passwordError.value = 'Password must contain at least:\n'
+          '- 8 to 64 characters\n'
+          '- 1 uppercase letter\n'
+          '- 1 lowercase letter\n'
+          '- 1 number\n'
+          '- 1 special character';
+    } else {
+      passwordError.value = '';
+    }
+    return passwordError.value.isEmpty ? null : passwordError.value;
+  }
+
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      emailError.value = 'Email is required';
+    } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+      emailError.value = 'Invalid email format';
+    } else {
+      emailError.value = '';
+    }
+    return emailError.value.isEmpty ? null : emailError.value;
+  }
 
   Future<void> registerWithEmail() async {
     try {
@@ -45,23 +104,9 @@ class RegistrationController extends GetxController {
             backgroundColor: Colors.teal,
             colorText: Colors.white);
         Get.off(() => LoginView());
-      } else if (response.statusCode == 400) {
-        var responseBody = jsonDecode(response.body);
-        var errorDetails = responseBody["detail"] as List;
-
-        // Extracting and formatting the error messages
-        var errorMessage = errorDetails.map((error) {
-          var loc = (error['loc'] as List).join('.');
-          return '${error['msg']} at ${loc}';
-        }).join('\n');
-
-        Get.snackbar("Validation Error", errorMessage,
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red,
-            colorText: Colors.white);
       } else {
         var responseBody = jsonDecode(response.body);
-        var errorMessage = responseBody["msg"] ?? 'Unknown error occurred';
+        var errorMessage = responseBody["detail"];
         Get.snackbar("Error", errorMessage,
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red,

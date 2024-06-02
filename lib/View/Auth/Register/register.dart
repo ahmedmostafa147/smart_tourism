@@ -16,55 +16,6 @@ class RegisterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? validateFirstName(String? value) {
-      if (value == null || value.isEmpty) {
-        return 'First name is required';
-      }
-      if (value.length < 3) {
-        return 'First name must be at least 3 characters long';
-      }
-      return null;
-    }
-
-    String? validateLastName(String? value) {
-      if (value == null || value.isEmpty) {
-        return 'Last name is required';
-      }
-      if (value.length < 3) {
-        return 'Last name must be at least 3 characters long';
-      }
-      return null;
-    }
-
-    String? validatePassword(String? value) {
-      if (value == null || value.isEmpty) {
-        return 'Password is required';
-      }
-      if (value.length < 8) {
-        return 'Password must be at least 8 characters long';
-      }
-      if (!RegExp(r'[a-zA-Z]').hasMatch(value)) {
-        return 'Password must contain at least one letter';
-      }
-      if (!RegExp(r'[0-9]').hasMatch(value)) {
-        return 'Password must contain at least one number';
-      }
-      if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
-        return 'Password must contain at least one special character';
-      }
-      return null;
-    }
-
-    String? validateEmail(String? value) {
-      if (value == null || value.isEmpty) {
-        return 'Email is required';
-      }
-      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-        return 'Invalid email format';
-      }
-      return null;
-    }
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -104,40 +55,52 @@ class RegisterView extends StatelessWidget {
                         style: TextStyle(color: Colors.grey),
                       ),
                       SizedBox(height: 15.h),
-                      CustomTextForm(
-                        hintText: "Enter Your First Name",
-                        controller: registrationController.first,
-                        labelText: "First Name",
-                        validator: validateFirstName,
-                        isPassword: false,
-                        keyboardType: TextInputType.name,
+                      Obx(
+                        () => CustomTextForm(
+                          hintText: "Enter Your First Name",
+                          controller: registrationController.first,
+                          labelText: "First Name",
+                          validator: (value) => registrationController
+                              .validateFirstName(value),
+                          isPassword: false,
+                          keyboardType: TextInputType.name,
+                        ),
                       ),
                       SizedBox(height: 15.h),
-                      CustomTextForm(
-                        hintText: "Enter Your Last Name",
-                        controller: registrationController.last,
-                        labelText: "Last Name",
-                        validator: validateLastName,
-                        isPassword: false,
-                        keyboardType: TextInputType.name,
+                      Obx(
+                        () => CustomTextForm(
+                          hintText: "Enter Your Last Name",
+                          controller: registrationController.last,
+                          labelText: "Last Name",
+                          validator: (value) => registrationController
+                              .validateLastName(value),
+                          isPassword: false,
+                          keyboardType: TextInputType.name,
+                        ),
                       ),
                       SizedBox(height: 15.h),
-                      CustomTextForm(
-                        hintText: "Enter Your Email",
-                        controller: registrationController.email,
-                        labelText: "Email",
-                        validator: validateEmail,
-                        isPassword: false,
-                        keyboardType: TextInputType.emailAddress,
+                      Obx(
+                        () => CustomTextForm(
+                          hintText: "Enter Your Email",
+                          controller: registrationController.email,
+                          labelText: "Email",
+                          validator: (value) =>
+                              registrationController.validateEmail(value),
+                          isPassword: false,
+                          keyboardType: TextInputType.emailAddress,
+                        ),
                       ),
                       SizedBox(height: 15.h),
-                      CustomTextForm(
-                        hintText: "Enter Your Password",
-                        controller: registrationController.password,
-                        labelText: "Password",
-                        validator: validatePassword,
-                        isPassword: true,
-                        keyboardType: TextInputType.visiblePassword,
+                      Obx(
+                        () => CustomTextForm(
+                          hintText: "Enter Your Password",
+                          controller: registrationController.password,
+                          labelText: "Password",
+                          validator: (value) =>
+                              registrationController.validatePassword(value),
+                          isPassword: true,
+                          keyboardType: TextInputType.visiblePassword,
+                        ),
                       ),
                       SizedBox(height: 15.h),
                       Container(
