@@ -46,7 +46,9 @@ class UpdateController extends GetxController {
             backgroundColor: Colors.teal,
             colorText: Colors.white);
       } else {
-        throw 'User profile update failed: ${response.statusCode}';
+         var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["message"];
+        throw 'User profile update failed:$errorMessage';
       }
     } catch (error) {
       Get.snackbar("Error", error.toString(),

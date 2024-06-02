@@ -29,7 +29,9 @@ class UserInformation extends GetxController {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         userInfo.assignAll(responseData);
       } else {
-        throw 'Failed to get user information: ${response.statusCode}';
+        var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["message"];
+        throw 'Failed to get user information: ${errorMessage}';
       }
     } catch (error) {
       Get.snackbar('Error', error.toString(),
@@ -66,7 +68,9 @@ class UserInformationRow extends GetxController {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         userInfo.assignAll(responseData);
       } else {
-        throw 'Failed to get user information: ${response.statusCode}';
+        var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["message"];
+        throw 'Failed to get user information: ${errorMessage}';
       }
     } catch (error) {
       Get.snackbar('Error', error.toString(),

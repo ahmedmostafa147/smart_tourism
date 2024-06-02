@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -43,7 +45,9 @@ class LogoutController extends GetxController {
         // Navigate to login screen
         Get.offAll(() => LoginView());
       } else {
-        throw 'Logout failed: ${response.statusCode}';
+         var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["message"];
+        throw 'Logout failed: $errorMessage';
       }
     } catch (error) {
       Get.snackbar("Error", error.toString(),

@@ -44,7 +44,9 @@ class LoginController extends GetxController {
           throw 'Access token not found in response';
         }
       } else {
-        throw 'Error: ${response.statusCode}, Message: ${response.body}';
+        var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["message"];
+        throw 'Error: $errorMessage';
       }
     } catch (error) {
       Get.snackbar("Error", error.toString(),

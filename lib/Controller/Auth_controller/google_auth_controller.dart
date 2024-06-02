@@ -23,28 +23,28 @@ class GoogleSignInController extends GetxController {
           var url = Uri.parse(
               ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.loginGoogle);
           // Send idToken and accessToken to your backend API
-          final response = await http.put(
+          final response = await http.post(
             url,
             headers: <String, String>{'Content-Type': 'application/json'},
             body: jsonEncode(<String, String>{
-              'id_token': idToken,
-              'access_token': accessToken
+              'idToken': idToken,
+              'accessToken': accessToken,
             }),
           );
 
           if (response.statusCode == 200) {
-            // Successful login with Google
             Get.snackbar('Success', 'Logged in with Google');
           } else {
-            throw 'Failed to log in with Google: ${response.statusCode}';
+            var responseBody = jsonDecode(response.body);
+            var errorMessage = responseBody["message"];
+            throw 'Failed to log in with Google: ${errorMessage}';
           }
-        } else {
-          throw 'Failed to obtain ID token or access token';
         }
       } else {
         throw 'Google sign in cancelled';
       }
     } catch (error) {
+      print(error);
       Get.snackbar('Error', error.toString());
     } finally {
       isLoading.value = false;

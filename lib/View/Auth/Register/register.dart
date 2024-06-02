@@ -19,136 +19,163 @@ class RegisterView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        body: Obx(
-          () => Form(
-            key: registrationController.formKey,
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              child: ListView(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const CustomLogoAuth(),
-                      Container(height: 15.h),
-                      Center(
-                        child: Text(
-                          "Welcome To Smart Tourism",
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "Play",
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 5.h),
-                      Text(
-                        "REGISTER",
+        body: Form(
+          key: registrationController.formKey,
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            child: ListView(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CustomLogoAuth(),
+                    SizedBox(height: 15.h),
+                    Center(
+                      child: Text(
+                        "Welcome To Smart Tourism",
                         style: TextStyle(
-                          fontSize: 25.sp,
-                          fontWeight: FontWeight.w200,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Play",
                         ),
                       ),
-                      Container(height: 5.h),
-                      const Text(
-                        "Register To Continue Using Smart Tourism",
-                        style: TextStyle(color: Colors.grey),
+                    ),
+                    SizedBox(height: 5.h),
+                    Text(
+                      "REGISTER",
+                      style: TextStyle(
+                        fontSize: 25.sp,
+                        fontWeight: FontWeight.w200,
                       ),
-                      SizedBox(height: 15.h),
-                      Obx(
-                        () => CustomTextForm(
-                          hintText: "Enter Your First Name",
-                          controller: registrationController.first,
-                          labelText: "First Name",
-                          validator: (value) => registrationController
-                              .validateFirstName(value),
-                          isPassword: false,
-                          keyboardType: TextInputType.name,
+                    ),
+                    SizedBox(height: 5.h),
+                    const Text(
+                      "Register To Continue Using Smart Tourism",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    SizedBox(height: 15.h),
+                    CustomTextForm(
+                      hintText: "Enter Your First Name",
+                      controller: registrationController.first,
+                      labelText: "First Name",
+                      validator: (value) =>
+                          registrationController.validateFirstName(value),
+                      isPassword: false,
+                      keyboardType: TextInputType.name,
+                    ),
+                    Obx(
+                      () =>
+                          registrationController.firstNameError.value.isNotEmpty
+                              ? Text(
+                                  registrationController.firstNameError.value,
+                                  style: TextStyle(color: Colors.red),
+                                )
+                              : SizedBox.shrink(),
+                    ),
+                    SizedBox(height: 15.h),
+                    CustomTextForm(
+                      hintText: "Enter Your Last Name",
+                      controller: registrationController.last,
+                      labelText: "Last Name",
+                      validator: (value) =>
+                          registrationController.validateLastName(value),
+                      isPassword: false,
+                      keyboardType: TextInputType.name,
+                    ),
+                    Obx(
+                      () =>
+                          registrationController.lastNameError.value.isNotEmpty
+                              ? Text(
+                                  registrationController.lastNameError.value,
+                                  style: TextStyle(color: Colors.red),
+                                )
+                              : SizedBox.shrink(),
+                    ),
+                    SizedBox(height: 15.h),
+                    CustomTextForm(
+                      hintText: "Enter Your Email",
+                      controller: registrationController.email,
+                      labelText: "Email",
+                      validator: (value) =>
+                          registrationController.validateEmail(value),
+                      isPassword: false,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    Obx(
+                      () => registrationController.emailError.value.isNotEmpty
+                          ? Text(
+                              registrationController.emailError.value,
+                              style: TextStyle(color: Colors.red),
+                            )
+                          : SizedBox.shrink(),
+                    ),
+                    SizedBox(height: 15.h),
+                    CustomTextForm(
+                      hintText: "Enter Your Password",
+                      controller: registrationController.password,
+                      labelText: "Password",
+                      validator: (value) =>
+                          registrationController.validatePassword(value),
+                      isPassword: true,
+                      keyboardType: TextInputType.visiblePassword,
+                    ),
+                    Obx(
+                      () =>
+                          registrationController.passwordError.value.isNotEmpty
+                              ? Text(
+                                  registrationController.passwordError.value,
+                                  style: TextStyle(color: Colors.red),
+                                )
+                              : SizedBox.shrink(),
+                    ),
+                    SizedBox(height: 15.h),
+                    Container(
+                      height: 50.h,
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          locationController.getCurrentLocation();
+                        },
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Icons.share_location_outlined),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Obx(() {
+                              return locationController.isLoading.value
+                                  ? Text(
+                                      'Loading...',
+                                      style: TextStyle(fontSize: 16.sp),
+                                    )
+                                  : Text(
+                                      locationController
+                                              .addressCountry.value.isEmpty
+                                          ? 'Tap to select your location'
+                                          : locationController
+                                              .addressCountry.value,
+                                      style: TextStyle(fontSize: 16.sp),
+                                    );
+                            }),
+                          ],
                         ),
                       ),
-                      SizedBox(height: 15.h),
-                      Obx(
-                        () => CustomTextForm(
-                          hintText: "Enter Your Last Name",
-                          controller: registrationController.last,
-                          labelText: "Last Name",
-                          validator: (value) => registrationController
-                              .validateLastName(value),
-                          isPassword: false,
-                          keyboardType: TextInputType.name,
-                        ),
-                      ),
-                      SizedBox(height: 15.h),
-                      Obx(
-                        () => CustomTextForm(
-                          hintText: "Enter Your Email",
-                          controller: registrationController.email,
-                          labelText: "Email",
-                          validator: (value) =>
-                              registrationController.validateEmail(value),
-                          isPassword: false,
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                      ),
-                      SizedBox(height: 15.h),
-                      Obx(
-                        () => CustomTextForm(
-                          hintText: "Enter Your Password",
-                          controller: registrationController.password,
-                          labelText: "Password",
-                          validator: (value) =>
-                              registrationController.validatePassword(value),
-                          isPassword: true,
-                          keyboardType: TextInputType.visiblePassword,
-                        ),
-                      ),
-                      SizedBox(height: 15.h),
-                      Container(
-                        height: 50.h,
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.grey,
-                          ),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            locationController.getCurrentLocation();
-                          },
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(Icons.share_location_outlined),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Obx(() {
-                                return locationController.isLoading.value
-                                    ? Text(
-                                        'Loading...',
-                                        style: TextStyle(fontSize: 16.sp),
-                                      )
-                                    : Text(
-                                        locationController
-                                                .addressCountry.value.isEmpty
-                                            ? 'Tap to select your location'
-                                            : locationController
-                                                .addressCountry.value,
-                                        style: TextStyle(fontSize: 16.sp),
-                                      );
-                              }),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  CustomButtonAuth(
+                    ),
+                  ],
+                ),
+                Obx(
+                  () => CustomButtonAuth(
                     title: registrationController.isLoading.value
                         ? 'Loading...'
                         : 'Register',
@@ -171,30 +198,30 @@ class RegisterView extends StatelessWidget {
                             }
                           },
                   ),
-                  Container(height: 10.h),
-                  InkWell(
-                    onTap: () {
-                      Get.off(() => LoginView());
-                    },
-                    child: const Center(
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(text: "Have An Account ? "),
-                            TextSpan(
-                              text: "Login",
-                              style: TextStyle(
-                                color: Colors.teal,
-                                fontWeight: FontWeight.bold,
-                              ),
+                ),
+                SizedBox(height: 10.h),
+                InkWell(
+                  onTap: () {
+                    Get.off(() => LoginView());
+                  },
+                  child: const Center(
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(text: "Have An Account ? "),
+                          TextSpan(
+                            text: "Login",
+                            style: TextStyle(
+                              color: Colors.teal,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

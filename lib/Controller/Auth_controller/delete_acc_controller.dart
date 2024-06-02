@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -41,7 +43,9 @@ class DeleteAccController extends GetxController {
         // Navigate to login screen
         Get.offNamed('/login');
       } else {
-        throw 'Account deletion failed: ${response.statusCode}';
+        var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["message"];
+        throw 'Account deletion failed: ${errorMessage}';
       }
     } catch (error) {
       Get.snackbar("Error", error.toString(),

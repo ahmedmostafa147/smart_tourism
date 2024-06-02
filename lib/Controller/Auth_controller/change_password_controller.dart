@@ -40,7 +40,9 @@ class ChangePasswordController extends GetxController {
             backgroundColor: Colors.teal,
             colorText: Colors.white);
       } else {
-        throw 'Password change failed: ${response.statusCode}';
+        var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["message"];
+        throw 'Password change failed: $errorMessage';
       }
     } catch (error) {
       Get.snackbar("Error", error.toString(),

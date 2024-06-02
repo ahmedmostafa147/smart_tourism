@@ -33,7 +33,9 @@ class ResetPasswordController extends GetxController {
             backgroundColor: Colors.teal,
             colorText: Colors.white);
       } else {
-        throw 'Password reset failed: ${response.statusCode}';
+        var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["message"];
+        throw 'Password reset failed:$errorMessage}';
       }
     } catch (error) {
       Get.snackbar("Error", error.toString(),
