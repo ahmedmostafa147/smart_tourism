@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/View/Auth/AuthWidget/text_form_field.dart';
+import '../AuthWidget/text_form_field.dart';
 import '../../../Controller/location_controller.dart';
 import '../../../Controller/Auth_controller/registration_controller.dart';
 import '../AuthWidget/custom_button_auth.dart';

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_tourism/View/Profile/widget/Profile%20Personal%20Data/profile_page.dart';
+import 'package:smart_tourism/View/chat/chat.dart';
 import 'View/Auth/Register/register.dart';
 import 'View/Plan/plan.dart';
 import 'View/Profile/Information Screen.dart';
@@ -27,6 +29,8 @@ class AppRoute {
   static const String placeDetails = "/placeDetails";
   static const String logout = "/logout";
   static const String location = "/location";
+  static const String ProfilePage = "/ProfilePage";
+  static const String ChatScreen = "/ChatScreen";
 }
 
 Map<String, Widget Function(BuildContext)> routes = {
@@ -40,5 +44,7 @@ Map<String, Widget Function(BuildContext)> routes = {
   AppRoute.plan: (context) => Plan(),
   AppRoute.survey: (context) => Survey(),
   AppRoute.logout: (context) => Logout(),
-  AppRoute.location: (context) => LocationView(), 
+  AppRoute.location: (context) => LocationView(),
+  AppRoute.ProfilePage: (context) => ProfilePage(),
+  AppRoute.ChatScreen: (context) => ChatScreen(),
 };

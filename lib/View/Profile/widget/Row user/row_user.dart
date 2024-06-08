@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Core/constants/font.dart';
+import '../../../../Core/constants/font.dart';
 import '../../../../Controller/Auth_controller/user_information_controller.dart';
 import '../../../../Core/constants/images.dart';
-import 'package:smart_tourism/Controller/location_controller.dart';
+import '../../../../Controller/location_controller.dart';
 
 class RowUser extends StatelessWidget {
   final LocationController locationController = Get.find();

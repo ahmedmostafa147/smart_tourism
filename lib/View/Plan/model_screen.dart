@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/model_ai_controller.dart';
+import '../../Controller/model_ai_controller.dart';
 
 class RecommendationScreen extends StatelessWidget {
   final ModelAIController controller = Get.put(ModelAIController());

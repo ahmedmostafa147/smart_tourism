@@ -24,6 +24,28 @@ class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
         children: [
           GestureDetector(
             onTap: () {
+              Get.toNamed('/ChatScreen');
+            },
+            child: Row(
+              children: [
+                Image.asset(
+                  color: Colors.teal,
+                  Assets.imagesMessages,
+                  width: 20.h,
+                  height: 20.w,
+                ),
+                const SizedBox(
+                  width: 2,
+                ),
+                Text(
+                  'AI Chat',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
               locationController.getCurrentLocation();
             },
             child: Row(
@@ -54,16 +76,17 @@ class CustomAppBarHome extends StatelessWidget implements PreferredSizeWidget {
           ),
           GestureDetector(
             onTap: () {
-              Get.toNamed('/profile');
+              Get.toNamed('/ProfilePage');
             },
             child: ClipRRect(
               borderRadius: const BorderRadius.all(
                 Radius.circular(10),
               ),
               child: Image.asset(
-                Assets.imagesProfile,
-                width: 40.h,
-                height: 40.w,
+                color: Colors.teal,
+                Assets.imagesCircleUser,
+                width: 30.h,
+                height: 30.w,
               ),
             ),
           ),

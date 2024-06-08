@@ -25,11 +25,11 @@ class _ContainerDisplayNearestHomeState
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
           List<String> imagePaths = [
-            Assets.images1mus,
-            Assets.images2mus,
-            Assets.images5mus,
-            Assets.images4mus,
-            Assets.images9mus,
+            // Assets.images1mus,
+            // Assets.images2mus,
+            // Assets.images5mus,
+            // Assets.images4mus,
+            // Assets.images9mus,
           ];
 
           return Padding(
@@ -249,11 +249,11 @@ class _ContainerDisplayHotState extends State<ContainerDisplayHot> {
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
           List<String> imagePaths = [
-            Assets.images8hot,
-            Assets.images2hot,
-            Assets.images5hot,
-            Assets.images4hot,
-            Assets.images9hot,
+            // Assets.images8hot,
+            // Assets.images2hot,
+            // Assets.images5hot,
+            // Assets.images4hot,
+            // Assets.images9hot,
           ];
 
           return Padding(

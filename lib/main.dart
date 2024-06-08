@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'routes.dart';
+
 import 'Controller/local_controller.dart';
 import 'Core/Localization/translation.dart';
 import 'Core/Service/service.dart';
 import 'Core/constants/style.dart';
+import 'routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

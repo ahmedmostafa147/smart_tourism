@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'widgets/you_may_like_this.dart';
-import '../Profile/Information Screen.dart';
 import 'widgets/app_bar_home.dart';
 import 'widgets/container_center_home_screen.dart';
 import 'widgets/container_display_nearest.dart';

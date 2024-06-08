@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/Auth_controller/delete_acc_controller.dart';
+import '../../../../Controller/Auth_controller/delete_acc_controller.dart';
 
 class DeleteAccountScreen extends StatelessWidget {
   DeleteAccountScreen({super.key});
@@ -29,12 +29,15 @@ class DeleteAccountScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-               ElevatedButton(
-                    child: Text('Yes'.tr),
+              Obx(
+                () => ElevatedButton(
+                    child: Text(deleteAccController.isLoading.value
+                        ? 'Loading...'.tr
+                        : 'Yes'.tr),
                     onPressed: () {
                       deleteAccController.deleteUserAccount();
                     }),
-              
+              ),
               ElevatedButton(
                   child: Text('No'.tr),
                   onPressed: () {

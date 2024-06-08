@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/View/Profile/widget/about/about.dart';
+import '../Favorite/favorite.dart';
+import 'widget/about/about.dart';
 import 'widget/Logout/logout.dart';
 import 'widget/Notification/notifiction.dart';
 import 'widget/Profile Personal Data/profile_page.dart';
@@ -38,6 +39,25 @@ class _ProfileState extends State<Profile> {
                 onTap: () {},
                 text: "Plans".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesBusiness))),
+            RowOptions(
+              text: "AI Chat",
+              IconName: const ImageIcon(AssetImage(Assets.imagesMessages)),
+              onTap: () {
+                Get.toNamed('/ChatScreen');
+              },
+            ),
+            RowOptions(
+                onTap: () {},
+                text: "History Chat ".tr,
+                IconName:
+                    const ImageIcon(AssetImage(Assets.imagesChathistory))),
+            RowOptions(
+                onTap: () {
+                  Get.to(() => FavoritesScreen());
+                },
+                text: "Favorites".tr,
+                IconName:
+                    const ImageIcon(AssetImage(Assets.imagesSquareHeart))),
             RowOptions(
                 onTap: () {
                   Get.bottomSheet(NotificationView());

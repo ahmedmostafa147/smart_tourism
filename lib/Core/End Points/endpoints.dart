@@ -1,5 +1,5 @@
 class ApiEndPoints {
-  static final String baseUrl = 'https://smart-tourism-mjyq.onrender.com/';
+  static final String baseUrl = 'https://zoz-rwob.onrender.com/';
 
   static _AuthEndPoints authEndpoints = _AuthEndPoints();
 }
@@ -23,5 +23,4 @@ class _AuthEndPoints {
   final String deleteFavorite = 'favorites';
   final String deletePlan = 'delete_plan';
   final String updatePlan = 'update';
-
 }

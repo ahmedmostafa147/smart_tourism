@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/plan_controller/create_plan_controller.dart';
+import '../../Controller/plan_controller/create_plan_controller.dart';
 
 class LocalPlanScreen extends StatelessWidget {
   final PlanController planController = Get.put(PlanController());

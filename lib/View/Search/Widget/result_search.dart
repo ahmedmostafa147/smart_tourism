@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../Controller/search_controller/search_controller.dart';
 
 class ResultSearch extends StatelessWidget {

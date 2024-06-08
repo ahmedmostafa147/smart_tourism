@@ -8,12 +8,12 @@ class CustomTextForm extends StatefulWidget {
   final bool isPassword;
   final TextInputType? keyboardType;
 
-  const CustomTextForm({
+  CustomTextForm({
     Key? key,
     required this.hintText,
     required this.controller,
     required this.labelText,
-    required this.validator,
+    this.validator,
     required this.isPassword,
     this.keyboardType,
   }) : super(key: key);

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:smart_tourism/View/Favorite/favorite.dart';
+import '../../Controller/chat_controller/chat_controller.dart';
+import '../../View/Favorite/favorite.dart';
+import '../../View/chat/chat.dart';
 import '../../View/Profile/Information Screen.dart';
 import '../../View/Home/home.dart';
 import '../../View/Plan/plan.dart';
 import '../../View/Search/Search.dart';
-import '../../View/Survey/survey.dart';
 import '../../Core/constants/images.dart';
 
 class NavBar extends StatefulWidget {
@@ -72,11 +73,9 @@ class _NavBarState extends State<NavBar> {
         PersistentBottomNavBarItem(
           textStyle: TextStyle(
               fontSize: 12.sp, fontFamily: "Mano", fontWeight: FontWeight.w600),
-          title: "Favorite".tr,
+          title: "Favorites".tr,
           icon: ImageIcon(
-            AssetImage(
-              Assets.imagesSquareHeart,
-            ),
+            AssetImage(Assets.imagesSquareHeart),
           ),
           activeColorPrimary: Colors.teal,
           inactiveColorPrimary: Colors.grey,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_tourism/View/Auth/Login/login.dart';
+import '../../View/Auth/Login/login.dart';
 import '../../Core/End%20Points/endpoints.dart';
 
 class LogoutController extends GetxController {

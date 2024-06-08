@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
+import '../Core/End%20Points/endpoints.dart';
 
 class Favorite {
   final int id;
