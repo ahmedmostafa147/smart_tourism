@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:smart_tourism/widget/BottomNavigationBar/bottom_navigation_bar.dart';
 
 class GoogleSignInController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -12,76 +14,92 @@ class GoogleSignInController extends GetxController {
   );
 
   var currentUser = Rx<GoogleSignInAccount?>(null);
-  var contactText = ''.obs;
+  var isSignedIn = false.obs;
+  var isLoaded = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
-      currentUser.value = account;
-      if (currentUser.value != null) {
-        _handleGetContact(currentUser.value!);
-      }
-    });
-    _googleSignIn.signInSilently();
+    // _checkSignInStatus();
   }
 
-  Future<void> _handleGetContact(GoogleSignInAccount user) async {
-    contactText.value = "Loading contact info...";
-    final http.Response response = await http.get(
-      Uri.parse('https://people.googleapis.com/v1/people/me/connections'
-          '?requestMask.includeField=person.names'),
-      headers: await user.authHeaders,
-    );
-    if (response.statusCode != 200) {
-      contactText.value = "People API gave a ${response.statusCode} response. Check logs for details.";
-      print('People API ${response.statusCode} response: ${response.body}');
-      return;
-    }
-    final Map<String, dynamic> data = json.decode(response.body);
-    final String? namedContact = _pickFirstNamedContact(data);
-    contactText.value = namedContact != null ? "I see you know $namedContact!" : "No contacts to display.";
-  }
-
-  String? _pickFirstNamedContact(Map<String, dynamic> data) {
-    final List<dynamic>? connections = data['connections'];
-    final Map<String, dynamic>? contact = connections?.firstWhere(
-          (dynamic contact) => contact['names'] != null,
-      orElse: () => null,
-    );
-    if (contact != null) {
-      final Map<String, dynamic> name = contact['names'].first;
-      return name['displayName'];
-    }
-    return null;
-  }
+  // Future<void> _checkSignInStatus() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool? loggedIn = prefs.getBool('isLoggedIn');
+  //   if (loggedIn == true) {
+  //     await _googleSignIn.signInSilently();
+  //     currentUser.value = _googleSignIn.currentUser;
+  //     isSignedIn.value = true;
+  //     Get.offAll(NavBar());
+  //   } else {
+  //     isSignedIn.value = false;
+  //   }
+  // }
 
   Future<void> signIn() async {
     try {
-      await _googleSignIn.signIn();
+      isLoaded.value = false;
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser != null) {
+        currentUser.value = googleUser;
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        print(googleUser.email);
+        print(googleUser.displayName);
+        print(googleAuth.accessToken);
+        print(googleUser.id);
+        print(googleAuth.idToken);
+
+        // Send the authentication token to the server to register the user
+        final response = await _registerUserOnServer(
+          googleUser.email,
+          googleUser.displayName,
+          googleUser.id,
+          googleAuth.accessToken,
+        );
+        print('Response: ${response.body}');
+
+        if (response.statusCode == 200) {
+          // Successfully registered
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('isLoggedIn', true);
+          isSignedIn.value = true;
+          Get.offAll(NavBar());
+        } else {
+          // Handle server response errors
+          print('Failed to register on server: ${response.body}');
+        }
+      } else {
+        print('Google sign-in failed');
+      }
     } catch (error) {
-      print(error);
+      print('Error during Google sign-in: $error');
+    } finally {
+      isLoaded.value = true;
     }
+  }
+
+  Future<http.Response> _registerUserOnServer(String email, String? displayName,
+      String? accessToken, String? id) async {
+    final url = Uri.parse(
+        'https://your-server-url.com/api/register'); // Replace with your server URL
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'email': email,
+        'name': displayName,
+        'accessToken': accessToken,
+        'id': id,
+      }),
+    );
+    return response;
   }
 
   Future<void> signOut() async {
-    await _googleSignIn.disconnect();
-  }
-
-  Future<void> verifyToken(String? idToken) async {
-    if (idToken != null) {
-      final response = await http.post(
-        Uri.parse('http://your-server-address/api/google-signin'),
-        body: json.encode({'token': idToken}),
-        headers: {'Content-Type': 'application/json'},
-      );
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-        // Handle the data from your backend
-      } else {
-        // Handle error response from your backend
-      }
-    }
+    await _googleSignIn.signOut();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', false);
+    isSignedIn.value = false;
   }
 }

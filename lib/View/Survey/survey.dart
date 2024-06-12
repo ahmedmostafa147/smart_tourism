@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_tourism/Controller/Survay/out_put_servay.dart';
+import 'package:smart_tourism/Controller/Survay/survay_controller.dart';
 import '../../widget/BottomNavigationBar/bottom_navigation_bar.dart';
 import '../../widget/Custom%20Material%20Button/custom_material_button.dart';
 
@@ -28,13 +30,9 @@ class _SurveyState extends State<Survey> {
     'Safari',
   ];
 
-  Future<void> saveSurvey() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('survey', selectedTypes);
-  }
-
   @override
   Widget build(BuildContext context) {
+    SurveySaveController surveyController = Get.put(SurveySaveController());
     return Scaffold(
       appBar: AppBar(
         title: Text('Tourism Preferences'.tr),
@@ -85,12 +83,17 @@ class _SurveyState extends State<Survey> {
                   SizedBox(height: 20.0.h),
                 ],
               ),
-              CustomMaterialButton(
-                buttonText: "Submit".tr,
-                onPressed: () async {
-                  await saveSurvey();
-                  Get.off(NavBar());
-                },
+              Obx(
+                () => surveyController.isLoading.value
+                    ? Text('Loading...'.tr)
+                    : CustomMaterialButton(
+                        buttonText: "Submit".tr,
+                        onPressed: () async {
+                          await surveyController
+                              .submitSurvey(selectedTypes.join(','));
+                          Get.off(NavBar());
+                        },
+                      ),
               ),
             ],
           ),

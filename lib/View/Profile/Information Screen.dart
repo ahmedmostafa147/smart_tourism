@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/Controller/Auth_controller/google_auth_controller.dart';
 import '../Favorite/favorite.dart';
 import 'widget/about/about.dart';
 import 'widget/Logout/logout.dart';
@@ -27,6 +28,7 @@ class _ProfileState extends State<Profile> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             RowUser(),
             RowOptions(
@@ -39,6 +41,13 @@ class _ProfileState extends State<Profile> {
                 onTap: () {},
                 text: "Plans".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesBusiness))),
+            RowOptions(
+              text: "Survay",
+              IconName: const ImageIcon(AssetImage(Assets.imagesCircleUser)),
+              onTap: () {
+                Get.toNamed('/Survey');
+              },
+            ),
             RowOptions(
               text: "AI Chat",
               IconName: const ImageIcon(AssetImage(Assets.imagesMessages)),
@@ -89,6 +98,18 @@ class _ProfileState extends State<Profile> {
                 },
                 text: "Delete Account".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesDelete))),
+            RowOptions(
+              text: "SignoutGoogle",
+              IconName: ImageIcon(
+                AssetImage(Assets.imagesLogout),
+              ),
+              onTap: () {
+                GoogleSignInController _controller =
+                    Get.put(GoogleSignInController());
+
+                _controller.signOut();
+              },
+            ),
             RowOptions(
                 onTap: () {
                   {

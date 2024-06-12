@@ -1,52 +1,88 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:country_icons/country_icons.dart';
 
-class ContainerList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 14,
-      itemBuilder: (context, index) {
-        return CustomContainer(index: index);
-      },
-    );
+class Country {
+  final String name;
+  final String countryCode;
+
+  Country(this.name, this.countryCode);
+}
+
+class CountryController extends GetxController {
+  var favoriteCountries = <Country>[].obs;
+
+  void toggleFavorite(Country country) {
+    if (favoriteCountries.contains(country)) {
+      favoriteCountries.remove(country);
+    } else {
+      favoriteCountries.add(country);
+    }
   }
 }
 
-class CustomContainer extends StatelessWidget {
-  final int index;
+class CountrySelectionPage extends StatelessWidget {
+  final CountryController controller = Get.put(CountryController());
 
-  CustomContainer({required this.index});
+  final List<Country> countries = [
+    Country('Egypt', 'eg'),
+    Country('Saudi Arabia', 'sa'),
+    Country('UAE', 'ae'),
+    Country('Oman', 'om'),
+    Country('Lebanon', 'lb'),
+    Country('Morocco', 'ma'),
+    Country('Algeria', 'dz'),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        border: Border.all(
-          color: Colors.teal,
-          width: 2.0,
-        ),
-        borderRadius: BorderRadius.circular(10.0),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Select Favorite Countries'),
       ),
-      padding: EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          Icon(
-            Icons.flag,
-            color: Colors.teal,
-            size: 30.0,
-          ),
-          SizedBox(width: 10.0),
-          Text(
-            'Country Name ${index + 1}',
-            style: TextStyle(
-              color: Colors.teal,
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
+      body: GridView.builder(
+        padding: EdgeInsets.all(10.0),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 10.0,
+          crossAxisSpacing: 10.0,
+        ),
+        itemCount: countries.length,
+        itemBuilder: (context, index) {
+          final country = countries[index];
+          return GestureDetector(
+            onTap: () {
+              controller.toggleFavorite(country);
+            },
+            child: Obx(() {
+              final isSelected = controller.favoriteCountries.contains(country);
+              return GridTile(
+                child: Image.asset(
+                  'icons/flags/png/${country.countryCode}.png',
+                  package: 'country_icons',
+                  fit: BoxFit.cover,
+                ),
+                footer: GridTileBar(
+                  backgroundColor: Colors.black54,
+                  title: Text(country.name),
+                  trailing: Icon(
+                    isSelected ? Icons.favorite : Icons.favorite_border,
+                    color: isSelected ? Colors.red : Colors.white,
+                  ),
+                ),
+              );
+            }),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          final selectedCountries =
+              controller.favoriteCountries.map((c) => c.name).join(', ');
+          Get.snackbar('Selected Countries',
+              selectedCountries.isNotEmpty ? selectedCountries : 'None');
+        },
+        child: Icon(Icons.check),
       ),
     );
   }
