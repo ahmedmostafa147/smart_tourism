@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/Core/constants/font.dart';
 import '../AuthWidget/text_form_field.dart';
 import '../../../Controller/location_controller.dart';
 import '../../../Controller/Auth_controller/registration_controller.dart';
@@ -28,19 +29,20 @@ class RegisterView extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CustomLogoAuth(),
-                    SizedBox(height: 15.h),
-                    Center(
-                      child: Text(
-                        "Welcome To Smart Tourism",
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "Play",
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CustomLogoAuth(),
+                        Text(
+                          "Welcome To Smart Tourism".tr,
+                          style: TextStyle(
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: TextFontStyle.Mano),
                         ),
-                      ),
+                      ],
                     ),
-                    SizedBox(height: 5.h),
+                    SizedBox(height: 10.h),
                     Text(
                       "REGISTER",
                       style: TextStyle(
@@ -48,7 +50,6 @@ class RegisterView extends StatelessWidget {
                         fontWeight: FontWeight.w200,
                       ),
                     ),
-                    SizedBox(height: 5.h),
                     const Text(
                       "Register To Continue Using Smart Tourism",
                       style: TextStyle(color: Colors.grey),
@@ -72,7 +73,7 @@ class RegisterView extends StatelessWidget {
                                 )
                               : SizedBox.shrink(),
                     ),
-                    SizedBox(height: 15.h),
+                    SizedBox(height: 20.h),
                     CustomTextForm(
                       hintText: "Enter Your Last Name",
                       controller: registrationController.last,
@@ -91,7 +92,7 @@ class RegisterView extends StatelessWidget {
                                 )
                               : SizedBox.shrink(),
                     ),
-                    SizedBox(height: 15.h),
+                    SizedBox(height: 20.h),
                     CustomTextForm(
                       hintText: "Enter Your Email",
                       controller: registrationController.email,
@@ -109,7 +110,7 @@ class RegisterView extends StatelessWidget {
                             )
                           : SizedBox.shrink(),
                     ),
-                    SizedBox(height: 15.h),
+                    SizedBox(height: 20.h),
                     CustomTextForm(
                       hintText: "Enter Your Password",
                       controller: registrationController.password,
@@ -128,9 +129,9 @@ class RegisterView extends StatelessWidget {
                                 )
                               : SizedBox.shrink(),
                     ),
-                    SizedBox(height: 15.h),
+                    SizedBox(height: 20.h),
                     Container(
-                      height: 50.h,
+                      height: 45.h,
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
@@ -140,7 +141,7 @@ class RegisterView extends StatelessWidget {
                         border: Border.all(
                           color: Colors.grey,
                         ),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: GestureDetector(
                         onTap: () {
@@ -172,6 +173,7 @@ class RegisterView extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(height: 20.h),
                   ],
                 ),
                 Obx(

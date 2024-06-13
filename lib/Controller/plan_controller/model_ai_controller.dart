@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:smart_tourism/Controller/plan_controller/create_plan_controller.dart';
+import 'package:smart_tourism/Controller/Survay/survay_controller.dart';
 
 class Recommendation {
   final String title;
@@ -47,6 +47,7 @@ class ModelAIController extends GetxController {
   final List<String> governorates = ['Alexandria', 'Cairo', 'Giza', 'Luxor'];
   final List<String> numDays = ['1', '2', '3', '4', '5'];
   final List<String> budget = ['1000', '2000', '3000', '4000', '5000'];
+  SurveySaveController surveySaveController = Get.put(SurveySaveController());
 
   void showAllCountries() {
     filteredCountries.value = countries;
@@ -75,7 +76,7 @@ class ModelAIController extends GetxController {
       final Map<String, dynamic> requestData = {
         "country": countryController.text.trim(),
         "governorate": governorateController.text.trim(),
-        "survey_responses": ["Museums"], // Example survey responses
+         "survey_responses": surveySaveController.selectedTypes,
         "num_days": numDaysController.text.trim(),
         "budget": budgetController.text.trim(),
       };
@@ -93,8 +94,6 @@ class ModelAIController extends GetxController {
         data.forEach((element) {
           recommendations.add(Recommendation.fromJson(element));
         });
-        
-
       } else {
         throw Exception('Failed to load recommendations');
       }

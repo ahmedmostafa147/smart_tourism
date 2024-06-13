@@ -12,7 +12,7 @@ class CustomButtonAuth extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10, bottom: 20),
       alignment: Alignment.topRight,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.teal)),
       
       width: double.infinity,

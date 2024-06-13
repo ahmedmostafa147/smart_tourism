@@ -35,12 +35,6 @@ class FavoritesScreen extends StatelessWidget {
           );
         }
       }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showAddFavoriteDialog(context);
-        },
-        child: Icon(Icons.add),
-      ),
     );
   }
 
@@ -54,23 +48,6 @@ class FavoritesScreen extends StatelessWidget {
       builder: (context) {
         return AlertDialog(
           title: Text('Add Favorite'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: typeController,
-                decoration: InputDecoration(labelText: 'Type'),
-              ),
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(labelText: 'Name'),
-              ),
-              TextField(
-                controller: locationController,
-                decoration: InputDecoration(labelText: 'Location'),
-              ),
-            ],
-          ),
           actions: [
             TextButton(
               onPressed: () {

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -40,28 +41,59 @@ class Plan {
 }
 
 class PlanController extends GetxController {
-  var plan = Plan(
-      planBudget: 0,
-      planReview: '',
-      planDuration: 0,
-      destination: '',
-      planIsRecommended: true,
-      restaurantNames: [],
-      hotelNames: [],
-      placeNames: []).obs;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final RxBool isLoading = false.obs;
+  final TextEditingController countryController = TextEditingController();
+  final TextEditingController governorateController = TextEditingController();
+  final TextEditingController numDaysController = TextEditingController();
+  final TextEditingController budgetController = TextEditingController();
+  final RxList<Plan> plans = <Plan>[].obs;
+  final RxList<String> filteredCountries = RxList<String>();
+  final RxList<String> filteredGovernorates = RxList<String>();
+  final RxList<String> filterednumDays = RxList<String>();
+  final RxList<String> filteredbudget = RxList<String>();
+  final List<String> countries = ['Egypt', 'USA', 'France', 'Italy'];
+  final List<String> governorates = ['Alexandria', 'Cairo', 'Giza', 'Luxor'];
+  final List<String> numDays = ['1', '2', '3', '4', '5'];
+  final List<String> budget = ['1000', '2000', '3000', '4000', '5000'];
+  void showAllCountries() {
+    filteredCountries.value = countries;
+  }
+
+  void showAllGovernorates() {
+    filteredGovernorates.value = governorates;
+  }
+
+  void showAllnumDays() {
+    filterednumDays.value = numDays;
+  }
+
+  void showAllbudget() {
+    filteredbudget.value = budget;
+  }
 
   Future<void> createPlan(Plan newPlan) async {
-    final url = ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.createPlan;
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode(newPlan),
-    );
+    try {
+      if (!formKey.currentState!.validate()) {
+        return;
+      }
+      isLoading.value = true;
+      plans.clear();
 
-    if (response.statusCode == 200) {
-      Get.snackbar("Success", "Plan created successfully");
-    } else {
-      Get.snackbar("Error", "Failed to create plan");
+      final url = ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.createPlan;
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(newPlan),
+      );
+
+      if (response.statusCode == 200) {
+        Get.snackbar("Success", "Plan created successfully");
+      } else {
+        Get.snackbar("Error", "Failed to create plan");
+      }
+    } finally {
+      isLoading.value = false;
     }
   }
 

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_tourism/Controller/Survay/out_put_servay.dart';
 import 'package:smart_tourism/Controller/Survay/survay_controller.dart';
-import '../../widget/BottomNavigationBar/bottom_navigation_bar.dart';
-import '../../widget/Custom%20Material%20Button/custom_material_button.dart';
+import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_button.dart';
 
 class Survey extends StatefulWidget {
   @override
@@ -13,26 +9,35 @@ class Survey extends StatefulWidget {
 }
 
 class _SurveyState extends State<Survey> {
-  List<String> selectedTypes = [];
-
   final List<String> tourismTypes = [
-    'Adventure',
-    'Cultural',
-    'Beach',
-    'Historical',
-    'Nature',
-    'Shopping',
-    'Relaxation',
-    'Urban',
-    'Culinary',
-    'Wildlife',
-    'Mountain',
-    'Safari',
+    'Tours',
+    'Archaeological tourism',
+    'for fun',
+    'Religious Tourism',
+    'parks',
+    'Museums',
+    'malls',
+    'games',
+    'Natural views',
+    'water places',
   ];
+
+  List<String> selectedTypes = [];
+  final SurveySaveController surveyController = Get.put(SurveySaveController());
+
+  @override
+  void initState() {
+    super.initState();
+    loadSelectedTypes();
+  }
+
+  Future<void> loadSelectedTypes() async {
+    selectedTypes = await surveyController.getSelectedTypes();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    SurveySaveController surveyController = Get.put(SurveySaveController());
     return Scaffold(
       appBar: AppBar(
         title: Text('Tourism Preferences'.tr),
@@ -49,12 +54,11 @@ class _SurveyState extends State<Survey> {
                   Text(
                     'Select Your Preferred Types of Tourism'.tr,
                     style: TextStyle(
-                      fontSize: 20.0.sp,
+                      fontSize: 20.0,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  SizedBox(height: 20.0.sp),
-                  // Display GridView with tourism types
+                  SizedBox(height: 20.0),
                   GridView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
@@ -80,7 +84,7 @@ class _SurveyState extends State<Survey> {
                       );
                     },
                   ),
-                  SizedBox(height: 20.0.h),
+                  SizedBox(height: 20.0),
                 ],
               ),
               Obx(
@@ -89,9 +93,7 @@ class _SurveyState extends State<Survey> {
                     : CustomMaterialButton(
                         buttonText: "Submit".tr,
                         onPressed: () async {
-                          await surveyController
-                              .submitSurvey(selectedTypes.join(','));
-                          Get.off(NavBar());
+                          await surveyController.submitSurvey(selectedTypes);
                         },
                       ),
               ),
@@ -128,7 +130,7 @@ class TourismTypeItem extends StatelessWidget {
             type.tr,
             style: TextStyle(
               color: isSelected ? Colors.white : Colors.black,
-              fontSize: 16.0.sp,
+              fontSize: 16.0,
             ),
           ),
         ),

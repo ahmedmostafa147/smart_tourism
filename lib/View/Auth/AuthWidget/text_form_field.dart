@@ -49,15 +49,15 @@ class _CustomTextFormState extends State<CustomTextForm> {
             : null,
         border: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.grey),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.teal),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.grey),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
     );

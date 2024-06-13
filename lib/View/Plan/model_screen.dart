@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../Controller/model_ai_controller.dart';
+import '../../Controller/plan_controller/model_ai_controller.dart';
 
 class RecommendationScreen extends StatelessWidget {
   final ModelAIController controller = Get.put(ModelAIController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

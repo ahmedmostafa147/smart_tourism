@@ -17,7 +17,7 @@ class _GoogleLoginState extends State<GoogleLogin> {
       margin: const EdgeInsets.only(top: 10, bottom: 20),
       alignment: Alignment.topRight,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.redAccent)),
       width: double.infinity,
       child: Column(
@@ -27,11 +27,11 @@ class _GoogleLoginState extends State<GoogleLogin> {
             height: 40.h,
             minWidth: double.infinity,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             onPressed: _controller.signIn,
             child: Text(
               'Google Sign-In',
-              style: TextStyle(color: Colors.redAccent, fontSize: 20),
+              style: TextStyle(color: Colors.redAccent, fontSize: 20.sp),
             ),
           ),
         ],
