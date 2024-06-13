@@ -41,41 +41,54 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(
                 height: 24.h,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Nearest to you'.tr,
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    'View All'.tr,
-                    style: TextStyle(fontSize: 17.sp, color: Colors.teal),
-                  ),
-                ],
+              Text(
+                'You may like this '.tr,
+                style: TextStyle(
+                    color: Colors.teal,
+                    fontSize: 20.sp,
+                    height: 1.3.sp,
+                    fontFamily: "Mano"),
               ),
-              // ContainerDisplayNearestHome(),
-              SizedBox(
-                height: 24.h,
+              Text(
+                'You may like this Place'.tr,
+                style: TextStyle(
+                    color: Colors.teal,
+                    fontSize: 20.sp,
+                    height: 1.3.sp,
+                    fontFamily: "Mano"),
               ),
-              LastPlan(),
-              SizedBox(
-                height: 24.h,
+              Text(
+                'You may like this '.tr,
+                style: TextStyle(
+                    color: Colors.teal,
+                    fontSize: 20.sp,
+                    height: 1.3.sp,
+                    fontFamily: "Mano"),
               ),
-              ListDiscoverPlaces(),
               SizedBox(
-                height: 24.h,
+                height: 15.h,
               ),
-              YouMayLikeThis(),
-              SizedBox(
-                height: 24.h,
+              Text(
+                'You may like this Restaurant'.tr,
+                style: TextStyle(
+                    color: Colors.teal,
+                    fontSize: 17.sp,
+                    height: 1.3.sp,
+                    fontFamily: "Mano"),
               ),
-              ContainerDisplayRes(),
               SizedBox(
-                height: 24.h,
+                height: 15.h,
+              ),
+              Text(
+                'You may like this Hotels '.tr,
+                style: TextStyle(
+                    color: Colors.teal,
+                    fontSize: 20.sp,
+                    height: 1.3.sp,
+                    fontFamily: "Mano"),
+              ),
+              SizedBox(
+                height: 15.h,
               ),
             ],
           ),

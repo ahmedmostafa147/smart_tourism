@@ -68,7 +68,8 @@ class _PlanState extends State<Plan> {
                         }
                         if (tourismTypes[index] == 'AI'.tr) {
                           Get.to(() =>
-                              RecommendationScreen()); // Navigate to recommendation screen
+                          
+                              ()); // Navigate to recommendation screen
                         }
                         if (tourismTypes[index] == 'You'.tr) {
                           Get.to(() =>

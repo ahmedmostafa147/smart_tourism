@@ -7,16 +7,18 @@ class CustomTextForm extends StatefulWidget {
   final String? Function(String?)? validator;
   final bool isPassword;
   final TextInputType? keyboardType;
+  final FocusNode? focusNode; 
 
-  CustomTextForm({
-    Key? key,
-    required this.hintText,
-    required this.controller,
-    required this.labelText,
-    this.validator,
-    required this.isPassword,
-    this.keyboardType,
-  }) : super(key: key);
+  CustomTextForm(
+      {Key? key,
+      required this.hintText,
+      required this.controller,
+      required this.labelText,
+      this.validator,
+      required this.isPassword,
+      this.keyboardType,
+      this.focusNode})
+      : super(key: key);
 
   @override
   _CustomTextFormState createState() => _CustomTextFormState();

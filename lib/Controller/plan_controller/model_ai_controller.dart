@@ -76,7 +76,7 @@ class ModelAIController extends GetxController {
       final Map<String, dynamic> requestData = {
         "country": countryController.text.trim(),
         "governorate": governorateController.text.trim(),
-         "survey_responses": surveySaveController.selectedTypes,
+        "survey_responses": surveySaveController.selectedTypes,
         "num_days": numDaysController.text.trim(),
         "budget": budgetController.text.trim(),
       };

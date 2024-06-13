@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/Auth_controller/google_auth_controller.dart';
-import '../Favorite/favorite.dart';
 import 'widget/about/about.dart';
 import 'widget/Logout/logout.dart';
 import 'widget/Notification/notifiction.dart';
@@ -28,7 +26,7 @@ class _ProfileState extends State<Profile> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             RowUser(),
             RowOptions(
@@ -62,13 +60,6 @@ class _ProfileState extends State<Profile> {
                     const ImageIcon(AssetImage(Assets.imagesChathistory))),
             RowOptions(
                 onTap: () {
-                  Get.to(() => FavoritesScreen());
-                },
-                text: "Favorites".tr,
-                IconName:
-                    const ImageIcon(AssetImage(Assets.imagesSquareHeart))),
-            RowOptions(
-                onTap: () {
                   Get.bottomSheet(NotificationView());
                 },
                 text: "Notifications".tr,
@@ -99,23 +90,8 @@ class _ProfileState extends State<Profile> {
                 text: "Delete Account".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesDelete))),
             RowOptions(
-              text: "SignoutGoogle",
-              IconName: ImageIcon(
-                AssetImage(Assets.imagesLogout),
-              ),
-              onTap: () {
-                GoogleSignInController _controller =
-                    Get.put(GoogleSignInController());
-
-                _controller.signOut();
-              },
-            ),
-            RowOptions(
                 onTap: () {
-                  {
-                    Get.bottomSheet(Logout());
-                  }
-                  ;
+                  Get.bottomSheet(Logout());
                 },
                 text: "Logout".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesLogout))),

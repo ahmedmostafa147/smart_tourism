@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:smart_tourism/View/Profile/widget/Profile%20Personal%20Data/profile_page.dart';
+import 'package:smart_tourism/View/Search/Widget/result_search.dart';
 import 'package:smart_tourism/View/chat/chat.dart';
 import 'View/Auth/Register/register.dart';
 import 'View/Plan/plan.dart';
 import 'View/Profile/Information Screen.dart';
 import 'View/Profile/widget/Logout/logout.dart';
-import 'View/Search/Search.dart';
 import 'View/Survey/survey.dart';
 import 'widget/BottomNavigationBar/bottom_navigation_bar.dart';
 import 'View/Auth/Login/login.dart';
@@ -28,6 +28,7 @@ class AppRoute {
   static const String recommendation = "/recommendation";
   static const String placeDetails = "/placeDetails";
   static const String logout = "/logout";
+  static const String chat = "/ResultSearch";
   static const String location = "/location";
   static const String ProfilePage = "/ProfilePage";
   static const String ChatScreen = "/ChatScreen";
@@ -40,7 +41,7 @@ Map<String, Widget Function(BuildContext)> routes = {
   AppRoute.home: (context) => const HomeView(),
   AppRoute.bottomNaveBar: (context) => const NavBar(),
   AppRoute.profile: (context) => Profile(),
-  AppRoute.search: (context) => SearchScreen(),
+  AppRoute.search: (context) => ResultSearch(),
   AppRoute.plan: (context) => Plan(),
   AppRoute.survey: (context) => Survey(),
   AppRoute.logout: (context) => Logout(),
