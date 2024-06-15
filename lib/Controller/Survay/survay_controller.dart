@@ -17,27 +17,68 @@ class SurveySaveController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('selectedTypes', selectedTypes);
 
+    // Get the token from SharedPreferences
+    String? token = prefs.getString('token');
+
+    if (token == null || token.isEmpty) {
+      isLoading.value = false;
+      Get.snackbar("Error", "Authentication token is missing");
+      return;
+    }
+
     // Send to server
     final url = ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.survey;
     final body = jsonEncode({
       "category": selectedTypes,
     });
 
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {"Content-Type": "application/json"},
+    try {
+      final response = await _postWithRedirect(Uri.parse(url), body, token);
+
+      if (response.statusCode == 200) {
+        Get.snackbar("Success", "Survey submitted successfully");
+        Get.off(NavBar());
+      } else {
+        Get.snackbar(
+            "Error", "Failed to submit survey: ${response.reasonPhrase}");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Failed to submit survey: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<http.Response> _postWithRedirect(
+      Uri url, String body, String token) async {
+    final client = http.Client();
+    http.Response response = await client.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
       body: body,
     );
 
-    if (response.statusCode == 200) {
-      isLoading.value = false;
-      Get.snackbar("Success", "Survey submitted successfully");
-      print(selectedTypes);
-      Get.off(NavBar());
-    } else {
-      isLoading.value = false;
-      Get.snackbar("Error", "Failed to submit survey");
+    int redirectCount = 0;
+    while (response.isRedirect && redirectCount < 5) {
+      final newUrl = response.headers['location'];
+      if (newUrl != null) {
+        response = await client.post(
+          Uri.parse(newUrl),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $token",
+          },
+          body: body,
+        );
+        redirectCount++;
+      } else {
+        break;
+      }
     }
+    return response;
   }
 
   Future<List<String>> getSelectedTypes() async {

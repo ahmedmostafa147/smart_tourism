@@ -38,6 +38,7 @@ class LogoutController extends GetxController {
       if (response.statusCode == 200) {
         // Clear token from shared preferences
         await prefs.remove('token');
+        await prefs.clear();
         Get.snackbar("Success", "Logout Success",
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.teal,
@@ -45,7 +46,7 @@ class LogoutController extends GetxController {
         // Navigate to login screen
         Get.offAll(() => LoginView());
       } else {
-         var responseBody = jsonDecode(response.body);
+        var responseBody = jsonDecode(response.body);
         var errorMessage = responseBody["message"];
         throw 'Logout failed: $errorMessage';
       }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Controller/Survay/survay_controller.dart';
 import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_button.dart';
@@ -28,12 +29,6 @@ class _SurveyState extends State<Survey> {
   @override
   void initState() {
     super.initState();
-    loadSelectedTypes();
-  }
-
-  Future<void> loadSelectedTypes() async {
-    selectedTypes = await surveyController.getSelectedTypes();
-    setState(() {});
   }
 
   @override
@@ -89,7 +84,7 @@ class _SurveyState extends State<Survey> {
               ),
               Obx(
                 () => surveyController.isLoading.value
-                    ? Text('Loading...'.tr)
+                    ? CircularProgressIndicator()
                     : CustomMaterialButton(
                         buttonText: "Submit".tr,
                         onPressed: () async {
@@ -123,15 +118,16 @@ class TourismTypeItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: isSelected ? Colors.teal : Colors.grey[200],
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(5.0),
         ),
         child: Center(
           child: Text(
             type.tr,
             style: TextStyle(
               color: isSelected ? Colors.white : Colors.black,
-              fontSize: 16.0,
+              fontSize: 15.sp,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
       ),
