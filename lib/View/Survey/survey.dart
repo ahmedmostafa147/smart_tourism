@@ -80,6 +80,13 @@ class _SurveyState extends State<Survey> {
                     },
                   ),
                   SizedBox(height: 20.0),
+                  CustomMaterialButton(
+                    buttonText: "Fetch Survey Results".tr,
+                    onPressed: () async {
+                      await surveyController.fetchSurveyResults();
+                      
+                    },
+                  ),
                 ],
               ),
               Obx(
@@ -98,6 +105,8 @@ class _SurveyState extends State<Survey> {
       ),
     );
   }
+
+  
 }
 
 class TourismTypeItem extends StatelessWidget {

@@ -18,7 +18,7 @@ class AutocompleteField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label),
+        
         Autocomplete<String>(
           optionsBuilder: (TextEditingValue textEditingValue) {
             if (textEditingValue.text.isEmpty) {
@@ -52,6 +52,7 @@ class AutocompleteField extends StatelessWidget {
               focusNode: fieldFocusNode,
               decoration: InputDecoration(
                 hintText: hintText,
+                labelText: label,
                 border: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.grey),
                   borderRadius: BorderRadius.circular(10),
@@ -74,7 +75,7 @@ class AutocompleteField extends StatelessWidget {
             );
           },
         ),
-        SizedBox(height: 16.0),
+        
       ],
     );
   }

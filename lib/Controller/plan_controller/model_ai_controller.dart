@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:smart_tourism/Controller/Survay/survay_controller.dart';
 
 class Recommendation {
@@ -49,6 +48,16 @@ class ModelAIController extends GetxController {
   final List<String> budget = ['1000', '2000', '3000', '4000', '5000'];
   SurveySaveController surveySaveController = Get.put(SurveySaveController());
 
+  @override
+  void onInit() {
+    super.onInit();
+    loadSurveyResults();
+  }
+
+  Future<void> loadSurveyResults() async {
+    await surveySaveController.fetchSurveyResults();
+  }
+
   void showAllCountries() {
     filteredCountries.value = countries;
   }
@@ -76,10 +85,11 @@ class ModelAIController extends GetxController {
       final Map<String, dynamic> requestData = {
         "country": countryController.text.trim(),
         "governorate": governorateController.text.trim(),
-        "survey_responses": surveySaveController.selectedTypes,
+        "survey_responses": surveySaveController.surveyResults,
         "num_days": numDaysController.text.trim(),
         "budget": budgetController.text.trim(),
       };
+
       var url = Uri.parse(
           "https://model-smart-tourism.onrender.com/recommendations/");
       final http.Response response = await http.post(
@@ -91,6 +101,7 @@ class ModelAIController extends GetxController {
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
         print(data);
+        print(surveySaveController.surveyResults.toList());
         data.forEach((element) {
           recommendations.add(Recommendation.fromJson(element));
         });

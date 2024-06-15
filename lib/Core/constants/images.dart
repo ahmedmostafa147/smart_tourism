@@ -100,5 +100,9 @@ class Assets {
   /// Assets for imagesSquareStar
   /// Assets/Images/square-star.png
   static const String imagesSquareStar = "Assets/Images/square-star.png";
+
+  /// Assets for imagesUntitled design
+  /// Assets/Images/Untitled design.png
+  static const String imagesUntitleddesign = "Assets/Images/Untitled design.png";
 }
 

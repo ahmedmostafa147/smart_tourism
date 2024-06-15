@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Controller/plan_controller/model_ai_controller.dart';
+import 'package:smart_tourism/View/Auth/AuthWidget/custom_button_auth.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/text_form_field.dart';
 import 'package:smart_tourism/View/Plan/display_plan.dart';
 import 'package:smart_tourism/View/Plan/widget/autocomplete.dart';
@@ -19,12 +20,13 @@ class PreferencesScreen extends StatelessWidget {
         title: Text('Select Preferences'),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(10.0),
         child: Form(
           key: controller.formKey,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
             children: [
+              SizedBox(height: 16.h),
               CustomTextForm(
                 hintText: "Plan Name",
                 controller: ControllerPlanName,
@@ -37,52 +39,47 @@ class PreferencesScreen extends StatelessWidget {
                   return null;
                 },
               ),
-              Text(
-                'Select preferences for your plan: $ControllerPlanName',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 16.0),
+              SizedBox(height: 25.h),
               AutocompleteField(
                 label: "Country",
                 options: controller.countries,
                 controller: controller.countryController,
                 hintText: 'Enter country name',
               ),
+              SizedBox(height: 16.h),
               AutocompleteField(
                 label: "Choose Governorate",
                 options: controller.governorates,
                 controller: controller.governorateController,
                 hintText: 'Enter governorate name',
               ),
+              SizedBox(height: 25.h),
               AutocompleteField(
                 label: "Number of Days",
                 options: controller.numDays,
                 controller: controller.numDaysController,
                 hintText: 'Enter number of days',
               ),
+              SizedBox(height: 25.h),
               AutocompleteField(
                 label: "Budget",
                 options: controller.budget,
                 controller: controller.budgetController,
                 hintText: 'Enter budget',
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  if (controller.formKey.currentState!.validate()) {
-                    await controller.getRecommendations();
-                    Get.to(() => RecommendationScreen(
-                        planName: ControllerPlanName.value.text));
-                  }
-                },
-                child: Obx(
-                  () => Text(controller.isLoading.value
-                      ? 'Loading...'
-                      : 'Get Recommendations'),
-                ),
-              ),
+              SizedBox(height: 25.h),
+              Obx(() => CustomButtonAuth(
+                    title: controller.isLoading.value
+                        ? 'Loading...'
+                        : 'Get Recommendations',
+                    onPressed: () async {
+                      if (controller.formKey.currentState!.validate()) {
+                        await controller.getRecommendations();
+                        Get.to(() => RecommendationScreen(
+                            planName: ControllerPlanName.text));
+                      }
+                    },
+                  )),
             ],
           ),
         ),

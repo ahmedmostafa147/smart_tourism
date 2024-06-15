@@ -43,7 +43,7 @@ class _ProfileState extends State<Profile> {
               text: "Survay",
               IconName: const ImageIcon(AssetImage(Assets.imagesCircleUser)),
               onTap: () {
-                Get.toNamed('/Survey');
+                Get.toNamed('/ResultSurvey');
               },
             ),
             RowOptions(

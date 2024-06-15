@@ -14,7 +14,6 @@ class CustomButtonAuth extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.teal)),
-      
       width: double.infinity,
       child: MaterialButton(
         elevation: 4,
@@ -22,7 +21,10 @@ class CustomButtonAuth extends StatelessWidget {
         minWidth: double.infinity,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         onPressed: onPressed,
-        child: Text(title, style: TextStyle(color: Colors.teal,fontSize: 20),),
+        child: Text(
+          title,
+          style: TextStyle(color: Colors.teal, fontSize: 20),
+        ),
       ),
     );
   }
