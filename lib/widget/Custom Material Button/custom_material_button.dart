@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_tourism/Core/constants/font.dart';
 
 class CustomMaterialButton extends StatelessWidget {
   final String buttonText;
@@ -25,7 +26,11 @@ class CustomMaterialButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      child: Text(buttonText),
+      child: Text(buttonText,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontFamily: TextFontStyle.Mano
+          )),
     );
   }
 }

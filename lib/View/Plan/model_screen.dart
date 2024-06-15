@@ -6,6 +6,7 @@ import 'package:smart_tourism/View/Auth/AuthWidget/custom_button_auth.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/text_form_field.dart';
 import 'package:smart_tourism/View/Plan/display_plan.dart';
 import 'package:smart_tourism/View/Plan/widget/autocomplete.dart';
+import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_button.dart';
 
 class PreferencesScreen extends StatelessWidget {
   final ModelAIController controller = Get.put(ModelAIController());
@@ -45,13 +46,18 @@ class PreferencesScreen extends StatelessWidget {
                 options: controller.countries,
                 controller: controller.countryController,
                 hintText: 'Enter country name',
+                onSelected: (String selection) {
+                  controller.showGovernoratesForSelectedCountry(selection);
+                },
               ),
-              SizedBox(height: 16.h),
-              AutocompleteField(
-                label: "Choose Governorate",
-                options: controller.governorates,
-                controller: controller.governorateController,
-                hintText: 'Enter governorate name',
+              SizedBox(height: 25.h),
+              Obx(
+                () => AutocompleteField(
+                  label: "Choose Governorate",
+                  options: controller.filteredGovernorates.toList(),
+                  controller: controller.governorateController,
+                  hintText: 'Enter governorate name',
+                ),
               ),
               SizedBox(height: 25.h),
               AutocompleteField(
@@ -68,8 +74,8 @@ class PreferencesScreen extends StatelessWidget {
                 hintText: 'Enter budget',
               ),
               SizedBox(height: 25.h),
-              Obx(() => CustomButtonAuth(
-                    title: controller.isLoading.value
+              Obx(() => CustomMaterialButton(
+                    buttonText: controller.isLoading.value
                         ? 'Loading...'
                         : 'Get Recommendations',
                     onPressed: () async {

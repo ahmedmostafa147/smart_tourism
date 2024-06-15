@@ -5,12 +5,14 @@ class AutocompleteField extends StatelessWidget {
   final List<String> options;
   final TextEditingController controller;
   final String hintText;
+  final ValueChanged<String>? onSelected;
 
   const AutocompleteField({
     required this.label,
     required this.options,
     required this.controller,
     required this.hintText,
+    this.onSelected,
   });
 
   @override
@@ -18,7 +20,6 @@ class AutocompleteField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        
         Autocomplete<String>(
           optionsBuilder: (TextEditingValue textEditingValue) {
             if (textEditingValue.text.isEmpty) {
@@ -32,6 +33,9 @@ class AutocompleteField extends StatelessWidget {
           },
           onSelected: (String selection) {
             controller.text = selection;
+            if (onSelected != null) {
+              onSelected!(selection);
+            }
           },
           fieldViewBuilder: (BuildContext context,
               TextEditingController fieldTextEditingController,
@@ -75,7 +79,6 @@ class AutocompleteField extends StatelessWidget {
             );
           },
         ),
-        
       ],
     );
   }

@@ -3,11 +3,12 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
+import 'package:smart_tourism/widget/BottomNavigationBar/bottom_navigation_bar.dart';
 
 class SurveySaveController extends GetxController {
   var isLoading = false.obs;
   var selectedTypes = <String>[].obs;
-  var surveyResults = <String>[];
+  var surveyResults = <String>[].obs;
 
   Future<void> submitSurvey(List<String> selectedTypes) async {
     isLoading.value = true;
@@ -32,7 +33,8 @@ class SurveySaveController extends GetxController {
       if (response.statusCode == 200) {
         await prefs.setStringList('selectedTypes', selectedTypes);
         Get.snackbar("Success", "Survey submitted successfully");
-        //Get.off(NavBar());
+
+        Get.off(NavBar());
       } else {
         Get.snackbar(
             "Error", "Failed to submit survey: ${response.reasonPhrase}");
@@ -78,17 +80,16 @@ class SurveySaveController extends GetxController {
 
   Future<void> fetchSurveyResults() async {
     isLoading.value = true;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
-    if (token == null || token.isEmpty) {
-      isLoading.value = false;
-      Get.snackbar("Error", "Authentication token is missing");
-      return;
-    }
+
     try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('token');
+      if (token == null || token.isEmpty) {
+        throw Exception("Authentication token is missing");
+      }
+
       final url =
           ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.outputSurvey;
-
       final response = await http.get(
         Uri.parse(url),
         headers: {
@@ -99,16 +100,16 @@ class SurveySaveController extends GetxController {
 
       if (response.statusCode == 200) {
         List<dynamic> data = jsonDecode(response.body);
-        surveyResults = List<String>.from(data);
+        surveyResults.value = List<String>.from(data);
         print(surveyResults);
-        isLoading.value = false;
       } else {
-        isLoading.value = false;
-        Get.snackbar("Error",
+        throw Exception(
             "Failed to fetch survey results: ${response.reasonPhrase}");
       }
     } catch (e) {
-      Get.snackbar("Error", "Failed to fetch survey results: $e");
+      Get.snackbar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
 }

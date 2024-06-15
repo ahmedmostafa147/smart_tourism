@@ -24,5 +24,5 @@ class _AuthEndPoints {
   final String deletePlan = 'delete_plan';
   final String updatePlan = 'update';
   final String survey = 'survey/';
-  final String outputSurvey = '/survey_responses';
+  final String outputSurvey = 'survey_responses';
 }

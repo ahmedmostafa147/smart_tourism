@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Controller/Survay/survay_controller.dart';
+import 'package:smart_tourism/Core/constants/font.dart';
 import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_button.dart';
 
 class Survey extends StatefulWidget {
@@ -49,11 +50,11 @@ class _SurveyState extends State<Survey> {
                   Text(
                     'Select Your Preferred Types of Tourism'.tr,
                     style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: 20.0.sp,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  SizedBox(height: 20.0),
+                  SizedBox(height: 20.0.h),
                   GridView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
@@ -79,19 +80,12 @@ class _SurveyState extends State<Survey> {
                       );
                     },
                   ),
-                  SizedBox(height: 20.0),
-                  CustomMaterialButton(
-                    buttonText: "Fetch Survey Results".tr,
-                    onPressed: () async {
-                      await surveyController.fetchSurveyResults();
-                      
-                    },
-                  ),
+                  SizedBox(height: 20.0.h),
                 ],
               ),
               Obx(
                 () => surveyController.isLoading.value
-                    ? CircularProgressIndicator()
+                    ? Text('Loading...'.tr)
                     : CustomMaterialButton(
                         buttonText: "Submit".tr,
                         onPressed: () async {
@@ -105,8 +99,6 @@ class _SurveyState extends State<Survey> {
       ),
     );
   }
-
-  
 }
 
 class TourismTypeItem extends StatelessWidget {
@@ -133,9 +125,9 @@ class TourismTypeItem extends StatelessWidget {
           child: Text(
             type.tr,
             style: TextStyle(
-              color: isSelected ? Colors.white : Colors.black,
-              fontSize: 15.sp,
-            ),
+                color: isSelected ? Colors.white : Colors.black,
+                fontSize: 14.sp,
+                fontFamily: TextFontStyle.Mano),
             textAlign: TextAlign.center,
           ),
         ),
