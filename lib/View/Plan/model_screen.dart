@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Controller/plan_controller/model_ai_controller.dart';
-import 'package:smart_tourism/View/Auth/AuthWidget/custom_button_auth.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/text_form_field.dart';
 import 'package:smart_tourism/View/Plan/display_plan.dart';
 import 'package:smart_tourism/View/Plan/widget/autocomplete.dart';
@@ -81,8 +80,14 @@ class PreferencesScreen extends StatelessWidget {
                     onPressed: () async {
                       if (controller.formKey.currentState!.validate()) {
                         await controller.getRecommendations();
-                        Get.to(() => RecommendationScreen(
-                            planName: ControllerPlanName.text));
+                        if (controller.recommendations.isNotEmpty) {
+                          controller.isLoading.value = false;
+
+                          Get.to(() => RecommendationScreen(
+                              planName: ControllerPlanName.text));
+                        } else {
+                          Get.snackbar('Error', 'No recommendations found');
+                        }
                       }
                     },
                   )),

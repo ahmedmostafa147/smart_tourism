@@ -2,39 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Controller/plan_controller/history_plan_controller.dart';
 
-class HistoryPlansScreen extends StatelessWidget {
-  final HistoryPlanController controller = Get.put(HistoryPlanController());
+class SavedPlansScreen extends StatelessWidget {
+  final SavedPlansController controller = Get.put(SavedPlansController());
 
-  @override
-  void initState() {
-    controller.fetchHistoryPlans();
+  SavedPlansScreen() {
+    controller.fetchSavedPlans();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('History Plans'),
+        title: Text('Saved Plans'),
       ),
-      body: Obx(() {
-        if (controller.isLoadingHistoryPlans.value) {
-          return Center(child: CircularProgressIndicator());
-        } else if (controller.historyPlans.isEmpty) {
-          return Center(child: Text('No plans found'));
-        } else {
-          return ListView.builder(
-            itemCount: controller.historyPlans.length,
-            itemBuilder: (context, index) {
-              final plan = controller.historyPlans[index];
-              return ListTile(
-                title: Text(plan.destination),
-                subtitle: Text(
-                    'Duration: ${plan.planDuration} days, Budget: ${plan.planBudget}'),
-              );
-            },
-          );
-        }
-      }),
+      body: Obx(
+        () => controller.isLoading.value
+            ? Center(child: CircularProgressIndicator())
+            : ListView.builder(
+                padding: const EdgeInsets.all(16.0),
+                itemCount: controller.savedPlans.length,
+                itemBuilder: (context, index) {
+                  final plan = controller.savedPlans[index];
+                  return Card(
+                    child: ListTile(
+                      title: Text(plan.title),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Price: ${plan.price}'),
+                          Text('Tags: ${plan.tags}'),
+                          Text('Governorate: ${plan.governorate}'),
+                          Text('Day: ${plan.day}'),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+      ),
     );
   }
 }

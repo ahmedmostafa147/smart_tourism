@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/View/Plan/history_plan.dart';
 import 'widget/about/about.dart';
 import 'widget/Logout/logout.dart';
 import 'widget/Notification/notifiction.dart';
@@ -29,6 +31,9 @@ class _ProfileState extends State<Profile> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             RowUser(),
+            SizedBox(
+              height: 10.h,
+            ),
             RowOptions(
                 onTap: () {
                   Get.to(() => ProfilePage());
@@ -36,7 +41,9 @@ class _ProfileState extends State<Profile> {
                 text: "Personal Data".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesCircleUser))),
             RowOptions(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => SavedPlansScreen());
+                },
                 text: "Plans".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesBusiness))),
             RowOptions(

@@ -61,6 +61,15 @@ class RecommendationScreen extends StatelessWidget {
                               style: TextStyle(color: Colors.white)),
                         ],
                       ),
+                      trailing: Obx(() => controller.isLoading.value
+                          ? CircularProgressIndicator()
+                          : IconButton(
+                              icon: Icon(Icons.bookmark_border_outlined,
+                                  color: Colors.white),
+                              onPressed: () {
+                                controller.saveRecommendation(recommendation);
+                              },
+                            )),
                     ),
                   );
                 },

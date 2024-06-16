@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:smart_tourism/Controller/Survay/survay_controller.dart';
+import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
 
 class Recommendation {
   final String title;
@@ -27,6 +29,16 @@ class Recommendation {
       governorate: json['Governorate'],
       day: json['Day'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'Title': title,
+      'Price': price,
+      'Tags': tags,
+      'Governorate': governorate,
+      'Day': day,
+    };
   }
 }
 
@@ -487,6 +499,43 @@ class ModelAIController extends GetxController {
       print('Failed to load recommendations: $e');
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<void> saveRecommendation(Recommendation recommendation) async {
+    final RxBool isLoadingSave = false.obs;
+    try {
+      isLoadingSave.value = true;
+      final url =
+          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.recommendations;
+      // Get the authentication token from shared preferences
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? token = prefs.getString('token');
+
+      // Make sure token exists
+      if (token == null) {
+        throw 'User is not logged in';
+      }
+
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          "Authorization": "Bearer $token",
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(recommendation.toJson()),
+      );
+
+      if (response.statusCode == 200) {
+        Get.snackbar("Success", "Recommendation saved successfully");
+      } else {
+        var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["message"];
+        throw 'Error: $errorMessage';
+      }
+    } catch (e) {
+      print('Failed to save recommendation: $e');
+      Get.snackbar("Error", "Failed to save recommendation: $e");
     }
   }
 }
