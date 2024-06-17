@@ -26,5 +26,5 @@ class _AuthEndPoints {
   final String survey = 'survey/';
   final String outputSurvey = 'survey_responses';
   final String recommendations = 'recommendations/';
-  final String outputRecommendations = 'plan_output/';
+  final String outputRecommendations = 'output_recommendations/';
 }
