@@ -47,7 +47,7 @@ class _ProfileState extends State<Profile> {
                 text: "Plans".tr,
                 IconName: const ImageIcon(AssetImage(Assets.imagesBusiness))),
             RowOptions(
-              text: "Survay",
+              text: "Survey",
               IconName: const ImageIcon(AssetImage(Assets.imagesCircleUser)),
               onTap: () {
                 Get.toNamed('/ResultSurvey');
@@ -60,11 +60,6 @@ class _ProfileState extends State<Profile> {
                 Get.toNamed('/ChatScreen');
               },
             ),
-            RowOptions(
-                onTap: () {},
-                text: "History Chat ".tr,
-                IconName:
-                    const ImageIcon(AssetImage(Assets.imagesChathistory))),
             RowOptions(
                 onTap: () {
                   Get.bottomSheet(NotificationView());

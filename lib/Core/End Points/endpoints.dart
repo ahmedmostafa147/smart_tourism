@@ -27,4 +27,8 @@ class _AuthEndPoints {
   final String outputSurvey = 'survey_responses';
   final String recommendations = 'recommendations/';
   final String outputRecommendations = 'output_recommendations/';
+  final String QuestionChat = "chat_questions/";
+  final String ResponseChat = "chat_responses/";
+  final String getChatHistoryQuestion = "output_questions/";
+  final String getChatHistoryResponse = "output_responses/";
 }
