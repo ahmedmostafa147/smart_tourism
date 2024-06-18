@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../../Controller/local_controller.dart';
+import '../../../../Controller/Lang/local_controller.dart';
 
 class ChooseThemeMode extends GetView<LocaleController> {
   const ChooseThemeMode({Key? key}) : super(key: key);

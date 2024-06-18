@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AutocompleteField extends StatelessWidget {
   final String label;
@@ -6,12 +7,14 @@ class AutocompleteField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final ValueChanged<String>? onSelected;
+  final RxBool isValidSelection;
 
   const AutocompleteField({
     required this.label,
     required this.options,
     required this.controller,
     required this.hintText,
+    required this.isValidSelection,
     this.onSelected,
   });
 
@@ -36,6 +39,8 @@ class AutocompleteField extends StatelessWidget {
             if (onSelected != null) {
               onSelected!(selection);
             }
+            isValidSelection.value =
+                true; // Update the RxBool when an option is selected
           },
           fieldViewBuilder: (BuildContext context,
               TextEditingController fieldTextEditingController,
@@ -51,32 +56,35 @@ class AutocompleteField extends StatelessWidget {
               }
             });
             controller.value = fieldTextEditingController.value;
-            return TextFormField(
-              controller: fieldTextEditingController,
-              focusNode: fieldFocusNode,
-              decoration: InputDecoration(
-                hintText: hintText,
-                labelText: label,
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.teal),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter $label';
-                }
-                return null;
-              },
-            );
+            return Obx(() => TextFormField(
+                  controller: fieldTextEditingController,
+                  focusNode: fieldFocusNode,
+                  decoration: InputDecoration(
+                    hintText: hintText,
+                    labelText: label,
+                    border: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.teal),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    errorText: isValidSelection.value
+                        ? null
+                        : 'Invalid selection', // Display error if not a valid selection
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter $label';
+                    }
+                    return null;
+                  },
+                ));
           },
         ),
       ],

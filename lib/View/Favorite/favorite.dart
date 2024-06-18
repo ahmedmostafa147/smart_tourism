@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../Controller/favorite_controller.dart';
+import '../../Controller/favorite/favorite_controller.dart';
 
 class FavoritesScreen extends StatelessWidget {
   final FavoriteController favoriteController = Get.put(FavoriteController());

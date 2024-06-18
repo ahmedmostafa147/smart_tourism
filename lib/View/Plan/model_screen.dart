@@ -9,7 +9,7 @@ import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_
 
 class PreferencesScreen extends StatelessWidget {
   final ModelAIController controller = Get.put(ModelAIController());
-  final TextEditingController ControllerPlanName = TextEditingController();
+  final TextEditingController planNameController = TextEditingController();
 
   PreferencesScreen();
 
@@ -29,7 +29,7 @@ class PreferencesScreen extends StatelessWidget {
               SizedBox(height: 16.h),
               CustomTextForm(
                 hintText: "Plan Name",
-                controller: ControllerPlanName,
+                controller: planNameController,
                 labelText: "Plan Name",
                 isPassword: false,
                 validator: (value) {
@@ -45,9 +45,20 @@ class PreferencesScreen extends StatelessWidget {
                 options: controller.countries,
                 controller: controller.countryController,
                 hintText: 'Enter country name',
+                isValidSelection: controller.isValidCountry,
                 onSelected: (String selection) {
                   controller.showGovernoratesForSelectedCountry(selection);
                 },
+              ),
+              SizedBox(height: 25.h),
+              Obx(
+                () => controller.attemptedValidation.value &&
+                        !controller.isValidCountry.value
+                    ? Text(
+                        'Invalid country selection.',
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : SizedBox.shrink(),
               ),
               SizedBox(height: 25.h),
               Obx(
@@ -55,39 +66,65 @@ class PreferencesScreen extends StatelessWidget {
                   label: "Choose Governorate",
                   options: controller.filteredGovernorates.toList(),
                   controller: controller.governorateController,
+                  isValidSelection: controller.isValidGovernorate,
                   hintText: 'Enter governorate name',
                 ),
               ),
               SizedBox(height: 25.h),
+              Obx(
+                () => controller.attemptedValidation.value &&
+                        !controller.isValidGovernorate.value
+                    ? Text(
+                        'Invalid governorate selection.',
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : SizedBox.shrink(),
+              ),
               AutocompleteField(
                 label: "Number of Days",
                 options: controller.numDays,
                 controller: controller.numDaysController,
+                isValidSelection: controller.isValidnumDays,
                 hintText: 'Enter number of days',
               ),
               SizedBox(height: 25.h),
+              Obx(
+                () => controller.attemptedValidation.value &&
+                        !controller.isValidnumDays.value
+                    ? Text(
+                        'Invalid number of days selection.',
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : SizedBox.shrink(),
+              ),
               AutocompleteField(
                 label: "Budget",
                 options: controller.budget,
                 controller: controller.budgetController,
+                isValidSelection: controller.isValidbudget,
                 hintText: 'Enter budget',
               ),
               SizedBox(height: 25.h),
+              Obx(
+                () => controller.attemptedValidation.value &&
+                        !controller.isValidbudget.value
+                    ? Text(
+                        'Invalid budget selection.',
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : SizedBox.shrink(),
+              ),
               Obx(() => CustomMaterialButton(
                     buttonText: controller.isLoading.value
                         ? 'Loading...'
                         : 'Get Recommendations',
                     onPressed: () async {
-                      if (controller.formKey.currentState!.validate()) {
-                        await controller.getRecommendations();
-                        if (controller.recommendations.isNotEmpty) {
-                          controller.isLoading.value = false;
-
-                          Get.to(() => RecommendationScreen(
-                              planName: ControllerPlanName.text));
-                        } else {
-                          Get.snackbar('Error', 'No recommendations found');
-                        }
+                      controller.attemptedValidation.value = true;
+                      await controller.getRecommendations();
+                      if (controller.recommendations.isNotEmpty) {
+                        Get.to(() => RecommendationScreen(
+                              planName: planNameController.text,
+                            ));
                       }
                     },
                   )),

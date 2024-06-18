@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../../Core/constants/font.dart';
 import '../../../../Controller/Auth_controller/user_information_controller.dart';
 import '../../../../Core/constants/images.dart';
-import '../../../../Controller/location_controller.dart';
+import '../../../../Controller/Location/location_controller.dart';
 
 class RowUser extends StatelessWidget {
   final LocationController locationController = Get.find();

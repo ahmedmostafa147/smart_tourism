@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
-import '../../../Controller/location_controller.dart';
+import '../../../Controller/Location/location_controller.dart';
 import '../../../Core/constants/images.dart';
 import '../../Profile/widget/Logout/logout.dart';
 

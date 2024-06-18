@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Core/constants/font.dart';
 import '../AuthWidget/text_form_field.dart';
-import '../../../Controller/location_controller.dart';
+import '../../../Controller/Location/location_controller.dart';
 import '../../../Controller/Auth_controller/registration_controller.dart';
 import '../AuthWidget/custom_button_auth.dart';
 import '../AuthWidget/custom_logo_auth.dart';
@@ -17,10 +17,10 @@ class RegisterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: Form(
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: Form(
           key: registrationController.formKey,
           child: Container(
             padding: const EdgeInsets.all(20),

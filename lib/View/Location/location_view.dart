@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../Controller/location_controller.dart';
+import '../../Controller/Location/location_controller.dart';
 import '../../Core/constants/images.dart';
 import '../Auth/AuthWidget/custom_button_auth.dart';
 
