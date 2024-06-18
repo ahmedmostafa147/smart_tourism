@@ -46,45 +46,51 @@ class AutocompleteField extends StatelessWidget {
               TextEditingController fieldTextEditingController,
               FocusNode fieldFocusNode,
               VoidCallback onFieldSubmitted) {
-            fieldFocusNode.addListener(() {
-              if (fieldFocusNode.hasFocus &&
-                  fieldTextEditingController.text.isEmpty) {
-                fieldTextEditingController.text = " ";
-                Future.delayed(Duration.zero, () {
-                  fieldTextEditingController.clear();
-                });
-              }
+            fieldTextEditingController.addListener(() {
+              isValidSelection.value =
+                  options.contains(fieldTextEditingController.text.trim());
             });
-            controller.value = fieldTextEditingController.value;
-            return Obx(() => TextFormField(
-                  controller: fieldTextEditingController,
-                  focusNode: fieldFocusNode,
-                  decoration: InputDecoration(
-                    hintText: hintText,
-                    labelText: label,
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.teal),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    errorText: isValidSelection.value
-                        ? null
-                        : 'Invalid selection', // Display error if not a valid selection
+
+            return Obx(() {
+              // Determine border color based on validation state
+              Color borderColor = Colors.grey; // Neutral color
+              if (isValidSelection.value) {
+                borderColor = Colors.teal; // Valid color
+              } else if (fieldTextEditingController.text.isNotEmpty &&
+                  !isValidSelection.value) {
+                borderColor = Colors.red; // Invalid color
+              }
+
+              return TextFormField(
+                controller: fieldTextEditingController,
+                focusNode: fieldFocusNode,
+                decoration: InputDecoration(
+                  hintText: hintText,
+                  labelText: label,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: borderColor),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter $label';
-                    }
-                    return null;
-                  },
-                ));
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.teal),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter $label';
+                  }
+                  if (!options.contains(value.trim())) {
+                    return 'Invalid selection. Please select from the list.';
+                  }
+                  return null;
+                },
+              );
+            });
           },
         ),
       ],

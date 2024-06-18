@@ -25,9 +25,9 @@ class Assets {
   /// Assets/Images/Business.png
   static const String imagesBusiness = "Assets/Images/Business.png";
 
-  /// Assets for imagesChathistory
-  /// Assets/Images/chathistory.png
-  static const String imagesChathistory = "Assets/Images/chathistory.png";
+  /// Assets for imagesChecklist
+  /// Assets/Images/checklist.png
+  static const String imagesChecklist = "Assets/Images/checklist.png";
 
   /// Assets for imagesCircleUser
   /// Assets/Images/circle-user.png
@@ -41,10 +41,6 @@ class Assets {
   /// Assets/Images/delete.png
   static const String imagesDelete = "Assets/Images/delete.png";
 
-  /// Assets for imagesGoogle
-  /// Assets/Images/Google.png
-  static const String imagesGoogle = "Assets/Images/Google.png";
-
   /// Assets for imagesHouseBlank
   /// Assets/Images/house-blank.png
   static const String imagesHouseBlank = "Assets/Images/house-blank.png";
@@ -53,10 +49,6 @@ class Assets {
   /// Assets/Images/inspirationpana.png
   static const String imagesInspirationpana = "Assets/Images/inspirationpana.png";
 
-  /// Assets for imagesLogo
-  /// Assets/Images/logo.png
-  static const String imagesLogo = "Assets/Images/logo.png";
-
   /// Assets for imagesLogout
   /// Assets/Images/logout.png
   static const String imagesLogout = "Assets/Images/logout.png";
@@ -64,10 +56,6 @@ class Assets {
   /// Assets for imagesMap
   /// Assets/Images/map.png
   static const String imagesMap = "Assets/Images/map.png";
-
-  /// Assets for imagesMenu
-  /// Assets/Images/menu.png
-  static const String imagesMenu = "Assets/Images/menu.png";
 
   /// Assets for imagesMessages
   /// Assets/Images/messages.png
@@ -96,13 +84,5 @@ class Assets {
   /// Assets for imagesSquareHeart
   /// Assets/Images/square-heart.png
   static const String imagesSquareHeart = "Assets/Images/square-heart.png";
-
-  /// Assets for imagesSquareStar
-  /// Assets/Images/square-star.png
-  static const String imagesSquareStar = "Assets/Images/square-star.png";
-
-  /// Assets for imagesUntitled design
-  /// Assets/Images/Untitled design.png
-  static const String imagesUntitleddesign = "Assets/Images/Untitled design.png";
 }
 

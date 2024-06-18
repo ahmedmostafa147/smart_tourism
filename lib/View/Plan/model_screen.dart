@@ -52,16 +52,6 @@ class PreferencesScreen extends StatelessWidget {
               ),
               SizedBox(height: 25.h),
               Obx(
-                () => controller.attemptedValidation.value &&
-                        !controller.isValidCountry.value
-                    ? Text(
-                        'Invalid country selection.',
-                        style: TextStyle(color: Colors.red),
-                      )
-                    : SizedBox.shrink(),
-              ),
-              SizedBox(height: 25.h),
-              Obx(
                 () => AutocompleteField(
                   label: "Choose Governorate",
                   options: controller.filteredGovernorates.toList(),
@@ -71,15 +61,6 @@ class PreferencesScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 25.h),
-              Obx(
-                () => controller.attemptedValidation.value &&
-                        !controller.isValidGovernorate.value
-                    ? Text(
-                        'Invalid governorate selection.',
-                        style: TextStyle(color: Colors.red),
-                      )
-                    : SizedBox.shrink(),
-              ),
               AutocompleteField(
                 label: "Number of Days",
                 options: controller.numDays,
@@ -88,15 +69,6 @@ class PreferencesScreen extends StatelessWidget {
                 hintText: 'Enter number of days',
               ),
               SizedBox(height: 25.h),
-              Obx(
-                () => controller.attemptedValidation.value &&
-                        !controller.isValidnumDays.value
-                    ? Text(
-                        'Invalid number of days selection.',
-                        style: TextStyle(color: Colors.red),
-                      )
-                    : SizedBox.shrink(),
-              ),
               AutocompleteField(
                 label: "Budget",
                 options: controller.budget,
@@ -105,26 +77,20 @@ class PreferencesScreen extends StatelessWidget {
                 hintText: 'Enter budget',
               ),
               SizedBox(height: 25.h),
-              Obx(
-                () => controller.attemptedValidation.value &&
-                        !controller.isValidbudget.value
-                    ? Text(
-                        'Invalid budget selection.',
-                        style: TextStyle(color: Colors.red),
-                      )
-                    : SizedBox.shrink(),
-              ),
               Obx(() => CustomMaterialButton(
                     buttonText: controller.isLoading.value
                         ? 'Loading...'
                         : 'Get Recommendations',
                     onPressed: () async {
-                      controller.attemptedValidation.value = true;
-                      await controller.getRecommendations();
-                      if (controller.recommendations.isNotEmpty) {
-                        Get.to(() => RecommendationScreen(
-                              planName: planNameController.text,
-                            ));
+                      if (controller.formKey.currentState!.validate()) {
+                        await controller.getRecommendations();
+                        if (controller.recommendations.isNotEmpty) {
+                          controller.isLoading.value = false;
+                          Get.to(() => RecommendationScreen(
+                              planName: planNameController.text));
+                        } else {
+                          Get.snackbar('Error', 'No recommendations found');
+                        }
                       }
                     },
                   )),

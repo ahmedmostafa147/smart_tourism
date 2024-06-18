@@ -34,18 +34,17 @@ class Language extends GetView<LocaleController> {
                       controller.changeLang("ar");
                       Get.back();
                     }),
-                     const SizedBox(height: 20),
-            ElevatedButton(
-                child: Text(
-                  "En",
-                ),
-                onPressed: () {
-                  controller.changeLang("en");
-                  Get.back();
-                })
+                const SizedBox(height: 20),
+                ElevatedButton(
+                    child: Text(
+                      "En",
+                    ),
+                    onPressed: () {
+                      controller.changeLang("en");
+                      Get.back();
+                    })
               ],
             ),
-           
           ],
         ));
   }

@@ -55,7 +55,6 @@ class ModelAIController extends GetxController {
   final TextEditingController budgetController = TextEditingController();
   final RxList<Recommendation> recommendations = <Recommendation>[].obs;
   final RxList<String> filteredGovernorates = RxList<String>();
-  final RxBool attemptedValidation = false.obs;
 
   final List<String> countries = [
     'Egypt',
@@ -76,23 +75,60 @@ class ModelAIController extends GetxController {
   final List<Map<String, dynamic>> governorates = [
     {
       "country": "Egypt",
-      "governorates": [
-        "Cairo",
-        "Alexandria",
-        "Giza",
-      ],
+      "governorates": ["Cairo", "Alexandria", "Giza"]
     },
-    // Add other countries and their governorates here
+    {
+      "country": "Algeria",
+      "governorates": ["Algiers"]
+    },
+    {
+      "country": "Iraq",
+      "governorates": ["Baghdad"]
+    },
+    {
+      "country": "Jordan",
+      "governorates": ["Amman"]
+    },
+    {
+      "country": "Lebanon",
+      "governorates": ["Beirut"]
+    },
+    {
+      "country": "Morocco",
+      "governorates": ["Casablanca", "Rabat"]
+    },
+    {
+      "country": "Saudi Arabia",
+      "governorates": ["Riyadh"]
+    },
+    {
+      "country": "Oman",
+      "governorates": ["Muscat", "Salalah"]
+    },
+    {
+      "country": "Qatar",
+      "governorates": ["Doha", "Al Rayyan"]
+    },
+    {
+      "country": "Bahrain",
+      "governorates": ["Manama", "Muharraq"]
+    },
+    {
+      "country": "Syria",
+      "governorates": ["Damascus", "Aleppo"]
+    }
   ];
 
   final List<String> numDays = ['1', '2', '3', '4', '5', '6', '7'];
   final List<String> budget = ['1000', '2000', '3000', '4000', '5000'];
+
   SurveySaveController surveySaveController = Get.put(SurveySaveController());
 
   @override
   void onInit() {
     super.onInit();
     loadSurveyResults();
+    validateFields();
   }
 
   Future<void> loadSurveyResults() async {
@@ -112,30 +148,29 @@ class ModelAIController extends GetxController {
     return List<String>.from(countryData['governorates']);
   }
 
+  void validateFields() {
+    isValidCountry.value = countries.contains(countryController.text.trim());
+    isValidGovernorate.value =
+        filteredGovernorates.contains(governorateController.text.trim());
+    isValidnumDays.value = numDays.contains(numDaysController.text.trim());
+    isValidbudget.value = budget.contains(budgetController.text.trim());
+  }
+
   Future<void> getRecommendations() async {
+    if (!formKey.currentState!.validate()) return;
+
+    isLoading.value = true;
+    recommendations.clear();
+
+    final Map<String, dynamic> requestData = {
+      "country": countryController.text.trim(),
+      "governorate": governorateController.text.trim(),
+      "survey_responses": surveySaveController.surveyResults,
+      "num_days": numDaysController.text.trim(),
+      "budget": budgetController.text.trim(),
+    };
+
     try {
-      if (!formKey.currentState!.validate()) {
-        return;
-      }
-
-      if (!isValidCountry.value ||
-          !isValidGovernorate.value ||
-          !isValidnumDays.value ||
-          !isValidbudget.value) {
-        return;
-      }
-
-      isLoading.value = true;
-      recommendations.clear();
-
-      final Map<String, dynamic> requestData = {
-        "country": countryController.text.trim(),
-        "governorate": governorateController.text.trim(),
-        "survey_responses": surveySaveController.surveyResults,
-        "num_days": numDaysController.text.trim(),
-        "budget": budgetController.text.trim(),
-      };
-
       var url = Uri.parse(
           "https://model-smart-tourism.onrender.com/recommendations/");
       final http.Response response = await http.post(
@@ -146,7 +181,6 @@ class ModelAIController extends GetxController {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
-
         data.forEach((element) {
           recommendations.add(Recommendation.fromJson(element));
         });

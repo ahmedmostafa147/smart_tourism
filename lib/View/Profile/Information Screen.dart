@@ -25,79 +25,109 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         title: Text("Profile".tr),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            RowUser(),
-            SizedBox(
-              height: 10.h,
-            ),
-            RowOptions(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              RowUser(),
+              SizedBox(
+                height: 20.h,
+              ),
+              RowOptions(
+                  onTap: () {
+                    Get.to(() => ProfilePage());
+                  },
+                  text: "Personal Data".tr,
+                  IconName:
+                      const ImageIcon(AssetImage(Assets.imagesCircleUser))),
+              SizedBox(
+                height: 20.h,
+              ),
+              RowOptions(
+                  onTap: () {
+                    Get.to(() => SavedPlansScreen());
+                  },
+                  text: "Plans".tr,
+                  IconName: const ImageIcon(AssetImage(Assets.imagesBusiness))),
+              SizedBox(
+                height: 20.h,
+              ),
+              RowOptions(
+                text: "Survey",
+                IconName: const ImageIcon(AssetImage(Assets.imagesChecklist)),
                 onTap: () {
-                  Get.to(() => ProfilePage());
+                  Get.toNamed('/ResultSurvey');
                 },
-                text: "Personal Data".tr,
-                IconName: const ImageIcon(AssetImage(Assets.imagesCircleUser))),
-            RowOptions(
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              RowOptions(
+                text: "AI Chat",
+                IconName: const ImageIcon(AssetImage(Assets.imagesMessages)),
                 onTap: () {
-                  Get.to(() => SavedPlansScreen());
+                  Get.toNamed('/ChatScreen');
                 },
-                text: "Plans".tr,
-                IconName: const ImageIcon(AssetImage(Assets.imagesBusiness))),
-            RowOptions(
-              text: "Survey",
-              IconName: const ImageIcon(AssetImage(Assets.imagesCircleUser)),
-              onTap: () {
-                Get.toNamed('/ResultSurvey');
-              },
-            ),
-            RowOptions(
-              text: "AI Chat",
-              IconName: const ImageIcon(AssetImage(Assets.imagesMessages)),
-              onTap: () {
-                Get.toNamed('/ChatScreen');
-              },
-            ),
-            RowOptions(
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              RowOptions(
+                  onTap: () {
+                    Get.bottomSheet(NotificationView());
+                  },
+                  text: "Notifications".tr,
+                  IconName: const ImageIcon(AssetImage(Assets.imagesRinging))),
+              SizedBox(
+                height: 20.h,
+              ),
+              RowOptions(
+                  onTap: () {
+                    Get.bottomSheet(const Language());
+                  },
+                  text: "Language,تغير اللغة",
+                  IconName: const ImageIcon(AssetImage(Assets.imagesArabic))),
+              SizedBox(
+                height: 20.h,
+              ),
+              RowOptions(
                 onTap: () {
-                  Get.bottomSheet(NotificationView());
+                  Get.bottomSheet(const ChooseThemeMode());
                 },
-                text: "Notifications".tr,
-                IconName: const ImageIcon(AssetImage(Assets.imagesRinging))),
-            RowOptions(
-                onTap: () {
-                  Get.bottomSheet(const Language());
-                },
-                text: "Language,تغير اللغة",
-                IconName: const ImageIcon(AssetImage(Assets.imagesArabic))),
-            RowOptions(
-              onTap: () {
-                Get.bottomSheet(const ChooseThemeMode());
-              },
-              text: "Dark Mode".tr,
-              IconName: const ImageIcon(AssetImage(Assets.imagesDayAndNight)),
-            ),
-            RowOptions(
-                onTap: () {
-                  Get.bottomSheet(AboutView());
-                },
-                text: "About".tr,
-                IconName: const ImageIcon(AssetImage(Assets.imagesAbout))),
-            RowOptions(
-                onTap: () {
-                  Get.bottomSheet(DeleteAccountScreen());
-                },
-                text: "Delete Account".tr,
-                IconName: const ImageIcon(AssetImage(Assets.imagesDelete))),
-            RowOptions(
-                onTap: () {
-                  Get.bottomSheet(Logout());
-                },
-                text: "Logout".tr,
-                IconName: const ImageIcon(AssetImage(Assets.imagesLogout))),
-          ],
+                text: "Dark Mode".tr,
+                IconName: const ImageIcon(AssetImage(Assets.imagesDayAndNight)),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              RowOptions(
+                  onTap: () {
+                    Get.bottomSheet(AboutView());
+                  },
+                  text: "About".tr,
+                  IconName: const ImageIcon(AssetImage(Assets.imagesAbout))),
+              SizedBox(
+                height: 20.h,
+              ),
+              RowOptions(
+                  onTap: () {
+                    Get.bottomSheet(DeleteAccountScreen());
+                  },
+                  text: "Delete Account".tr,
+                  IconName: const ImageIcon(AssetImage(Assets.imagesDelete))),
+              SizedBox(
+                height: 20.h,
+              ),
+              RowOptions(
+                  onTap: () {
+                    Get.bottomSheet(Logout());
+                  },
+                  text: "Logout".tr,
+                  IconName: const ImageIcon(AssetImage(Assets.imagesLogout))),
+            ],
+          ),
         ),
       ),
     );
