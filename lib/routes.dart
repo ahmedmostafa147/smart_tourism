@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smart_tourism/View/Hotel/hotel.dart';
+import 'package:smart_tourism/View/Places/places.dart';
 import 'package:smart_tourism/View/Profile/widget/Profile%20Personal%20Data/profile_page.dart';
+import 'package:smart_tourism/View/Restaurant/restaurant.dart';
 import 'package:smart_tourism/View/Search/result_search.dart';
 import 'package:smart_tourism/View/Survey/result_survey.dart';
 import 'package:smart_tourism/View/chat/chat.dart';
@@ -35,6 +38,8 @@ class AppRoute {
   static const String ChatScreen = "/ChatScreen";
   static const String ResultSearch = "/ResultSurvey";
   static const String RandomPlacesScreen = "/RandomPlacesScreen";
+  static const String RandomRestaurantsScreen = "/RandomRestaurantsScreen";
+  static const String RandomHotelsScreen = "/RandomHotelsScreen";
 }
 
 Map<String, Widget Function(BuildContext)> routes = {
@@ -52,4 +57,7 @@ Map<String, Widget Function(BuildContext)> routes = {
   AppRoute.ProfilePage: (context) => ProfilePage(),
   AppRoute.ChatScreen: (context) => ChatScreen(),
   AppRoute.ResultSearch: (context) => ResultSurvey(),
+  AppRoute.RandomPlacesScreen: (context) => RandomPlacesScreen(),
+  AppRoute.RandomRestaurantsScreen: (context) => RandomRestaurantsScreen(),
+  AppRoute.RandomHotelsScreen: (context) => RandomHotelsScreen(),
 };

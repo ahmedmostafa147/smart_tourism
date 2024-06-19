@@ -24,13 +24,13 @@ class CustomOptionsWidget extends StatelessWidget {
           children: [
             CustomOption(
                 onTap: () {
-                  Get.toNamed(AppRoute.RandomPlacesScreen);
+                  Get.toNamed(AppRoute.RandomRestaurantsScreen);
                 },
                 icon: ImageIcon(AssetImage(Assets.imagesRestaurant)),
                 label: 'Restaurant'.tr),
             CustomOption(
                 onTap: () {
-                  Get.toNamed(AppRoute.RandomPlacesScreen);
+                  Get.toNamed(AppRoute.RandomHotelsScreen);
                 },
                 icon: ImageIcon(AssetImage(Assets.imagesBedAlt)),
                 label: 'Hotel'.tr),
@@ -70,19 +70,17 @@ class CustomOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 160.w,
-      height: 50.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.teal[300],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: GestureDetector(
-          onTap: () {
-            onTap;
-          },
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 160.w,
+        height: 50.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.teal[300],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
           child: Row(
             children: [
               icon,

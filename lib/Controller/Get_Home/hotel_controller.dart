@@ -3,21 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
-import 'package:smart_tourism/Model/place.dart';
+import 'package:smart_tourism/Model/hotel.dart';
 
-class PlaceController extends GetxController {
-  RxList<Place> randomPlaces = <Place>[].obs;
+class HotelController extends GetxController {
+  RxList<Hotel> randomHotels = <Hotel>[].obs;
   var isLoading = false.obs;
 
-  Future<void> fetchRandomPlaces(String country) async {
+  Future<void> fetchRandomHotels(String country) async {
     try {
       isLoading.value = true;
 
-      final Uri url = Uri.parse(ApiEndPoints.baseUrl +
-          ApiEndPoints.authEndpoints.discover_places +
+      var url = Uri.parse(ApiEndPoints.baseUrl +
+          ApiEndPoints.authEndpoints.discover_Hotels +
           '?country=' +
-          country);
-
+          country); // Update with the correct endpoint
       var response = await http.get(
         url,
       );
@@ -25,9 +24,9 @@ class PlaceController extends GetxController {
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
         if (jsonResponse is Map<String, dynamic> &&
-            jsonResponse['random_places'] is List) {
-          randomPlaces.value = (jsonResponse['random_places'] as List)
-              .map((data) => Place.fromJson(data))
+            jsonResponse['random_Hotels'] is List) {
+          randomHotels.value = (jsonResponse['random_Hotels'] as List)
+              .map((data) => Hotel.fromJson(data))
               .toList();
         } else {
           throw 'Unexpected response format';
@@ -47,13 +46,12 @@ class PlaceController extends GetxController {
     }
   }
 
-  Future<void> fetchRandomPlacesHome() async {
+  Future<void> fetchRandomHotelsHome() async {
     try {
       isLoading.value = true;
 
-      final Uri url = Uri.parse(
-          "https://zoz-rwob.onrender.com/discover_places/?country=Egypt");
-
+      var url = Uri.parse(
+          "https://zoz-rwob.onrender.com/discover_hotels/?country=Egypt"); // Update with the correct endpoint
       var response = await http.get(
         url,
       );
@@ -61,9 +59,9 @@ class PlaceController extends GetxController {
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
         if (jsonResponse is Map<String, dynamic> &&
-            jsonResponse['random_places'] is List) {
-          randomPlaces.value = (jsonResponse['random_places'] as List)
-              .map((data) => Place.fromJson(data))
+            jsonResponse['random_Hotels'] is List) {
+          randomHotels.value = (jsonResponse['random_Hotels'] as List)
+              .map((data) => Hotel.fromJson(data))
               .toList();
         } else {
           throw 'Unexpected response format';

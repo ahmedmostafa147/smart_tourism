@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class LastPlan extends StatelessWidget {
   const LastPlan({super.key});
 
@@ -10,7 +8,8 @@ class LastPlan extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               'Last Plan',
