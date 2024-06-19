@@ -38,7 +38,9 @@ class FavoriteController extends GetxController {
 
     final response = await http.post(
       Uri.parse(url),
-      headers: {"Content-Type": "application/json"},
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: body,
     );
 

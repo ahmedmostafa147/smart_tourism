@@ -8,6 +8,7 @@ class CustomTextForm extends StatefulWidget {
   final bool isPassword;
   final TextInputType? keyboardType;
   final FocusNode? focusNode; 
+  final IconData? icon;
 
   CustomTextForm(
       {Key? key,
@@ -17,6 +18,7 @@ class CustomTextForm extends StatefulWidget {
       this.validator,
       required this.isPassword,
       this.keyboardType,
+      this.icon,
       this.focusNode})
       : super(key: key);
 

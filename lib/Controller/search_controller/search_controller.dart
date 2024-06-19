@@ -12,6 +12,7 @@ class SearchParameters {
   String? name;
 
   SearchParameters({this.country, this.governorate, this.category, this.name});
+
   factory SearchParameters.fromJson(Map<String, dynamic> json) {
     return SearchParameters(
       country: json['country'] as String?,
@@ -20,6 +21,7 @@ class SearchParameters {
       name: json['name'] as String?,
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       'country': country,
@@ -30,17 +32,39 @@ class SearchParameters {
   }
 }
 
+// Assuming SearchResult class exists as previously defined
 class SearchResult {
-  String result;
+  final String type;
+  final String name;
+  final int price;
+  final String governorate;
+  final String country;
+  final String image;
+  final double rate;
 
-  SearchResult({required this.result});
+  SearchResult({
+    required this.type,
+    required this.name,
+    required this.price,
+    required this.governorate,
+    required this.country,
+    required this.image,
+    required this.rate,
+  });
 
   factory SearchResult.fromJson(Map<String, dynamic> json) {
     return SearchResult(
-      result: json['result'],
+      type: json['type'] ?? '',
+      name: json['name'] ?? '',
+      price: json['price'] ?? 0,
+      governorate: json['governorate'] ?? '',
+      country: json['country'] ?? '',
+      image: json['image'] ?? '',
+      rate: (json['rate'] ?? 0.0).toDouble(),
     );
   }
 }
+
 
 class SearchControllerOne extends GetxController {
   TextEditingController searchController = TextEditingController();
@@ -69,54 +93,51 @@ class SearchControllerOne extends GetxController {
   }
 
   Future<void> search(SearchParameters params) async {
-    var headers = {'Content-Type': 'application/json'};
-    try {
-      final SharedPreferences prefs = await _prefs;
-      final String? token = prefs.getString('token');
+  var headers = {'Content-Type': 'application/json'};
+  try {
+    final SharedPreferences prefs = await _prefs;
+    final String? token = prefs.getString('token');
 
-      if (token == null) {
-        throw 'User is not authenticated';
-      }
+    if (token == null) {
+      throw 'User is not authenticated';
+    }
 
-      headers['Authorization'] = 'Bearer $token';
+    headers['Authorization'] = 'Bearer $token';
 
-      var url = Uri.parse(ApiEndPoints.baseUrl +
-          ApiEndPoints
-              .authEndpoints.search); // Update with the correct endpoint
-      http.Response response = await http.post(
-        url,
-        body: jsonEncode(params.toJson()),
-        headers: headers,
-      );
+    var url = Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.search);
+    http.Response response = await http.post(
+      url,
+      body: jsonEncode(params.toJson()),
+      headers: headers,
+    );
 
-      if (response.statusCode == 200) {
-        dynamic jsonResponse = jsonDecode(response.body);
-        if (jsonResponse is List) {
-          searchResults.value =
-              jsonResponse.map((data) => SearchResult.fromJson(data)).toList();
-        } else if (jsonResponse is Map<String, dynamic>) {
-          searchResults.value.add(SearchResult.fromJson(jsonResponse));
-        } else {
-          throw 'Unexpected response format';
-        }
-        saveRecentSearch(jsonEncode(params.toJson()));
-      } else if (response.statusCode == 401) {
-        Get.snackbar("Error", "Unauthorized: Please login again",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red,
-            colorText: Colors.white);
+    if (response.statusCode == 200) {
+      dynamic jsonResponse = jsonDecode(response.body);
+      if (jsonResponse is Map<String, dynamic> && jsonResponse['results'] is List) {
+        searchResults.value = (jsonResponse['results'] as List)
+            .map((data) => SearchResult.fromJson(data))
+            .toList();
       } else {
-        throw 'Error: ${response.statusCode}, Message: ${response.body}';
+        throw 'Unexpected response format';
       }
-    } catch (error) {
-      print(error.toString());
-      Get.snackbar("Error", error.toString(),
+      saveRecentSearch(jsonEncode(params.toJson()));
+    } else if (response.statusCode == 401) {
+      Get.snackbar("Error", "Unauthorized: Please login again",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
-          duration: Duration(seconds: 5),
           colorText: Colors.white);
+    } else {
+      throw 'Error: ${response.statusCode}, Message: ${response.body}';
     }
+  } catch (error) {
+    print(error.toString());
+    Get.snackbar("Error", error.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 5),
+        colorText: Colors.white);
   }
+}
 
   Future<void> clearRecentSearches() async {
     final SharedPreferences prefs = await _prefs;

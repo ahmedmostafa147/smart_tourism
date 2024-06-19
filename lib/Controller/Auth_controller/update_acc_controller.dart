@@ -48,7 +48,7 @@ class UpdateController extends GetxController {
       } else {
          var responseBody = jsonDecode(response.body);
         var errorMessage = responseBody["message"];
-        throw 'User profile update failed:$errorMessage';
+        throw 'User profile update failed: $errorMessage';
       }
     } catch (error) {
       Get.snackbar("Error", error.toString(),

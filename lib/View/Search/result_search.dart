@@ -1,46 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/Get_Home/place_controller.dart';
+import '../../Controller/search_controller/search_controller.dart';
 
-class RandomPlacesScreen extends StatelessWidget {
-  final PlaceController placeController = Get.put(PlaceController());
-  final TextEditingController countryController = TextEditingController();
+class ResultSearch extends StatelessWidget {
+  final SearchControllerOne searchController = Get.put(SearchControllerOne());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blueGrey[900],
         title: TextField(
-          controller: countryController,
+          controller: searchController.searchController,
           decoration: InputDecoration(
-            hintText: 'Enter country...',
+            hintText: 'Search...',
             border: InputBorder.none,
             hintStyle: TextStyle(color: Colors.white60),
           ),
           style: TextStyle(color: Colors.white),
-          onSubmitted: (country) {
-            placeController.fetchRandomPlaces(country);
+          onSubmitted: (query) {
+            var params = SearchParameters(
+                name: query); // Use the query to create search params
+            searchController.search(params);
           },
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.clear),
             onPressed: () {
-              placeController.fetchRandomPlaces(countryController.text);
+              searchController.searchController.clear();
+              searchController.searchResults.clear();
             },
           ),
         ],
       ),
       body: Obx(() {
-        if (placeController.isLoading.value) {
+        if (searchController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
-        } else if (placeController.randomPlaces.isEmpty) {
-          return Center(child: Text('No places found'));
+        } else if (searchController.searchResults.isEmpty) {
+          return Center(child: Text('No results found'));
         } else {
           return ListView.builder(
-            itemCount: placeController.randomPlaces.length,
+            itemCount: searchController.searchResults.length,
             itemBuilder: (context, index) {
-              final place = placeController.randomPlaces[index];
+              final result = searchController.searchResults[index];
               return Card(
                 elevation: 2.0,
                 margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -48,7 +51,7 @@ class RandomPlacesScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Image.network(
-                      place.placeImage,
+                      result.image,
                       height: 200,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
@@ -61,7 +64,7 @@ class RandomPlacesScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            place.placeName,
+                            result.name,
                             style: TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
@@ -73,12 +76,12 @@ class RandomPlacesScreen extends StatelessWidget {
                               Icon(Icons.location_on,
                                   size: 16.0, color: Colors.grey),
                               SizedBox(width: 4.0),
-                              Text('${place.governorate}, ${place.placeLoc}'),
+                              Text('${result.governorate}, ${result.country}'),
                             ],
                           ),
                           SizedBox(height: 8.0),
                           Text(
-                            'Price: ${place.price} \$',
+                            'Price: ${result.price} \$',
                             style: TextStyle(
                               fontSize: 16.0,
                               color: Colors.blue,
@@ -86,7 +89,7 @@ class RandomPlacesScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 8.0),
                           Text(
-                            'Rating: ${place.rate.toStringAsFixed(2)}',
+                            'Rating: ${result.rate.toStringAsFixed(2)}',
                             style: TextStyle(
                               fontSize: 16.0,
                               color: Colors.orange,

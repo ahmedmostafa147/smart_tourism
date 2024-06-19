@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:smart_tourism/View/Search/Widget/result_search.dart';
+import 'package:smart_tourism/View/Search/result_search.dart';
 import '../../View/Favorite/favorite.dart';
 import '../../View/Profile/Information Screen.dart';
 import '../../View/Home/home.dart';

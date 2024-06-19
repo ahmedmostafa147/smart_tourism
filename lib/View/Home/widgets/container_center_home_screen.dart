@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/routes.dart';
 import '../../../Core/constants/images.dart';
 
 class ContainerOPtionsSearch extends StatelessWidget {
@@ -22,9 +23,15 @@ class CustomOptionsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomOption(
+                onTap: () {
+                  Get.toNamed(AppRoute.RandomPlacesScreen);
+                },
                 icon: ImageIcon(AssetImage(Assets.imagesRestaurant)),
                 label: 'Restaurant'.tr),
             CustomOption(
+                onTap: () {
+                  Get.toNamed(AppRoute.RandomPlacesScreen);
+                },
                 icon: ImageIcon(AssetImage(Assets.imagesBedAlt)),
                 label: 'Hotel'.tr),
           ],
@@ -34,9 +41,15 @@ class CustomOptionsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomOption(
+                onTap: () {
+                  Get.toNamed(AppRoute.RandomPlacesScreen);
+                },
                 icon: ImageIcon(AssetImage(Assets.imagesBuilding)),
                 label: 'Places'.tr),
             CustomOption(
+                onTap: () {
+                  Get.toNamed(AppRoute.RandomPlacesScreen);
+                },
                 icon: ImageIcon(AssetImage(Assets.imagesBallot)),
                 label: 'To Do List'.tr),
           ],
@@ -49,8 +62,10 @@ class CustomOptionsWidget extends StatelessWidget {
 class CustomOption extends StatelessWidget {
   final ImageIcon icon;
   final String label;
+  final VoidCallback onTap;
 
-  const CustomOption({Key? key, required this.icon, required this.label})
+  const CustomOption(
+      {Key? key, required this.icon, required this.label, required this.onTap})
       : super(key: key);
 
   @override
@@ -64,17 +79,22 @@ class CustomOption extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),
-        child: Row(
-          children: [
-            icon,
-            SizedBox(
-              width: 10.w,
-            ),
-            Text(
-              label,
-              style: TextStyle(color: Colors.white, fontSize: 17.0.sp),
-            ),
-          ],
+        child: GestureDetector(
+          onTap: () {
+            onTap;
+          },
+          child: Row(
+            children: [
+              icon,
+              SizedBox(
+                width: 10.w,
+              ),
+              Text(
+                label,
+                style: TextStyle(color: Colors.white, fontSize: 17.0.sp),
+              ),
+            ],
+          ),
         ),
       ),
     );

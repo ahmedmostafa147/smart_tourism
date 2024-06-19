@@ -69,11 +69,16 @@ class UserInfoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(label,
-          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+          style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w400,fontFamily: TextFontStyle.Mano),
           textAlign: TextAlign.start),
-      subtitle: Text(value,
-          style: TextStyle(fontSize: 14.sp,color: Colors.teal, fontFamily: TextFontStyle.Play),
-          textAlign: TextAlign.start,),
+      subtitle: Text(
+        value,
+        style: TextStyle(
+          fontSize: 15.sp,
+          color: Colors.teal,
+        ),
+        textAlign: TextAlign.start,
+      ),
     );
   }
 }
