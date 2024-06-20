@@ -24,8 +24,8 @@ class HotelController extends GetxController {
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
         if (jsonResponse is Map<String, dynamic> &&
-            jsonResponse['random_Hotels'] is List) {
-          randomHotels.value = (jsonResponse['random_Hotels'] as List)
+            jsonResponse['random_hotels'] is List) {
+          randomHotels.value = (jsonResponse['random_hotels'] as List)
               .map((data) => Hotel.fromJson(data))
               .toList();
         } else {
@@ -51,7 +51,7 @@ class HotelController extends GetxController {
       isLoading.value = true;
 
       var url = Uri.parse(
-          "https://zoz-rwob.onrender.com/discover_hotels/?country=Egypt"); // Update with the correct endpoint
+          "https://zoz-rwob.onrender.com/discover_hotels/?country=egypt");
       var response = await http.get(
         url,
       );
@@ -59,8 +59,8 @@ class HotelController extends GetxController {
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
         if (jsonResponse is Map<String, dynamic> &&
-            jsonResponse['random_Hotels'] is List) {
-          randomHotels.value = (jsonResponse['random_Hotels'] as List)
+            jsonResponse['random_hotels'] is List) {
+          randomHotels.value = (jsonResponse['random_hotels'] as List)
               .map((data) => Hotel.fromJson(data))
               .toList();
         } else {

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/View/Auth/AuthWidget/text_form_field.dart';
+import 'package:smart_tourism/View/Plan/widget/autocomplete.dart';
+import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_button.dart';
 import '../../Controller/plan_controller/create_plan_controller.dart';
 
 class LocalPlanScreen extends StatelessWidget {
@@ -11,178 +15,69 @@ class LocalPlanScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Create Plan'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(10.0),
         child: Form(
           key: controller.formKey,
           child: Column(
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Text("Country: "),
-              Autocomplete<String>(
-                optionsBuilder: (TextEditingValue textEditingValue) {
-                  if (textEditingValue.text.isEmpty) {
-                    return controller.countries;
+              SizedBox(height: 16.h),
+              CustomTextForm(
+                hintText: "Plan Name",
+                controller: controller.planNameController,
+                labelText: "Plan Name",
+                isPassword: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter a plan name';
                   }
-                  return controller.countries.where((String option) {
-                    return option
-                        .toLowerCase()
-                        .contains(textEditingValue.text.toLowerCase());
-                  });
+                  return null;
                 },
-                onSelected: (String selection) {
-                  controller.countryController.text = selection;
-                },
-                fieldViewBuilder: (BuildContext context,
-                    TextEditingController fieldTextEditingController,
-                    FocusNode fieldFocusNode,
-                    VoidCallback onFieldSubmitted) {
-                  controller.countryController.value =
-                      fieldTextEditingController.value;
-                  return TextFormField(
-                    controller: fieldTextEditingController,
-                    focusNode: fieldFocusNode,
-                    decoration: InputDecoration(
-                      hintText: 'Enter country name',
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a country name';
-                      }
-                      return null;
+              ),
+              SizedBox(height: 25.h),
+              AutocompleteField(
+                label: "Country",
+                options: controller.countries,
+                controller: controller.countryController,
+                hintText: 'Enter country name',
+                isValidSelection: controller.isValidCountry,
+                onSelected: (String selection) {},
+              ),
+              SizedBox(height: 25.h),
+              Obx(
+                () => AutocompleteField(
+                  label: "Choose Governorate",
+                  options: controller.filteredGovernorates.toList(),
+                  controller: controller.governorateController,
+                  isValidSelection: controller.isValidGovernorate,
+                  hintText: 'Enter governorate name',
+                ),
+              ),
+              SizedBox(height: 25.h),
+              AutocompleteField(
+                label: "Number of Days",
+                options: controller.numDays,
+                controller: controller.numDaysController,
+                isValidSelection: controller.isValidnumDays,
+                hintText: 'Enter number of days',
+              ),
+              SizedBox(height: 25.h),
+              AutocompleteField(
+                label: "Budget",
+                options: controller.budget,
+                controller: controller.budgetController,
+                isValidSelection: controller.isValidbudget,
+                hintText: 'Enter budget',
+              ),
+              SizedBox(height: 25.h),
+              Obx(() => CustomMaterialButton(
+                    buttonText:
+                        controller.isLoading.value ? 'Loading...' : 'Save Plan',
+                    onPressed: () async {
+                      controller.createPlan();
                     },
-                  );
-                },
-              ),
-              SizedBox(height: 16.0),
-              Text("Choose Governorate: "),
-              Autocomplete<String>(
-                optionsBuilder: (TextEditingValue textEditingValue) {
-                  if (textEditingValue.text.isEmpty) {
-                    return controller.governorates;
-                  }
-                  return controller.governorates.where((String option) {
-                    return option
-                        .toLowerCase()
-                        .contains(textEditingValue.text.toLowerCase());
-                  });
-                },
-                onSelected: (String selection) {
-                  controller.governorateController.text = selection;
-                },
-                fieldViewBuilder: (BuildContext context,
-                    TextEditingController fieldTextEditingController,
-                    FocusNode fieldFocusNode,
-                    VoidCallback onFieldSubmitted) {
-                  controller.governorateController.value =
-                      fieldTextEditingController.value;
-                  return TextFormField(
-                    controller: fieldTextEditingController,
-                    focusNode: fieldFocusNode,
-                    decoration: InputDecoration(
-                      hintText: 'Enter governorate name',
-                      suffixIcon: Icon(Icons.search),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a governorate name';
-                      }
-                      return null;
-                    },
-                  );
-                },
-              ),
-              SizedBox(height: 16.0),
-              Text("Number of Days: "),
-              Autocomplete<String>(
-                optionsBuilder: (TextEditingValue textEditingValue) {
-                  if (textEditingValue.text.isEmpty) {
-                    return controller.numDays;
-                  }
-                  return controller.numDays.where((String option) {
-                    return option
-                        .toLowerCase()
-                        .contains(textEditingValue.text.toLowerCase());
-                  });
-                },
-                onSelected: (String selection) {
-                  controller.numDaysController.text = selection;
-                },
-                fieldViewBuilder: (BuildContext context,
-                    TextEditingController fieldTextEditingController,
-                    FocusNode fieldFocusNode,
-                    VoidCallback onFieldSubmitted) {
-                  controller.numDaysController.value =
-                      fieldTextEditingController.value;
-                  return TextFormField(
-                    controller: fieldTextEditingController,
-                    focusNode: fieldFocusNode,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      hintText: 'Enter number of days',
-                      suffixIcon: Icon(Icons.search),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter number of days';
-                      }
-                      if (int.tryParse(value) == null) {
-                        return 'Please enter a valid number';
-                      }
-                      return null;
-                    },
-                  );
-                },
-              ),
-              SizedBox(height: 16.0),
-              Text("Budget: "),
-              Autocomplete<String>(
-                optionsBuilder: (TextEditingValue textEditingValue) {
-                  if (textEditingValue.text.isEmpty) {
-                    return controller.budget;
-                  }
-                  return controller.budget.where((String option) {
-                    return option
-                        .toLowerCase()
-                        .contains(textEditingValue.text.toLowerCase());
-                  });
-                },
-                onSelected: (String selection) {
-                  controller.budgetController.text = selection;
-                },
-                fieldViewBuilder: (BuildContext context,
-                    TextEditingController fieldTextEditingController,
-                    FocusNode fieldFocusNode,
-                    VoidCallback onFieldSubmitted) {
-                  controller.budgetController.value =
-                      fieldTextEditingController.value;
-                  return TextFormField(
-                    controller: fieldTextEditingController,
-                    focusNode: fieldFocusNode,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      hintText: 'Enter budget',
-                      suffixIcon: Icon(Icons.search),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter budget';
-                      }
-                      if (int.tryParse(value) == null) {
-                        return 'Please enter a valid number';
-                      }
-                      return null;
-                    },
-                  );
-                },
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  controller.createPlan();
-                },
-                child: Obx(() => controller.isLoading.value
-                    ? CircularProgressIndicator()
-                    : Text('Save Plan')),
-              ),
+                  )),
             ],
           ),
         ),

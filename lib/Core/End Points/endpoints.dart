@@ -32,6 +32,6 @@ class _AuthEndPoints {
   final String getChatHistoryQuestion = "output_questions/";
   final String getChatHistoryResponse = "output_responses/";
   final String discover_places = "discover_places/";
-  final String discover_Hotels = "discover_hotel/";
+  final String discover_Hotels = "discover_hotels/";
   final String discover_Restaurants = "discover_restaurants/";
 }
