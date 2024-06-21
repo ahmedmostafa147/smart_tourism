@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../Controller/plan_controller/model_ai_controller.dart';
+import '../../Controller/plan_controller/model_plan/model_ai_controller.dart';
 
 class RecommendationScreen extends StatelessWidget {
   final String planName;
@@ -65,9 +65,10 @@ class RecommendationScreen extends StatelessWidget {
                       }).toList(),
                       leading: IconButton(
                         onPressed: () async {
-                          print(
-                              'Recommendation saved: ${recommendation}');
-                          await controller.saveRecommendation(recommendation ) ;
+                          print('Recommendation saved: ${recommendation}');
+                          await controller.saveRecommendation(
+                            recommendation,
+                          );
                         },
                         icon: Icon(Icons.bookmark_add_outlined),
                       ),

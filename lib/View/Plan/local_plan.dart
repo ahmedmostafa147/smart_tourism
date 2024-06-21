@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/text_form_field.dart';
 import 'package:smart_tourism/View/Plan/widget/autocomplete.dart';
 import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_button.dart';
-import '../../Controller/plan_controller/create_plan_controller.dart';
+import '../../Controller/plan_controller/user_plan/create_plan_controller.dart';
 
 class LocalPlanScreen extends StatelessWidget {
   final PlanController controller = Get.put(PlanController());

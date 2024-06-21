@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../Controller/search_controller/search_controller.dart';
 
@@ -52,7 +53,7 @@ class ResultSearch extends StatelessWidget {
                   children: [
                     Image.network(
                       result.image,
-                      height: 200,
+                      height: 200.h,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Icon(Icons.broken_image, size: 200);
@@ -84,7 +85,7 @@ class ResultSearch extends StatelessWidget {
                             'Price: ${result.price} \$',
                             style: TextStyle(
                               fontSize: 16.0,
-                              color: Colors.blue,
+                              color: Colors.teal,
                             ),
                           ),
                           SizedBox(height: 8.0),
@@ -92,7 +93,6 @@ class ResultSearch extends StatelessWidget {
                             'Rating: ${result.rate.toStringAsFixed(2)}',
                             style: TextStyle(
                               fontSize: 16.0,
-                              color: Colors.orange,
                             ),
                           ),
                         ],

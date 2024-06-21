@@ -1,4 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:smart_tourism/Model/hotel.dart';
+import 'package:smart_tourism/Model/place.dart';
+import 'package:smart_tourism/Model/restaurant.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
@@ -19,64 +25,215 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2.0,
-      margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-      child: Container(
-        width: 200, // Width of each card
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Image.network(
-                  imageURL,
-                  width: 200, // Width of image
-                  height: 120, // Height of image
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Icon(Icons.broken_image, size: 120);
-                  },
-                ),
+      elevation: 4.0,
+      margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 150.h,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+              child: CachedNetworkImage(
+                imageUrl: imageURL,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) =>
+                    Icon(Icons.broken_image, size: 120.r),
               ),
             ),
-            const SizedBox(height: 8.0),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(fontSize: 16, color: const Color(0xffFF8527)),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    subtitle,
-                    style: TextStyle(fontSize: 14, color: const Color(0xffFF8527)),
+                ),
+                const SizedBox(height: 8.0),
+                Row(
+                  children: [
+                    Icon(Icons.location_on, size: 16.0.r, color: Colors.grey),
+                    SizedBox(width: 4.0),
+                    Text(subtitle),
+                  ],
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  'Price: $price \$',
+                  style: TextStyle(
+                    fontSize: 16.0.sp,
+                    color: Colors.teal,
+                    fontWeight: FontWeight.w600,
                   ),
-                  const SizedBox(height: 8.0),
-                  Row(
-                    children: [
-                      Icon(Icons.star, color: Colors.amber),
-                      Text(
-                        rating.toString(),
-                        style: TextStyle(fontSize: 16, color: const Color(0xffFF8527)),
+                ),
+                SizedBox(height: 8.0),
+                Row(
+                  children: [
+                    Icon(Icons.star, size: 16.0.r, color: Colors.orange),
+                    SizedBox(width: 4.0),
+                    Text(
+                      'Rating: ${rating.toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontSize: 16.0.sp,
+                        color: Colors.orange,
+                        fontWeight: FontWeight.w600,
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    price,
-                    style: TextStyle(fontSize: 16, color: const Color(0xffFF8527)),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
+    );
+  }
+}
+
+class HotelListView extends StatelessWidget {
+  final List<Hotel> hotels;
+
+  const HotelListView({Key? key, required this.hotels}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'You may like these Hotels'.tr,
+          style: TextStyle(
+            color: Colors.teal,
+            fontSize: 20.sp,
+            height: 1.3.sp,
+          ),
+        ),
+        SizedBox(height: 10.h),
+        SizedBox(
+          height: 250.h,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: hotels.length,
+            itemBuilder: (context, index) {
+              final hotel = hotels[index];
+              return Container(
+                width: 200.w, // Ensure a fixed width for each item
+                child: CustomListTile(
+                  title: hotel.hotelName,
+                  subtitle: ' ${hotel.governorate} | ${hotel.hotelLoc}',
+                  imageURL: hotel.hotelImage,
+                  price: '${hotel.price}',
+                  rating: hotel.rate,
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PlaceListView extends StatelessWidget {
+  final List<Place> places;
+
+  const PlaceListView({Key? key, required this.places}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'You may like these Places'.tr,
+          style: TextStyle(
+            color: Colors.teal,
+            fontSize: 20.sp,
+            height: 1.3.sp,
+          ),
+        ),
+        SizedBox(height: 10.h),
+        SizedBox(
+          height: 200.h,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: places.length,
+            itemBuilder: (context, index) {
+              final place = places[index];
+              return Container(
+                width: 200.w, // Ensure a fixed width for each item
+                child: CustomListTile(
+                  title: place.placeName,
+                  subtitle: '${place.governorate} | ${place.placeLoc}',
+                  imageURL: place.placeImage,
+                  price: '${place.price}',
+                  rating: place.rate,
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class RestaurantListView extends StatelessWidget {
+  final List<Restaurant> restaurants;
+
+  const RestaurantListView({Key? key, required this.restaurants})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'You may like these Restaurants'.tr,
+          style: TextStyle(
+            color: Colors.teal,
+            fontSize: 20.sp,
+            height: 1.3.sp,
+          ),
+        ),
+        SizedBox(height: 10.h),
+        SizedBox(
+          height: 250.h,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: restaurants.length,
+            itemBuilder: (context, index) {
+              final restaurant = restaurants[index];
+              return Container(
+                width: 200.w, // Ensure a fixed width for each item
+                child: CustomListTile(
+                  title: restaurant.restaurantName,
+                  subtitle:
+                      ' ${restaurant.governorate} | ${restaurant.restaurantLoc}',
+                  imageURL: restaurant.restaurantImage,
+                  price: '${restaurant.price}',
+                  rating: restaurant.rate,
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

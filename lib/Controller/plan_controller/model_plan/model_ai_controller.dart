@@ -11,18 +11,18 @@ class Recommendation {
   final String hotel;
   final double hotelPricePerDay;
   final double totalHotelPrice;
-  final List<String> planRecommendations;
   final double totalPlanPrice;
   final String additionalAmountNeeded;
+  final List<String> planRecommendations;
 
   Recommendation({
     required this.planNumber,
     required this.hotel,
     required this.hotelPricePerDay,
     required this.totalHotelPrice,
-    required this.planRecommendations,
     required this.totalPlanPrice,
     required this.additionalAmountNeeded,
+    required this.planRecommendations,
   });
 
   factory Recommendation.fromJson(Map<String, dynamic> json) {
@@ -31,9 +31,42 @@ class Recommendation {
       hotel: json['hotel'],
       hotelPricePerDay: json['hotel_price_per_day'],
       totalHotelPrice: json['total_hotel_price'],
-      planRecommendations: List<String>.from(json['plan_recommendations']),
       totalPlanPrice: json['total_plan_price'],
       additionalAmountNeeded: json['additional_amount_needed'],
+      planRecommendations: List<String>.from(json['plan_recommendations']),
+    );
+  }
+}
+
+class RecommendationBackend {
+  final int planNumber;
+  final String hotel;
+  final double hotelPricePerDay;
+  final double totalHotelPrice;
+  final double totalPlanPrice;
+  final String additionalAmountNeeded;
+  final List<List<String>> planRecommendations;
+
+  RecommendationBackend({
+    required this.planNumber,
+    required this.hotel,
+    required this.hotelPricePerDay,
+    required this.totalHotelPrice,
+    required this.totalPlanPrice,
+    required this.additionalAmountNeeded,
+    required this.planRecommendations,
+  });
+
+  factory RecommendationBackend.fromJson(Map<String, dynamic> json) {
+    return RecommendationBackend(
+      planNumber: json['plan_number'],
+      hotel: json['hotel'],
+      hotelPricePerDay: json['hotel_price_per_day'],
+      totalHotelPrice: json['total_hotel_price'],
+      totalPlanPrice: json['total_plan_price'],
+      additionalAmountNeeded: json['additional_amount_needed'],
+      planRecommendations:
+          List<List<String>>.from(json[['plan_recommendations']]),
     );
   }
 
@@ -58,13 +91,7 @@ class ModelAIController extends GetxController {
   final RxBool isValidnumDays = false.obs;
   final RxBool isValidbudget = false.obs;
   final RxBool isValidnum_plans = false.obs;
-  final RxList<String> numPlans = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-  ].obs;
+
   final TextEditingController countryController = TextEditingController();
   final TextEditingController governorateController = TextEditingController();
   final TextEditingController numDaysController = TextEditingController();
@@ -145,6 +172,13 @@ class ModelAIController extends GetxController {
     '2500',
     '3000',
   ];
+  final RxList<String> numPlans = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+  ].obs;
 
   SurveySaveController surveySaveController = Get.put(SurveySaveController());
 
@@ -223,54 +257,68 @@ class ModelAIController extends GetxController {
     }
   }
 
-Future<void> saveRecommendation(Recommendation recommendation) async {
-  final RxBool isLoadingSave = false.obs;
-  try {
-    isLoadingSave.value = true;
-    final url = ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.recommendations;
+  Future<void> saveRecommendation(Recommendation recommendation) async {
+    final RxBool isLoadingSave = false.obs;
+    try {
+      isLoadingSave.value = true;
+      final String url =
+          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.recommendations;
 
-    // Get the authentication token from shared preferences
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token');
+      // Get the authentication token from shared preferences
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? token = prefs.getString('token');
 
-    // Make sure token exists
-    if (token == null) {
-      throw 'User is not logged in';
+      // Make sure token exists
+      if (token == null) {
+        throw 'User is not logged in';
+      }
+
+      // Create a RecommendationBackend object from the Recommendation object
+      final RecommendationBackend recommendationBackend = RecommendationBackend(
+        planNumber: recommendation.planNumber,
+        hotel: recommendation.hotel,
+        hotelPricePerDay: recommendation.hotelPricePerDay,
+        totalHotelPrice: recommendation.totalHotelPrice,
+        totalPlanPrice: recommendation.totalPlanPrice,
+        additionalAmountNeeded: recommendation.additionalAmountNeeded,
+        planRecommendations:
+            recommendation.planRecommendations.map((rec) => [rec]).toList(),
+      );
+
+      // Serialize the RecommendationBackend object to JSON
+      final String recommendationJson =
+          jsonEncode(recommendationBackend.toJson());
+
+      // Log the data for debugging
+      print('Serialized recommendation data: $recommendationJson');
+
+      // Send the HTTP POST request
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          "Authorization": "Bearer $token",
+          'Content-Type': 'application/json',
+        },
+        body: recommendationJson,
+      );
+
+      if (response.statusCode == 200) {
+        Get.snackbar("Success", "Recommendation saved successfully",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green,
+            colorText: Colors.white);
+      } else {
+        print('Failed to save recommendation: ${response.statusCode}');
+        print('Failed to save recommendation: ${response.body}');
+        var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["message"];
+        throw 'Error: $errorMessage';
+      }
+    } catch (e) {
+      print('Failed to save recommendation: $e');
+      Get.snackbar("Error", "Failed to save recommendation: $e");
+    } finally {
+      isLoadingSave.value = false;
     }
-
-    // Serialize the recommendation to JSON
-    final Map<String, dynamic> recommendationData = recommendation.toJson();
-    final String recommendationJson = jsonEncode(recommendationData);
-
-    // Log the data for debugging
-    print('Serialized recommendation data: $recommendationJson');
-
-    // Send the HTTP POST request
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {
-        "Authorization": "Bearer $token",
-        'Content-Type': 'application/json',
-      },
-      body: recommendationJson,
-    );
-
-    // Log the response for debugging
-    print('Server response: ${response.statusCode} ${response.body}');
-
-    if (response.statusCode == 200) {
-      Get.snackbar("Success", "Recommendation saved successfully");
-    } else {
-      var responseBody = jsonDecode(response.body);
-      var errorMessage = responseBody["message"];
-      throw 'Error: $errorMessage';
-    }
-  } catch (e) {
-    print('Failed to save recommendation: $e');
-    Get.snackbar("Error", "Failed to save recommendation: $e");
-  } finally {
-    isLoadingSave.value = false;
   }
-}
-
 }

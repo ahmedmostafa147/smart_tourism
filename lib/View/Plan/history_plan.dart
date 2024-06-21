@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/plan_controller/history_plan_controller.dart';
+import 'package:smart_tourism/Controller/plan_controller/model_plan/history_plan_controller.dart';
 
 class SavedPlansScreen extends StatelessWidget {
   final SavedPlansController controller = Get.put(SavedPlansController());

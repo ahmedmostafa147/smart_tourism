@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Controller/Get_Home/master_controller.dart';
-import 'package:smart_tourism/View/Home/widgets/hotel_list.dart';
-import 'package:smart_tourism/View/Home/widgets/place_lisat.dart';
-import 'package:smart_tourism/View/Home/widgets/resturant_list.dart';
+import 'package:smart_tourism/View/Home/widgets/custom_list_title.dart';
 
 import 'widgets/app_bar_home.dart';
 import 'widgets/container_center_home_screen.dart';

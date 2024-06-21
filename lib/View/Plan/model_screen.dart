@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/plan_controller/model_ai_controller.dart';
+import 'package:smart_tourism/Controller/plan_controller/model_plan/model_ai_controller.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/text_form_field.dart';
 import 'package:smart_tourism/View/Plan/display_plan.dart';
 import 'package:smart_tourism/View/Plan/widget/autocomplete.dart';
