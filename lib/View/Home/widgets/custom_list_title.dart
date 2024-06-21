@@ -25,7 +25,8 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4.0,
+      clipBehavior: Clip.antiAlias,
+      color: Colors.transparent,
       margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
@@ -33,49 +34,74 @@ class CustomListTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 150.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
-              child: CachedNetworkImage(
-                imageUrl: imageURL,
-                fit: BoxFit.cover,
-                placeholder: (context, url) =>
-                    Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) =>
-                    Icon(Icons.broken_image, size: 120.r),
+          Stack(
+            alignment: AlignmentDirectional.bottomStart,
+            clipBehavior: Clip.antiAlias,
+            fit: StackFit.loose,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                height: 100.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(10.0)),
+                ),
+                child: ClipRRect(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(10.0)),
+                  child: CachedNetworkImage(
+                    imageUrl: imageURL,
+                    fit: BoxFit.fill,
+                    width: double.infinity,
+                    height: 100.h,
+                    placeholder: (context, url) =>
+                        Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        Icon(Icons.broken_image, size: 100.r),
+                  ),
+                ),
               ),
-            ),
+              IconButton(onPressed: () {}, icon: Icon(Icons.favorite_outline)),
+            ],
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
+                  maxLines: 2,
                   style: TextStyle(
-                    fontSize: 18.sp,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                    fontFamily: "Mano",
+                    height: 1.sp,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 const SizedBox(height: 8.0),
                 Row(
                   children: [
-                    Icon(Icons.location_on, size: 16.0.r, color: Colors.grey),
+                    Icon(Icons.location_on, size: 10.0.r, color: Colors.grey),
                     SizedBox(width: 4.0),
-                    Text(subtitle),
+                    Text(subtitle,
+                        style: TextStyle(
+                          fontSize: 10.0.sp,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w600,
+                          overflow: TextOverflow.ellipsis,
+                        )),
                   ],
                 ),
                 const SizedBox(height: 8.0),
                 Text(
                   'Price: $price \$',
                   style: TextStyle(
-                    fontSize: 16.0.sp,
+                    fontSize: 12.sp,
                     color: Colors.teal,
                     fontWeight: FontWeight.w600,
                   ),
@@ -83,12 +109,12 @@ class CustomListTile extends StatelessWidget {
                 SizedBox(height: 8.0),
                 Row(
                   children: [
-                    Icon(Icons.star, size: 16.0.r, color: Colors.orange),
+                    Icon(Icons.star, size: 16.r, color: Colors.orange),
                     SizedBox(width: 4.0),
                     Text(
                       'Rating: ${rating.toStringAsFixed(2)}',
                       style: TextStyle(
-                        fontSize: 16.0.sp,
+                        fontSize: 12.0.sp,
                         color: Colors.orange,
                         fontWeight: FontWeight.w600,
                       ),
@@ -131,57 +157,13 @@ class HotelListView extends StatelessWidget {
             itemBuilder: (context, index) {
               final hotel = hotels[index];
               return Container(
-                width: 200.w, // Ensure a fixed width for each item
+                width: 200.w,
                 child: CustomListTile(
                   title: hotel.hotelName,
                   subtitle: ' ${hotel.governorate} | ${hotel.hotelLoc}',
                   imageURL: hotel.hotelImage,
                   price: '${hotel.price}',
                   rating: hotel.rate,
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class PlaceListView extends StatelessWidget {
-  final List<Place> places;
-
-  const PlaceListView({Key? key, required this.places}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'You may like these Places'.tr,
-          style: TextStyle(
-            color: Colors.teal,
-            fontSize: 20.sp,
-            height: 1.3.sp,
-          ),
-        ),
-        SizedBox(height: 10.h),
-        SizedBox(
-          height: 200.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: places.length,
-            itemBuilder: (context, index) {
-              final place = places[index];
-              return Container(
-                width: 200.w, // Ensure a fixed width for each item
-                child: CustomListTile(
-                  title: place.placeName,
-                  subtitle: '${place.governorate} | ${place.placeLoc}',
-                  imageURL: place.placeImage,
-                  price: '${place.price}',
-                  rating: place.rate,
                 ),
               );
             },
@@ -228,6 +210,50 @@ class RestaurantListView extends StatelessWidget {
                   imageURL: restaurant.restaurantImage,
                   price: '${restaurant.price}',
                   rating: restaurant.rate,
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PlaceListView extends StatelessWidget {
+  final List<Place> places;
+
+  const PlaceListView({Key? key, required this.places}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'You may like these Places'.tr,
+          style: TextStyle(
+            color: Colors.teal,
+            fontSize: 20.sp,
+            height: 1.3.sp,
+          ),
+        ),
+        SizedBox(height: 10.h),
+        SizedBox(
+          height: 250.h,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: places.length,
+            itemBuilder: (context, index) {
+              final place = places[index];
+              return Container(
+                width: 200.w, // Ensure a fixed width for each item
+                child: CustomListTile(
+                  title: place.placeName,
+                  subtitle: '${place.governorate} | ${place.placeLoc}',
+                  imageURL: place.placeImage,
+                  price: '${place.price}',
+                  rating: place.rate,
                 ),
               );
             },
