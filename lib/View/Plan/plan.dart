@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'local_plan.dart';
 import 'model_screen.dart';
 import '../../Core/constants/images.dart';
-import '../Home/widgets/container_display_nearest.dart';
 
 class Plan extends StatefulWidget {
   const Plan({super.key});

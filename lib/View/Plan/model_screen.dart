@@ -77,6 +77,14 @@ class PreferencesScreen extends StatelessWidget {
                 hintText: 'Enter budget',
               ),
               SizedBox(height: 25.h),
+              AutocompleteField(
+                label: "Number of Plans",
+                options: controller.numPlans,
+                controller: controller.num_plansController,
+                isValidSelection: controller.isValidnum_plans,
+                hintText: 'Enter budget',
+              ),
+              SizedBox(height: 25.h),
               Obx(() => CustomMaterialButton(
                     buttonText: controller.isLoading.value
                         ? 'Loading...'
@@ -84,13 +92,13 @@ class PreferencesScreen extends StatelessWidget {
                     onPressed: () async {
                       if (controller.formKey.currentState!.validate()) {
                         await controller.getRecommendations();
-                        if (controller.recommendations.isNotEmpty) {
-                          controller.isLoading.value = false;
-                          Get.to(() => RecommendationScreen(
-                              planName: planNameController.text));
-                        } else {
-                          Get.snackbar('Error', 'No recommendations found');
-                        }
+                        // if (controller.recommendations.isNotEmpty) {
+                        //   controller.isLoading.value = false;
+                        Get.to(() => RecommendationScreen(
+                            planName: planNameController.text));
+                        // } else {
+                        //   Get.snackbar('Error', 'No recommendations found');
+                        // }
                       }
                     },
                   )),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../Home/widgets/container_display_nearest.dart';
 
 class ContainerEnableLocation extends StatelessWidget {
   const ContainerEnableLocation({super.key});
@@ -27,7 +26,6 @@ class ContainerEnableLocation extends StatelessWidget {
             ),
           ],
         ),
-        ContainerDisplayHot(),
         SizedBox(
           height: 24.h,
         ),
@@ -49,7 +47,6 @@ class ContainerEnableLocation extends StatelessWidget {
           ],
         ),
         Divider(),
-        ContainerDisplayNearestHome(),
       ],
     );
   }

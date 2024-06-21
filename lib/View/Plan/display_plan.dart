@@ -33,43 +33,36 @@ class RecommendationScreen extends StatelessWidget {
                 itemCount: controller.recommendations.length,
                 itemBuilder: (context, index) {
                   final recommendation = controller.recommendations[index];
-                  // Determine the color of the card based on the day
+
                   Color cardColor;
-                  if (recommendation.day >= 1 && recommendation.day <= 7) {
-                    cardColor = dayColors[recommendation.day - 1];
+                  if (recommendation.planNumber >= 1 &&
+                      recommendation.planNumber <= 5) {
+                    cardColor = dayColors[recommendation.planNumber - 1];
                   } else {
                     cardColor = Colors.white;
                   }
 
                   return Card(
                     color: cardColor,
-                    child: ListTile(
+                    child: ExpansionTile(
                       title: Text(
-                        recommendation.title,
-                        style: TextStyle(color: Colors.white),
+                          'Plan #${recommendation.planNumber} - ${recommendation.hotel}'),
+                      subtitle: Text(
+                        'Total Plan Price: \$${recommendation.totalPlanPrice.toStringAsFixed(2)}\n'
+                        'Additional Amount Needed: ${recommendation.additionalAmountNeeded}',
                       ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Price: ${recommendation.price}',
-                              style: TextStyle(color: Colors.white)),
-                          Text('Tags: ${recommendation.tags}',
-                              style: TextStyle(color: Colors.white)),
-                          Text('Governorate: ${recommendation.governorate}',
-                              style: TextStyle(color: Colors.white)),
-                          Text('Day: ${recommendation.day}',
-                              style: TextStyle(color: Colors.white)),
-                        ],
-                      ),
-                      trailing: Obx(() => controller.isLoading.value
-                          ? CircularProgressIndicator()
-                          : IconButton(
-                              icon: Icon(Icons.bookmark_border_outlined,
-                                  color: Colors.white),
-                              onPressed: () {
-                                controller.saveRecommendation(recommendation);
-                              },
-                            )),
+                      children: recommendation.planRecommendations
+                          .map((recommendation) {
+                        // Parse day and details from the recommendation string
+                        final parts = recommendation.split(':');
+                        final day = parts[0];
+                        final details = parts.length > 1 ? parts[1] : '';
+
+                        return ListTile(
+                          title: Text(day),
+                          subtitle: Text(details.trim()),
+                        );
+                      }).toList(),
                     ),
                   );
                 },

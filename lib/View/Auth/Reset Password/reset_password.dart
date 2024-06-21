@@ -49,6 +49,7 @@ class ResetPasswordScreen extends StatelessWidget {
                           hintText: "New Password",
                           controller: resetPasswordController.NewPassword,
                           labelText: "New Password",
+                          keyboardType: TextInputType.visiblePassword,
                           validator: (value) =>
                               resetPasswordController.validatePassword(value),
                           isPassword: true),

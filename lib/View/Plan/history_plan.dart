@@ -25,16 +25,7 @@ class SavedPlansScreen extends StatelessWidget {
                   final plan = controller.savedPlans[index];
                   return Card(
                     child: ListTile(
-                      title: Text(plan.title),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Price: ${plan.price}'),
-                          Text('Tags: ${plan.tags}'),
-                          Text('Governorate: ${plan.governorate}'),
-                          Text('Day: ${plan.day}'),
-                        ],
-                      ),
+                      title: Text("helo"),
                     ),
                   );
                 },

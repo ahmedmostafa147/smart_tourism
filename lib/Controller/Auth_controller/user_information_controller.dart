@@ -28,6 +28,7 @@ class UserInformation extends GetxController {
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         userInfo.assignAll(responseData);
+        print(userInfo);
       } else {
         var responseBody = jsonDecode(response.body);
         var errorMessage = responseBody["message"];

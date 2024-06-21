@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_tourism/Core/constants/images.dart';
 
 class DisplayImage extends StatelessWidget {
   final String imagePath;
   final VoidCallback onPressed;
 
-  // Constructor
   const DisplayImage({
     Key? key,
     required this.imagePath,
@@ -13,49 +14,50 @@ class DisplayImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const color = Colors.teal;
-
     return Center(
-        child: Stack(children: [
-      buildImage(color),
-      Positioned(
-        right: 4,
-        bottom: 10,
-        child: buildEditIcon(color),
-      )
-    ]));
-  }
-
-  // Builds Profile Image
-  Widget buildImage(Color color) {
-    return CircleAvatar(
-      radius: 75,
-      backgroundColor: color,
-      child: CircleAvatar(
-        backgroundImage: AssetImage(imagePath),
-        radius: 70,
+      child: Stack(
+        children: [
+          buildImage(),
+          Positioned(
+            right: 4,
+            bottom: 10,
+            child: GestureDetector(
+              onTap: onPressed,
+              child: buildEditIcon(),
+            ),
+          )
+        ],
       ),
     );
   }
 
-  // Builds Edit Icon on Profile Picture
-  Widget buildEditIcon(Color color) => buildCircle(
-      all: 8,
-      child: Icon(
-        Icons.camera_alt_outlined,
-        color: color,
-        size: 20,
-      ));
+  Widget buildImage() {
+    return CircleAvatar(
+      backgroundImage: imagePath.isNotEmpty
+          ? NetworkImage(imagePath) as ImageProvider
+          : AssetImage(Assets.imagesCircleUser),
+      radius: 80.r,
+    );
+  }
 
-  // Builds/Makes Circle for Edit Icon on Profile Picture
+  Widget buildEditIcon() => buildCircle(
+        all: 8,
+        child: Icon(
+          Icons.camera_alt_outlined,
+          color: Colors.teal,
+          size: 30.r,
+        ),
+      );
+
   Widget buildCircle({
     required Widget child,
     required double all,
   }) =>
       ClipOval(
-          child: Container(
-        padding: EdgeInsets.all(all),
-        color: Colors.white,
-        child: child,
-      ));
+        child: Container(
+          padding: EdgeInsets.all(all),
+          color: Colors.white,
+          child: child,
+        ),
+      );
 }

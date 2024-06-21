@@ -22,9 +22,9 @@ class SmartTourism extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.teal,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: Colors.teal,
+    // ));
 
     return ScreenUtilInit(
         designSize: const Size(360, 690),

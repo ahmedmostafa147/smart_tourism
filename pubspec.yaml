@@ -13,11 +13,12 @@ dependencies:
   get: ^4.6.6
   google_generative_ai: ^0.4.3
   google_sign_in: ^6.2.1
-  image_picker: ^1.0.7
+  image_picker: ^1.1.2
   intl: ^0.19.0
   loading_indicator: ^3.1.1
   persistent_bottom_nav_bar: ^5.0.2
   shared_preferences: ^2.2.3
+  http: ^1.2.1
 
 
 dev_dependencies:

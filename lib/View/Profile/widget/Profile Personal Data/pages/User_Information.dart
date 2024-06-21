@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/View/Profile/widget/Profile%20Personal%20Data/pages/edit_image.dart';
 import '../../../../../Core/constants/font.dart';
 import '../../../../../Core/constants/images.dart';
 import '../../../../../Controller/Auth_controller/user_information_controller.dart';
 import '../widgets/display_image_widget.dart';
 
-class UserInfoScreen extends StatelessWidget {
+class UserInfoScreen extends StatefulWidget {
+  @override
+  State<UserInfoScreen> createState() => _UserInfoScreenState();
+}
+
+class _UserInfoScreenState extends State<UserInfoScreen> {
   final UserInformation userInformation = Get.put(UserInformation());
 
   @override
@@ -28,7 +34,7 @@ class UserInfoScreen extends StatelessWidget {
       }
 
       final user = userInfo['user_info'] ?? {};
-      final userImage = user['image'] ?? Assets.imagesCircleUser;
+      final userImage = user['profile_photo'];
 
       return ListView(
         shrinkWrap: true,
@@ -36,7 +42,9 @@ class UserInfoScreen extends StatelessWidget {
         children: [
           DisplayImage(
             imagePath: userImage,
-            onPressed: () {},
+            onPressed: () async {
+              Get.to(() => EditImageProfile());
+            },
           ),
           SizedBox(height: 20.h),
           Container(
@@ -69,7 +77,10 @@ class UserInfoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(label,
-          style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w400,fontFamily: TextFontStyle.Mano),
+          style: TextStyle(
+              fontSize: 17.sp,
+              fontWeight: FontWeight.w400,
+              fontFamily: TextFontStyle.Mano),
           textAlign: TextAlign.start),
       subtitle: Text(
         value,

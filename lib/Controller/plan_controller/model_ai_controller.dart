@@ -7,37 +7,45 @@ import 'package:smart_tourism/Controller/Survay/survay_controller.dart';
 import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
 
 class Recommendation {
-  final String title;
-  final double price;
-  final String tags;
-  final String governorate;
-  final int day;
+  final int planNumber;
+  final String hotel;
+  final double hotelPricePerDay;
+  final double totalHotelPrice;
+  final List<String> planRecommendations;
+  final double totalPlanPrice;
+  final String additionalAmountNeeded;
 
   Recommendation({
-    required this.title,
-    required this.price,
-    required this.tags,
-    required this.governorate,
-    required this.day,
+    required this.planNumber,
+    required this.hotel,
+    required this.hotelPricePerDay,
+    required this.totalHotelPrice,
+    required this.planRecommendations,
+    required this.totalPlanPrice,
+    required this.additionalAmountNeeded,
   });
 
   factory Recommendation.fromJson(Map<String, dynamic> json) {
     return Recommendation(
-      title: json['Title'],
-      price: json['Price'],
-      tags: json['Tags'],
-      governorate: json['Governorate'],
-      day: json['Day'],
+      planNumber: json['plan_number'],
+      hotel: json['hotel'],
+      hotelPricePerDay: json['hotel_price_per_day'],
+      totalHotelPrice: json['total_hotel_price'],
+      planRecommendations: List<String>.from(json['plan_recommendations']),
+      totalPlanPrice: json['total_plan_price'],
+      additionalAmountNeeded: json['additional_amount_needed'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'Title': title,
-      'Price': price,
-      'Tags': tags,
-      'Governorate': governorate,
-      'Day': day,
+      'plan_number': planNumber,
+      'hotel': hotel,
+      'hotel_price_per_day': hotelPricePerDay,
+      'total_hotel_price': totalHotelPrice,
+      'plan_recommendations': planRecommendations,
+      'total_plan_price': totalPlanPrice,
+      'additional_amount_needed': additionalAmountNeeded,
     };
   }
 }
@@ -49,10 +57,19 @@ class ModelAIController extends GetxController {
   final RxBool isValidGovernorate = false.obs;
   final RxBool isValidnumDays = false.obs;
   final RxBool isValidbudget = false.obs;
+  final RxBool isValidnum_plans = false.obs;
+  final RxList<String> numPlans = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+  ].obs;
   final TextEditingController countryController = TextEditingController();
   final TextEditingController governorateController = TextEditingController();
   final TextEditingController numDaysController = TextEditingController();
   final TextEditingController budgetController = TextEditingController();
+  final TextEditingController num_plansController = TextEditingController();
   final RxList<Recommendation> recommendations = <Recommendation>[].obs;
   final RxList<String> filteredGovernorates = RxList<String>();
 
@@ -120,7 +137,14 @@ class ModelAIController extends GetxController {
   ];
 
   final List<String> numDays = ['1', '2', '3', '4', '5', '6', '7'];
-  final List<String> budget = ['1000', '2000', '3000', '4000', '5000'];
+  final List<String> budget = [
+    '500',
+    '1000',
+    '1500',
+    '2000',
+    '2500',
+    '3000',
+  ];
 
   SurveySaveController surveySaveController = Get.put(SurveySaveController());
 
@@ -154,6 +178,7 @@ class ModelAIController extends GetxController {
         filteredGovernorates.contains(governorateController.text.trim());
     isValidnumDays.value = numDays.contains(numDaysController.text.trim());
     isValidbudget.value = budget.contains(budgetController.text.trim());
+    isValidnum_plans.value = numPlans.contains(num_plansController.text.trim());
   }
 
   Future<void> getRecommendations() async {
@@ -164,10 +189,11 @@ class ModelAIController extends GetxController {
 
     final Map<String, dynamic> requestData = {
       "country": countryController.text.trim(),
-      "governorate": governorateController.text.trim(),
+      "governorates": [governorateController.text.trim()], // Change this line
       "survey_responses": surveySaveController.surveyResults,
       "num_days": numDaysController.text.trim(),
       "budget": budgetController.text.trim(),
+      "num_plans": num_plansController.text.trim()
     };
 
     try {
@@ -185,6 +211,9 @@ class ModelAIController extends GetxController {
           recommendations.add(Recommendation.fromJson(element));
         });
       } else {
+        print('Failed to load recommendations: ${response.statusCode}');
+        print('Failed to load recommendations: ${response.body}');
+
         throw Exception('Failed to load recommendations');
       }
     } catch (e) {
