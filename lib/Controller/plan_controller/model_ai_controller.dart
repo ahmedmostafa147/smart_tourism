@@ -43,9 +43,9 @@ class Recommendation {
       'hotel': hotel,
       'hotel_price_per_day': hotelPricePerDay,
       'total_hotel_price': totalHotelPrice,
-      'plan_recommendations': planRecommendations,
       'total_plan_price': totalPlanPrice,
       'additional_amount_needed': additionalAmountNeeded,
+      'plan_recommendations': planRecommendations,
     };
   }
 }
@@ -223,40 +223,54 @@ class ModelAIController extends GetxController {
     }
   }
 
-  Future<void> saveRecommendation(Recommendation recommendation) async {
-    final RxBool isLoadingSave = false.obs;
-    try {
-      isLoadingSave.value = true;
-      final url =
-          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.recommendations;
-      // Get the authentication token from shared preferences
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final String? token = prefs.getString('token');
+Future<void> saveRecommendation(Recommendation recommendation) async {
+  final RxBool isLoadingSave = false.obs;
+  try {
+    isLoadingSave.value = true;
+    final url = ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.recommendations;
 
-      // Make sure token exists
-      if (token == null) {
-        throw 'User is not logged in';
-      }
+    // Get the authentication token from shared preferences
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
 
-      final response = await http.post(
-        Uri.parse(url),
-        headers: {
-          "Authorization": "Bearer $token",
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(recommendation.toJson()),
-      );
-
-      if (response.statusCode == 200) {
-        Get.snackbar("Success", "Recommendation saved successfully");
-      } else {
-        var responseBody = jsonDecode(response.body);
-        var errorMessage = responseBody["message"];
-        throw 'Error: $errorMessage';
-      }
-    } catch (e) {
-      print('Failed to save recommendation: $e');
-      Get.snackbar("Error", "Failed to save recommendation: $e");
+    // Make sure token exists
+    if (token == null) {
+      throw 'User is not logged in';
     }
+
+    // Serialize the recommendation to JSON
+    final Map<String, dynamic> recommendationData = recommendation.toJson();
+    final String recommendationJson = jsonEncode(recommendationData);
+
+    // Log the data for debugging
+    print('Serialized recommendation data: $recommendationJson');
+
+    // Send the HTTP POST request
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        "Authorization": "Bearer $token",
+        'Content-Type': 'application/json',
+      },
+      body: recommendationJson,
+    );
+
+    // Log the response for debugging
+    print('Server response: ${response.statusCode} ${response.body}');
+
+    if (response.statusCode == 200) {
+      Get.snackbar("Success", "Recommendation saved successfully");
+    } else {
+      var responseBody = jsonDecode(response.body);
+      var errorMessage = responseBody["message"];
+      throw 'Error: $errorMessage';
+    }
+  } catch (e) {
+    print('Failed to save recommendation: $e');
+    Get.snackbar("Error", "Failed to save recommendation: $e");
+  } finally {
+    isLoadingSave.value = false;
   }
+}
+
 }

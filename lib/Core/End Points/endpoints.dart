@@ -25,8 +25,8 @@ class _AuthEndPoints {
   final String updatePlan = 'update';
   final String survey = 'survey/';
   final String outputSurvey = 'survey_responses';
-  final String recommendations = 'recommendations/';
-  final String outputRecommendations = 'output_recommendations/';
+  final String recommendations = 'store_plan_recommendation/';
+  final String outputRecommendations = 'get_plan_recommendations/';
   final String QuestionChat = "chat_questions/";
   final String ResponseChat = "chat_responses/";
   final String getChatHistoryQuestion = "output_questions/";

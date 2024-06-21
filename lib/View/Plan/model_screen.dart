@@ -92,13 +92,13 @@ class PreferencesScreen extends StatelessWidget {
                     onPressed: () async {
                       if (controller.formKey.currentState!.validate()) {
                         await controller.getRecommendations();
-                        // if (controller.recommendations.isNotEmpty) {
-                        //   controller.isLoading.value = false;
-                        Get.to(() => RecommendationScreen(
-                            planName: planNameController.text));
-                        // } else {
-                        //   Get.snackbar('Error', 'No recommendations found');
-                        // }
+                        if (controller.recommendations.isNotEmpty) {
+                          controller.isLoading.value = false;
+                          Get.to(() => RecommendationScreen(
+                              planName: planNameController.text));
+                        } else {
+                          Get.snackbar('Error', 'No recommendations found');
+                        }
                       }
                     },
                   )),

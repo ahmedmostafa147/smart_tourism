@@ -63,6 +63,14 @@ class RecommendationScreen extends StatelessWidget {
                           subtitle: Text(details.trim()),
                         );
                       }).toList(),
+                      leading: IconButton(
+                        onPressed: () async {
+                          print(
+                              'Recommendation saved: ${recommendation}');
+                          await controller.saveRecommendation(recommendation ) ;
+                        },
+                        icon: Icon(Icons.bookmark_add_outlined),
+                      ),
                     ),
                   );
                 },
