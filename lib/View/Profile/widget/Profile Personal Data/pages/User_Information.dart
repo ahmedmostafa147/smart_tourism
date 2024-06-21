@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/View/Profile/widget/Profile%20Personal%20Data/pages/edit_image.dart';
 import '../../../../../Core/constants/font.dart';
-import '../../../../../Core/constants/images.dart';
 import '../../../../../Controller/Auth_controller/user_information_controller.dart';
 import '../widgets/display_image_widget.dart';
 

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Controller/Get_Home/master_controller.dart';
 import 'package:smart_tourism/View/Home/widgets/custom_list_title.dart';
+import 'package:smart_tourism/View/Home/widgets/shammer.dart';
 
 import 'widgets/app_bar_home.dart';
 import 'widgets/container_center_home_screen.dart';
@@ -50,7 +51,11 @@ class HomeView extends StatelessWidget {
             ),
             Obx(() {
               if (controller.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: 5, 
+                  itemBuilder: (context, index) => ShimmerListTile(),
+                );
               } else {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

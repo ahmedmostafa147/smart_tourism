@@ -19,6 +19,7 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   shared_preferences: ^2.2.3
   cached_network_image:
+  shimmer: ^3.0.0
 
 
 dev_dependencies:

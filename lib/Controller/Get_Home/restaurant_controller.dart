@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
-import 'package:smart_tourism/Model/place.dart';
 import 'package:smart_tourism/Model/restaurant.dart';
 
 class RestaurantController extends GetxController {

@@ -78,14 +78,8 @@ class _PlanState extends State<Plan> {
                   );
                 },
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 20.0.h),
               Divider(),
-              Text("This is the best plan from AI".tr,
-                  style: TextStyle(
-                    fontSize: 20.0.sp,
-                    fontWeight: FontWeight.w400,
-                  )),
-              //ContainerDisplayNearestHome(),
             ],
           ),
         ),
