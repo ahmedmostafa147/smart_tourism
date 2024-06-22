@@ -52,7 +52,7 @@ class PlaceController extends GetxController {
       isLoading.value = true;
 
       final Uri url = Uri.parse(
-          "https://zoz-rwob.onrender.com/discover_places/?country=Egypt");
+          "https://zoz-rwob.onrender.com/discover_places/?governorate=Cairo");
 
       var response = await http.get(
         url,

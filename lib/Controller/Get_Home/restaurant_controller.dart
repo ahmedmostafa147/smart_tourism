@@ -50,7 +50,7 @@ class RestaurantController extends GetxController {
     try {
       isLoading.value = true;
       final Uri url = Uri.parse(
-          "https://zoz-rwob.onrender.com/discover_restaurants/?country=Egypt");
+          "https://zoz-rwob.onrender.com/discover_restaurants/?governorate=Cairo");
 
       var response = await http.get(
         url,

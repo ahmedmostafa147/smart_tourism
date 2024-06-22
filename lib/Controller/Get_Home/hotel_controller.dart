@@ -51,7 +51,7 @@ class HotelController extends GetxController {
       isLoading.value = true;
 
       var url = Uri.parse(
-          "https://zoz-rwob.onrender.com/discover_hotels/?country=egypt");
+          "https://zoz-rwob.onrender.com/discover_hotels/?governorate=Cairo");
       var response = await http.get(
         url,
       );

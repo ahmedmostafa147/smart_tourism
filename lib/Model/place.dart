@@ -4,7 +4,9 @@ class Place {
   final String governorate;
   final String placeLoc;
   final String placeImage;
+  final String comment;
   final double rate;
+  final int place_id;
 
   Place({
     required this.placeName,
@@ -13,6 +15,8 @@ class Place {
     required this.placeLoc,
     required this.placeImage,
     required this.rate,
+    required this.comment,
+    required this.place_id,
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
@@ -23,6 +27,8 @@ class Place {
       placeLoc: json['place_loc'] ?? '',
       placeImage: json['place_image'] ?? '',
       rate: (json['rate'] ?? 0.0).toDouble(),
+      comment: json['comment'] ?? '',
+      place_id: json['place_id'] ?? 0,
     );
   }
 }
