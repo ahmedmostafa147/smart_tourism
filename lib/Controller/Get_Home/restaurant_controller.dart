@@ -23,6 +23,8 @@ class RestaurantController extends GetxController {
 
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
+        print(
+            "Response JSON: $jsonResponse"); // طباعة الاستجابة للتحقق من محتواها
         if (jsonResponse is Map<String, dynamic> &&
             jsonResponse['random_restaurants'] is List) {
           randomRestaurants.value = (jsonResponse['random_restaurants'] as List)
@@ -58,6 +60,8 @@ class RestaurantController extends GetxController {
 
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
+        print(
+            "Response JSON: $jsonResponse"); // طباعة الاستجابة للتحقق من محتواها
         if (jsonResponse is Map<String, dynamic> &&
             jsonResponse['random_restaurants'] is List) {
           randomRestaurants.value = (jsonResponse['random_restaurants'] as List)

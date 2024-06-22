@@ -7,12 +7,6 @@ import 'package:smart_tourism/Model/hotel.dart';
 import 'package:smart_tourism/Model/place.dart';
 import 'package:smart_tourism/Model/restaurant.dart';
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:smart_tourism/Controller/favorite/favorite_controller.dart';
-
 class CustomListTile extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -275,7 +269,7 @@ class PlaceListView extends StatelessWidget {
                 width: 200.w, // Ensure a fixed width for each item
                 child: CustomListTile(
                   title: place.placeName,
-                  subtitle: '${place.governorate} | ${place.placeLoc}',
+                  subtitle: '${place.placeLoc} | ${place.placeLoc}',
                   imageURL: place.placeImage,
                   price: '${place.price}',
                   rating: place.rate,
