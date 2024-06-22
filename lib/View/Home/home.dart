@@ -16,49 +16,45 @@ class HomeView extends StatelessWidget {
     final HomeController controller = Get.put(HomeController());
     return Scaffold(
       appBar: CustomAppBarHome(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.blueGrey[900],
-                  borderRadius:
-                      BorderRadius.vertical(bottom: Radius.circular(30.h))),
-              clipBehavior: Clip.antiAlias,
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Discover'.tr,
-                    style: TextStyle(
-                      color: Colors.teal,
-                      fontSize: 32.sp,
-                      height: 1.3.sp,
-                      fontFamily: "Mano",
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  ContainerOPtionsSearch(),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                ],
-              ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.blueGrey[900],
+              borderRadius:
+                  BorderRadius.vertical(bottom: Radius.circular(30.h)),
             ),
-            Obx(() {
+            clipBehavior: Clip.antiAlias,
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Discover'.tr,
+                  style: TextStyle(
+                    color: Colors.teal,
+                    fontSize: 32.sp,
+                    height: 1.3.sp,
+                    fontFamily: "Mano",
+                  ),
+                ),
+                SizedBox(height: 15.h),
+                ContainerOPtionsSearch(),
+                SizedBox(height: 24.h),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Obx(() {
               if (controller.isLoading.value) {
                 return ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: 5, 
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 3, 
                   itemBuilder: (context, index) => ShimmerListTile(),
                 );
               } else {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                return ListView(
                   children: [
                     if (controller.randomHotels.isNotEmpty) ...[
                       HotelListView(hotels: controller.randomHotels),
@@ -77,8 +73,8 @@ class HomeView extends StatelessWidget {
                 );
               }
             }),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/Controller/favorite/favorite_controller.dart';
 import 'package:smart_tourism/Model/hotel.dart';
 import 'package:smart_tourism/Model/place.dart';
 import 'package:smart_tourism/Model/restaurant.dart';
@@ -24,6 +25,9 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FavoriteController favoriteController = Get.put(
+      FavoriteController(),
+    );
     return Card(
       clipBehavior: Clip.antiAlias,
       color: Colors.transparent,
@@ -63,7 +67,11 @@ class CustomListTile extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(onPressed: () {}, icon: Icon(Icons.favorite_outline)),
+              IconButton(
+                  onPressed: () {
+                    favoriteController.createFavorite('Hotel', title, subtitle);
+                  },
+                  icon: Icon(Icons.favorite_outline)),
             ],
           ),
           Padding(

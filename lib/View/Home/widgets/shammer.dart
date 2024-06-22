@@ -3,76 +3,79 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerListTile extends StatelessWidget {
-  const ShimmerListTile({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: Card(
-        elevation: 4.0,
-        margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 150.h,
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      color: Colors.transparent,
+      margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: Container(
+              alignment: Alignment.center,
+              height: 100.h,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.grey[300],
+                color: Colors.black,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 150.w,
-                    height: 20.h,
-                    color: Colors.grey[300],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    width: double.infinity,
+                    height: 15.h,
+                    color: Colors.white,
                   ),
-                  const SizedBox(height: 8.0),
-                  Row(
-                    children: [
-                      Icon(Icons.location_on,
-                          size: 16.0.r, color: Colors.grey[300]),
-                      SizedBox(width: 4.0),
-                      Container(
-                        width: 100.w,
-                        height: 20.h,
-                        color: Colors.grey[300],
-                      ),
-                    ],
+                ),
+                const SizedBox(height: 8.0),
+                Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    width: 100.w,
+                    height: 10.h,
+                    color: Colors.white,
                   ),
-                  const SizedBox(height: 8.0),
-                  Container(
+                ),
+                const SizedBox(height: 8.0),
+                Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
                     width: 80.w,
-                    height: 20.h,
-                    color: Colors.grey[300],
+                    height: 12.h,
+                    color: Colors.white,
                   ),
-                  SizedBox(height: 8.0),
-                  Row(
-                    children: [
-                      Icon(Icons.star, size: 16.0.r, color: Colors.grey[300]),
-                      SizedBox(width: 4.0),
-                      Container(
-                        width: 60.w,
-                        height: 20.h,
-                        color: Colors.grey[300],
-                      ),
-                    ],
+                ),
+                SizedBox(height: 8.0),
+                Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    width: 50.w,
+                    height: 12.h,
+                    color: Colors.white,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
