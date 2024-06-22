@@ -19,8 +19,8 @@ class _AuthEndPoints {
   final String getProfile = 'user_info';
   final String createPlan = 'create_plan';
   final String historyPlans = 'history plans';
-  final String favorites = 'favorites';
-  final String deleteFavorite = 'favorites';
+  final String favorites = 'favorites/';
+  final String deleteFavorite = 'favorites/';
   final String deletePlan = 'delete_plan';
   final String updatePlan = 'update';
   final String survey = 'survey/';

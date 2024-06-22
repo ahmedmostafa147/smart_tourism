@@ -7,6 +7,12 @@ import 'package:smart_tourism/Model/hotel.dart';
 import 'package:smart_tourism/Model/place.dart';
 import 'package:smart_tourism/Model/restaurant.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:smart_tourism/Controller/favorite/favorite_controller.dart';
+
 class CustomListTile extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -14,7 +20,7 @@ class CustomListTile extends StatelessWidget {
   final String price;
   final double rating;
 
-  const CustomListTile({
+  CustomListTile({
     Key? key,
     required this.title,
     required this.subtitle,
@@ -25,9 +31,8 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FavoriteController favoriteController = Get.put(
-      FavoriteController(),
-    );
+    final FavoriteController favoriteController = Get.put(FavoriteController());
+
     return Card(
       clipBehavior: Clip.antiAlias,
       color: Colors.transparent,
@@ -67,11 +72,23 @@ class CustomListTile extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(
-                  onPressed: () {
-                    favoriteController.createFavorite('Hotel', title, subtitle);
+              Obx(() {
+                bool isFavorite = favoriteController.isFavorite(title);
+                return IconButton(
+                  onPressed: () async {
+                    if (isFavorite) {
+                      await favoriteController.deleteFavoriteByName(title);
+                    } else {
+                      await favoriteController.createFavorite(
+                          'Hotel', title, subtitle);
+                    }
                   },
-                  icon: Icon(Icons.favorite_outline)),
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_outline,
+                    color: isFavorite ? Colors.green : Colors.white,
+                  ),
+                );
+              }),
             ],
           ),
           Padding(

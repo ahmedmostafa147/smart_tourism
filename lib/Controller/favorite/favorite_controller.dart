@@ -31,26 +31,39 @@ class FavoriteController extends GetxController {
 
   Future<void> createFavorite(String type, String name, String location) async {
     final url = ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.favorites;
-
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    if (token == null) {
+      Get.snackbar("Error", "User is not logged in");
+      return;
+    }
     final body = jsonEncode({
       "type": type,
       "name": name,
       "location": location,
     });
 
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: body,
-    );
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          "Authorization": "Bearer $token",
+          "Content-Type": "application/json",
+        },
+        body: body,
+      );
 
-    if (response.statusCode == 200) {
-      Get.snackbar("Success", "Favorite added successfully");
-      fetchFavorites();
-    } else {
-      Get.snackbar("Error", "Failed to add favorite");
+      if (response.statusCode == 200) {
+        Get.snackbar("Success", "Favorite added successfully");
+        await fetchFavorites();
+      } else {
+        print('Failed to add favorite. Response code: ${response.statusCode}');
+        print(response.body);
+        Get.snackbar("Error", "Failed to add favorite");
+      }
+    } catch (e) {
+      print('Error adding favorite: $e');
+      Get.snackbar("Error", "An error occurred while adding favorite");
     }
   }
 
@@ -59,31 +72,76 @@ class FavoriteController extends GetxController {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     if (token == null) {
-      throw 'User is not logged in';
+      Get.snackbar("Error", "User is not logged in");
+      return;
     }
-    final response = await http.get(Uri.parse(url), headers: {
-      'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json'
-    });
 
-    if (response.statusCode == 200) {
-      List<dynamic> data = jsonDecode(response.body);
-      favorites.value = data.map((item) => Favorite.fromJson(item)).toList();
-    } else {
-      Get.snackbar("Error", "Failed to fetch favorites");
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json'
+        },
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        favorites.value = data.map((item) => Favorite.fromJson(item)).toList();
+      } else {
+        print(
+            'Failed to fetch favorites. Response code: ${response.statusCode}');
+        Get.snackbar("Error", "Failed to fetch favorites");
+      }
+    } catch (e) {
+      print('Error fetching favorites: $e');
+      Get.snackbar("Error", "An error occurred while fetching favorites");
     }
   }
 
   Future<void> deleteFavorite(int id) async {
     final url =
         '${ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.favorites}$id';
-    final response = await http.delete(Uri.parse(url));
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    if (token == null) {
+      Get.snackbar("Error", "User is not logged in");
+      return;
+    }
 
-    if (response.statusCode == 200) {
-      Get.snackbar("Success", "Favorite deleted successfully");
-      fetchFavorites();
-    } else {
-      Get.snackbar("Error", "Failed to delete favorite");
+    try {
+      final response = await http.delete(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        Get.snackbar("Success", "Favorite deleted successfully");
+        await fetchFavorites();
+      } else {
+        print(
+            'Failed to delete favorite. Response code: ${response.statusCode}');
+        Get.snackbar("Error", "Failed to delete favorite");
+      }
+    } catch (e) {
+      print('Error deleting favorite: $e');
+      Get.snackbar("Error", "An error occurred while deleting favorite");
+    }
+  }
+
+  bool isFavorite(String name) {
+    return favorites.any((favorite) => favorite.name == name);
+  }
+
+  Future<void> deleteFavoriteByName(String name) async {
+    final index = favorites.indexWhere((favorite) => favorite.name == name);
+    if (index != -1) {
+      final favorite = favorites[index];
+      await deleteFavorite(favorite.id);
+      favorites.removeAt(index);
     }
   }
 }

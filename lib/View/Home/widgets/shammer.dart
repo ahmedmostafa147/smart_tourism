@@ -16,8 +16,8 @@ class ShimmerListTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
+            baseColor: Colors.grey[900]!,
+            highlightColor: Colors.grey[500]!,
             child: Container(
               alignment: Alignment.center,
               height: 100.h,
@@ -34,8 +34,8 @@ class ShimmerListTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
+                  baseColor: Colors.grey[900]!,
+                  highlightColor: Colors.grey[500]!,
                   child: Container(
                     width: double.infinity,
                     height: 15.h,
@@ -44,31 +44,31 @@ class ShimmerListTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
+                  baseColor: Colors.grey[900]!,
+                  highlightColor: Colors.grey[500]!,
                   child: Container(
-                    width: 100.w,
+                    width: 70.w,
                     height: 10.h,
                     color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 8.0),
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
+                  baseColor: Colors.grey[900]!,
+                  highlightColor: Colors.grey[500]!,
                   child: Container(
-                    width: 80.w,
+                    width: 50.w,
                     height: 12.h,
                     color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 8.0),
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
+                  baseColor: Colors.grey[900]!,
+                  highlightColor: Colors.grey[500]!,
                   child: Container(
-                    width: 50.w,
-                    height: 12.h,
+                    width: 30.w,
+                    height: 10.h,
                     color: Colors.white,
                   ),
                 ),
