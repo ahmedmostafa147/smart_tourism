@@ -47,12 +47,16 @@ class PlanController extends GetxController {
   final RxBool isValidGovernorate = false.obs;
   final RxBool isValidnumDays = false.obs;
   final RxBool isValidbudget = false.obs;
+
   final RxList<String> filteredGovernorates = RxList<String>();
   final TextEditingController countryController = TextEditingController();
   final TextEditingController governorateController = TextEditingController();
   final TextEditingController numDaysController = TextEditingController();
   final TextEditingController budgetController = TextEditingController();
   final TextEditingController planNameController = TextEditingController();
+  final TextEditingController restaurantNames = TextEditingController();
+  final TextEditingController hotelNames = TextEditingController();
+  final TextEditingController placeNames = TextEditingController();
   final List<String> countries = [
     'Egypt',
     "Algeria",
@@ -156,9 +160,9 @@ class PlanController extends GetxController {
       planDuration: int.parse(numDaysController.text.trim()),
       destination: countryController.text.trim(),
       planIsRecommended: false,
-      restaurantNames: [], // يمكن تحديثه عند الحاجة
-      hotelNames: [], // يمكن تحديثه عند الحاجة
-      placeNames: [], // يمكن تحديثه عند الحاجة
+      restaurantNames: restaurantNames.text.trim().split(','),
+      hotelNames: hotelNames.text.trim().split(','),
+      placeNames: placeNames.text.trim().split(','),
     );
 
     try {

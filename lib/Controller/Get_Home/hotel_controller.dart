@@ -9,14 +9,14 @@ class HotelController extends GetxController {
   RxList<Hotel> randomHotels = <Hotel>[].obs;
   var isLoading = false.obs;
 
-  Future<void> fetchRandomHotels(String country) async {
+  Future<void> fetchRandomHotels(String governorate) async {
     try {
       isLoading.value = true;
 
       var url = Uri.parse(ApiEndPoints.baseUrl +
           ApiEndPoints.authEndpoints.discover_Hotels +
-          '?country=' +
-          country);
+          '?governorate=' +
+          governorate);
       var response = await http.get(url);
 
       if (response.statusCode == 200) {

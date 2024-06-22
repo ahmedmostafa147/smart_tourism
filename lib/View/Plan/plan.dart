@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'local_plan.dart';
+import 'user_plan.dart';
 import 'model_screen.dart';
 import '../../Core/constants/images.dart';
 

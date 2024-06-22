@@ -9,13 +9,13 @@ class RestaurantController extends GetxController {
   RxList<Restaurant> randomRestaurants = <Restaurant>[].obs;
   var isLoading = false.obs;
 
-  Future<void> fetchRandomRestaurants(String country) async {
+  Future<void> fetchRandomRestaurants(String governorate) async {
     try {
       isLoading.value = true;
       final Uri url = Uri.parse(ApiEndPoints.baseUrl +
           ApiEndPoints.authEndpoints.discover_Restaurants +
-          '?country=' +
-          country);
+          '?governorate=' +
+          governorate);
 
       var response = await http.get(url);
 

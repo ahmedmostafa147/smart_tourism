@@ -9,14 +9,14 @@ class PlaceController extends GetxController {
   RxList<Place> randomPlaces = <Place>[].obs;
   var isLoading = false.obs;
 
-  Future<void> fetchRandomPlaces(String country) async {
+  Future<void> fetchRandomPlaces(String governorate) async {
     try {
       isLoading.value = true;
 
       final Uri url = Uri.parse(ApiEndPoints.baseUrl +
           ApiEndPoints.authEndpoints.discover_places +
-          '?country=' +
-          country);
+          '?governorate' +
+          governorate);
 
       var response = await http.get(url);
 

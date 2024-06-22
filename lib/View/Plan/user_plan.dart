@@ -71,6 +71,30 @@ class LocalPlanScreen extends StatelessWidget {
                 hintText: 'Enter budget',
               ),
               SizedBox(height: 25.h),
+              AutocompleteField(
+                label: "Restaurant Names",
+                options: controller.budget,
+                controller: controller.restaurantNames,
+                isValidSelection: controller.isValidbudget,
+                hintText: 'Enter budget',
+              ),
+              SizedBox(height: 25.h),
+              AutocompleteField(
+                label: "Hotel Names",
+                options: controller.budget,
+                controller: controller.budgetController,
+                isValidSelection: controller.isValidbudget,
+                hintText: 'Enter budget',
+              ),
+              SizedBox(height: 25.h),
+              AutocompleteField(
+                label: "place Names",
+                options: controller.budget,
+                controller: controller.budgetController,
+                isValidSelection: controller.isValidbudget,
+                hintText: 'Enter budget',
+              ),
+              SizedBox(height: 25.h),
               Obx(() => CustomMaterialButton(
                     buttonText:
                         controller.isLoading.value ? 'Loading...' : 'Save Plan',
