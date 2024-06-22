@@ -54,9 +54,18 @@ class FavoritesScreen extends StatelessWidget {
                 final type = typeController.text;
                 final name = nameController.text;
                 final location = locationController.text;
+                final place_id = 0;
+                final hotel_id = 0;
+                final rest_id = 0;
 
-                if (type.isNotEmpty && name.isNotEmpty && location.isNotEmpty) {
-                  favoriteController.createFavorite(type, name, location);
+                if (type.isNotEmpty &&
+                    name.isNotEmpty &&
+                    location.isNotEmpty &&
+                    place_id != 0 &&
+                    hotel_id != 0 &&
+                    rest_id != 0) {
+                  favoriteController.createFavorite(
+                      type, name, location, place_id, hotel_id, rest_id);
                   Get.back();
                 }
               },

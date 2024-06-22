@@ -10,11 +10,12 @@ class Favorite {
   final String name;
   final String location;
 
-  Favorite(
-      {required this.id,
-      required this.type,
-      required this.name,
-      required this.location});
+  Favorite({
+    required this.id,
+    required this.type,
+    required this.name,
+    required this.location,
+  });
 
   factory Favorite.fromJson(Map<String, dynamic> json) {
     return Favorite(
@@ -29,7 +30,8 @@ class Favorite {
 class FavoriteController extends GetxController {
   var favorites = <Favorite>[].obs;
 
-  Future<void> createFavorite(String type, String name, String location) async {
+  Future<void> createFavorite(String type, String name, String location,
+      int place_id, int hotel_id, int rest_id) async {
     final url = ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.favorites;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
@@ -41,6 +43,9 @@ class FavoriteController extends GetxController {
       "type": type,
       "name": name,
       "location": location,
+      "place_id": place_id,
+      "hotel_id": hotel_id,
+      "rest_id": rest_id
     });
 
     try {
@@ -55,7 +60,6 @@ class FavoriteController extends GetxController {
 
       if (response.statusCode == 200) {
         Get.snackbar("Success", "Favorite added successfully");
-        await fetchFavorites();
       } else {
         print('Failed to add favorite. Response code: ${response.statusCode}');
         print(response.body);

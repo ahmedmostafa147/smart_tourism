@@ -23,8 +23,8 @@ class HotelController extends GetxController {
         dynamic jsonResponse = jsonDecode(response.body);
         print("Response JSON: $jsonResponse");
         if (jsonResponse is Map<String, dynamic> &&
-            jsonResponse['random_hotels'] is List) {
-          randomHotels.value = (jsonResponse['random_hotels'] as List)
+            jsonResponse['hotels'] is List) {
+          randomHotels.value = (jsonResponse['hotels'] as List)
               .map((data) => Hotel.fromJson(data))
               .toList();
         }

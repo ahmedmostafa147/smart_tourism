@@ -59,8 +59,6 @@ class RestaurantController extends GetxController {
           randomRestaurants.value = (jsonResponse['restaurants'] as List)
               .map((data) => Restaurant.fromJson(data))
               .toList();
-        } else {
-          throw 'Unexpected response format';
         }
       } else {
         throw 'Error: ${response.statusCode}, Message: ${response.body}';

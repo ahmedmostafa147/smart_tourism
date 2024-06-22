@@ -74,7 +74,7 @@ class CustomListTile extends StatelessWidget {
                       await favoriteController.deleteFavoriteByName(title);
                     } else {
                       await favoriteController.createFavorite(
-                          'Hotel', title, subtitle);
+                          'hotel', title, subtitle, 0, 0, 0);
                     }
                   },
                   icon: Icon(
