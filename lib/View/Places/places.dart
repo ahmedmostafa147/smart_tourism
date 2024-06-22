@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Controller/Get_Home/place_controller.dart';
 
@@ -49,7 +50,7 @@ class RandomPlacesScreen extends StatelessWidget {
                   children: [
                     Image.network(
                       place.placeImage,
-                      height: 200,
+                      height: 200.h,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Icon(Icons.broken_image, size: 200);
@@ -73,7 +74,7 @@ class RandomPlacesScreen extends StatelessWidget {
                               Icon(Icons.location_on,
                                   size: 16.0, color: Colors.grey),
                               SizedBox(width: 4.0),
-                              Text('${place.governorate}, ${place.placeLoc}'),
+                              Text(' ${place.placeLoc}'),
                             ],
                           ),
                           SizedBox(height: 8.0),

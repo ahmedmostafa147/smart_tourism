@@ -11,7 +11,6 @@ import 'routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialServices();
-
   runApp(
     SmartTourism(),
   );

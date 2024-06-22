@@ -16,20 +16,17 @@ class HotelController extends GetxController {
       var url = Uri.parse(ApiEndPoints.baseUrl +
           ApiEndPoints.authEndpoints.discover_Hotels +
           '?country=' +
-          country); // Update with the correct endpoint
-      var response = await http.get(
-        url,
-      );
+          country);
+      var response = await http.get(url);
 
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
+        print("Response JSON: $jsonResponse");
         if (jsonResponse is Map<String, dynamic> &&
             jsonResponse['random_hotels'] is List) {
           randomHotels.value = (jsonResponse['random_hotels'] as List)
               .map((data) => Hotel.fromJson(data))
               .toList();
-        } else {
-          throw 'Unexpected response format';
         }
       } else {
         throw 'Error: ${response.statusCode}, Message: ${response.body}';
@@ -52,19 +49,16 @@ class HotelController extends GetxController {
 
       var url = Uri.parse(
           "https://zoz-rwob.onrender.com/discover_hotels/?governorate=Cairo");
-      var response = await http.get(
-        url,
-      );
+      var response = await http.get(url);
 
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
+        print("Response JSON: $jsonResponse");
         if (jsonResponse is Map<String, dynamic> &&
-            jsonResponse['random_hotels'] is List) {
-          randomHotels.value = (jsonResponse['random_hotels'] as List)
+            jsonResponse['hotels'] is List) {
+          randomHotels.value = (jsonResponse['hotels'] as List)
               .map((data) => Hotel.fromJson(data))
               .toList();
-        } else {
-          throw 'Unexpected response format';
         }
       } else {
         throw 'Error: ${response.statusCode}, Message: ${response.body}';

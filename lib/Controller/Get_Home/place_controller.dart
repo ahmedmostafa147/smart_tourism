@@ -18,30 +18,30 @@ class PlaceController extends GetxController {
           '?country=' +
           country);
 
-      var response = await http.get(
-        url,
-      );
+      var response = await http.get(url);
 
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
+        print("Response JSON: $jsonResponse");
         if (jsonResponse is Map<String, dynamic> &&
-            jsonResponse['random_places'] is List) {
-          randomPlaces.value = (jsonResponse['random_places'] as List)
+            jsonResponse['places'] is List) {
+          randomPlaces.value = (jsonResponse['places'] as List)
               .map((data) => Place.fromJson(data))
               .toList();
-        } else {
-          throw 'Unexpected response format';
         }
       } else {
         throw 'Error: ${response.statusCode}, Message: ${response.body}';
       }
     } catch (error) {
       print(error.toString());
-      Get.snackbar("Error", error.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          duration: Duration(seconds: 5),
-          colorText: Colors.white);
+      Get.snackbar(
+        "Error",
+        error.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 5),
+        colorText: Colors.white,
+      );
     } finally {
       isLoading.value = false;
     }
@@ -52,32 +52,33 @@ class PlaceController extends GetxController {
       isLoading.value = true;
 
       final Uri url = Uri.parse(
-          "https://zoz-rwob.onrender.com/discover_places/?country=Egypt");
-
-      var response = await http.get(
-        url,
+        "https://zoz-rwob.onrender.com/discover_places/?governorate=cairo",
       );
+
+      var response = await http.get(url);
 
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
+        print("Response JSON: $jsonResponse");
         if (jsonResponse is Map<String, dynamic> &&
-            jsonResponse['random_places'] is List) {
-          randomPlaces.value = (jsonResponse['random_places'] as List)
+            jsonResponse['places'] is List) {
+          randomPlaces.value = (jsonResponse['places'] as List)
               .map((data) => Place.fromJson(data))
               .toList();
-        } else {
-          throw 'Unexpected response format';
         }
       } else {
         throw 'Error: ${response.statusCode}, Message: ${response.body}';
       }
     } catch (error) {
       print(error.toString());
-      Get.snackbar("Error", error.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          duration: Duration(seconds: 5),
-          colorText: Colors.white);
+      Get.snackbar(
+        "Error",
+        error.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 5),
+        colorText: Colors.white,
+      );
     } finally {
       isLoading.value = false;
     }

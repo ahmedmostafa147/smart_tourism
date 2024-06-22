@@ -1,28 +1,31 @@
 class Place {
+  final int placeId;
   final String placeName;
-  final int price;
-  final String governorate;
   final String placeLoc;
   final String placeImage;
+  final String comment;
   final double rate;
+  final double price;
 
   Place({
+    required this.placeId,
     required this.placeName,
-    required this.price,
-    required this.governorate,
     required this.placeLoc,
     required this.placeImage,
+    required this.comment,
     required this.rate,
+    required this.price,
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
     return Place(
-      placeName: json['place_name'] ?? '',
-      price: json['price'] ?? 0,
-      governorate: json['governorate'] ?? '',
-      placeLoc: json['place_loc'] ?? '',
-      placeImage: json['place_image'] ?? '',
-      rate: (json['rate'] ?? 0.0).toDouble(),
+      placeId: json['place_id'],
+      placeName: json['place_name'],
+      placeLoc: json['place_loc'],
+      placeImage: json['place_image'],
+      comment: json['comment'],
+      rate: json['rate'].toDouble(),
+      price: json['price'].toDouble(),
     );
   }
 }

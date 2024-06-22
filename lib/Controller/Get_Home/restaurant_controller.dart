@@ -17,21 +17,16 @@ class RestaurantController extends GetxController {
           '?country=' +
           country);
 
-      var response = await http.get(
-        url,
-      );
+      var response = await http.get(url);
 
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
-        print(
-            "Response JSON: $jsonResponse"); // طباعة الاستجابة للتحقق من محتواها
+        print("Response JSON: $jsonResponse");
         if (jsonResponse is Map<String, dynamic> &&
-            jsonResponse['random_restaurants'] is List) {
-          randomRestaurants.value = (jsonResponse['random_restaurants'] as List)
+            jsonResponse['restaurants'] is List) {
+          randomRestaurants.value = (jsonResponse['restaurants'] as List)
               .map((data) => Restaurant.fromJson(data))
               .toList();
-        } else {
-          throw 'Unexpected response format';
         }
       } else {
         throw 'Error: ${response.statusCode}, Message: ${response.body}';
@@ -54,17 +49,14 @@ class RestaurantController extends GetxController {
       final Uri url = Uri.parse(
           "https://zoz-rwob.onrender.com/discover_restaurants/?governorate=Cairo");
 
-      var response = await http.get(
-        url,
-      );
+      var response = await http.get(url);
 
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
-        print(
-            "Response JSON: $jsonResponse"); // طباعة الاستجابة للتحقق من محتواها
+        print("Response JSON: $jsonResponse");
         if (jsonResponse is Map<String, dynamic> &&
-            jsonResponse['random_restaurants'] is List) {
-          randomRestaurants.value = (jsonResponse['random_restaurants'] as List)
+            jsonResponse['restaurants'] is List) {
+          randomRestaurants.value = (jsonResponse['restaurants'] as List)
               .map((data) => Restaurant.fromJson(data))
               .toList();
         } else {

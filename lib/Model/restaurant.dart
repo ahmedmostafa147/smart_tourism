@@ -31,4 +31,17 @@ class Restaurant {
       comment: json['comment'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['restaurant_name'] = this.restaurantName;
+    data['price'] = this.price;
+    data['governorate'] = this.governorate;
+    data['restaurant_loc'] = this.restaurantLoc;
+    data['restaurant_image'] = this.restaurantImage;
+    data['rate'] = this.rate;
+    data['rest_id'] = this.rest_id;
+    data['comment'] = this.comment;
+    return data;
+  }
 }

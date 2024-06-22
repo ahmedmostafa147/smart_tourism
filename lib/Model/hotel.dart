@@ -31,4 +31,17 @@ class Hotel {
       place_id: json['place_id'] ?? 0,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['hotel_name'] = this.hotelName;
+    data['price'] = this.price;
+    data['governorate'] = this.governorate;
+    data['hotel_loc'] = this.hotelLoc;
+    data['hotel_image'] = this.hotelImage;
+    data['rate'] = this.rate;
+    data['comment'] = this.comment;
+    data['place_id'] = this.place_id;
+    return data;
+  }
 }
