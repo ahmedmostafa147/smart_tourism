@@ -46,33 +46,23 @@ class RecommendationScreen extends StatelessWidget {
                     color: cardColor,
                     child: ExpansionTile(
                       title: Text(
-                          'Plan #${recommendation.planNumber} - ${recommendation.hotel}'),
+                          'Plan #${recommendation.planNumber} - ${_cleanText(recommendation.hotel)}'),
                       subtitle: Text(
                         'Total Plan Price: \$${recommendation.totalPlanPrice.toStringAsFixed(2)}\n'
-                        'Additional Amount Needed: ${recommendation.additionalAmountNeeded}',
+                        'Additional Amount Needed: ${_cleanText(recommendation.additionalAmountNeeded)}',
                       ),
                       children: recommendation.planRecommendations
                           .map((recommendation) {
-                        // Parse day and details from the recommendation string
-                        final parts = recommendation.split(':');
-                        final day = parts[0];
-                        final details = parts.length > 1 ? parts[1] : '';
-
                         return ListTile(
-                          title: Text(day),
-                          subtitle: Text(details.trim()),
+                          title: Text(
+                            _cleanText(recommendation),
+                          ),
                         );
                       }).toList(),
                       leading: IconButton(
                         onPressed: () async {
-                          await controller.saveRecommendation(recommendation,
-                              );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content:
-                                  Text('Recommendation saved successfully!'),
-                            ),
-                          );
+                          // Call saveRecommendation method here
+                          await controller.saveRecommendation(recommendation);
                         },
                         icon: Icon(Icons.bookmark_add_outlined),
                       ),
@@ -86,5 +76,11 @@ class RecommendationScreen extends StatelessWidget {
               ),
       ),
     );
+  }
+
+  // دالة لتنظيف النصوص من الأحرف الغريبة
+  String _cleanText(String input) {
+    return input.replaceAll(
+        RegExp(r'[^\x00-\x7F]'), ''); // Remove non-ASCII characters
   }
 }

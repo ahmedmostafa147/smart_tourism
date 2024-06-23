@@ -36,50 +36,25 @@ class Recommendation {
       planRecommendations: List<String>.from(json['plan_recommendations']),
     );
   }
-}
 
-class Recommedtions {
-  final int planNumber;
-  final String hotel;
-  final int hotelPricePerDay;
-  final int totalHotelPrice;
-  final int totalPlanPrice;
-  final String additionalAmountNeeded;
-  final List<List<String>> planRecommendations;
-
-  Recommedtions({
-    required this.planNumber,
-    required this.hotel,
-    required this.hotelPricePerDay,
-    required this.totalHotelPrice,
-    required this.totalPlanPrice,
-    required this.additionalAmountNeeded,
-    required this.planRecommendations,
-  });
-
-  factory Recommedtions.fromJson(Map<String, dynamic> json) {
-    return Recommedtions(
-      planNumber: json['plan_number'],
-      hotel: json['hotel'],
-      hotelPricePerDay: json['hotel_price_per_day'],
-      totalHotelPrice: json['total_hotel_price'],
-      totalPlanPrice: json['total_plan_price'],
-      additionalAmountNeeded: json['additional_amount_needed'],
-      planRecommendations:
-          List<List<String>>.from(json['plan_recommendations']),
-    );
-  }
-
+  // Add toJson method to convert Recommendation instance to JSON-serializable map
   Map<String, dynamic> toJson() {
     return {
       'plan_number': planNumber,
-      'hotel': hotel,
+      'hotel': _cleanText(hotel),
       'hotel_price_per_day': hotelPricePerDay,
       'total_hotel_price': totalHotelPrice,
       'total_plan_price': totalPlanPrice,
-      'additional_amount_needed': additionalAmountNeeded,
-      'plan_recommendations': planRecommendations,
+      'additional_amount_needed': _cleanText(additionalAmountNeeded),
+      'plan_recommendations':
+          planRecommendations.map((r) => _cleanText(r)).toList(),
     };
+  }
+
+  // Method to clean text
+  String _cleanText(String input) {
+    return input.replaceAll(
+        RegExp(r'[^\x00-\x7F]'), ''); // Remove non-ASCII characters
   }
 }
 
@@ -270,14 +245,12 @@ class ModelAIController extends GetxController {
     }
   }
 
-  Future<void> saveRecommendation(
-    Recommendation recommendation,
-  ) async {
+  Future<void> saveRecommendation(Recommendation recommendation) async {
     final RxBool isLoadingSave = false.obs;
     try {
       isLoadingSave.value = true;
       final String url =
-          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.recommendations;
+          "https://zoz-rwob.onrender.com/store_plan_recommendation/";
 
       // Get the authentication token from shared preferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -288,24 +261,8 @@ class ModelAIController extends GetxController {
         throw 'User is not logged in';
       }
 
-      // Create a RecommendationBackend object from the Recommendation object
-      final Recommedtions recommendationBackend = Recommedtions(
-        planNumber: recommendation.planNumber,
-        hotel: recommendation.hotel,
-        hotelPricePerDay: recommendation.hotelPricePerDay.toInt(),
-        totalHotelPrice: recommendation.totalHotelPrice.toInt(),
-        totalPlanPrice: recommendation.totalPlanPrice.toInt(),
-        additionalAmountNeeded: recommendation.additionalAmountNeeded,
-        planRecommendations:
-            recommendation.planRecommendations.map((rec) => [rec]).toList(),
-      );
-
-      // Serialize the RecommendationBackend object to JSON
-      final String recommendationJson =
-          jsonEncode(recommendationBackend.toJson());
-
-      // Log the data for debugging
-      print('Serialized recommendation data: $recommendationJson');
+      // Convert Recommendation instance to JSON-serializable map using toJson()
+      final Map<String, dynamic> requestBody = recommendation.toJson();
 
       // Send the HTTP POST request
       final response = await http.post(
@@ -314,7 +271,8 @@ class ModelAIController extends GetxController {
           "Authorization": "Bearer $token",
           'Content-Type': 'application/json',
         },
-        body: recommendationJson,
+        body: jsonEncode(
+            requestBody), // Encode the JSON-serializable map to JSON string
       );
 
       if (response.statusCode == 200) {
