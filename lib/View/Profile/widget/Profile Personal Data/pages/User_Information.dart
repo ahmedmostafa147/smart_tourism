@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/Controller/Auth_controller/get_photo.dart';
 import 'package:smart_tourism/Core/constants/images.dart';
 import 'package:smart_tourism/View/Profile/widget/Profile%20Personal%20Data/pages/edit_image.dart';
 import '../../../../../Core/constants/font.dart';
@@ -14,11 +15,22 @@ class UserInfoScreen extends StatefulWidget {
 
 class _UserInfoScreenState extends State<UserInfoScreen> {
   final UserInformation userInformation = Get.put(UserInformation());
+  PhotoController profilePhotoController = Get.put(PhotoController());
+
+  @override
+  void initState() {
+    super.initState();
+    userInformation.getUserInfo().then((_) {
+      final user = userInformation.userInfo['user_info'] ?? {};
+      final userImage = user['profile_photo'];
+      if (userImage != null) {
+        profilePhotoController.GetProfileImage(userImage);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    userInformation.getUserInfo();
-
     return Obx(() {
       if (userInformation.isLoading.value) {
         return Center(
@@ -34,18 +46,25 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
       }
 
       final user = userInfo['user_info'] ?? {};
-      final userImage = user['profile_photo'];
 
       return ListView(
         shrinkWrap: true,
         padding: EdgeInsets.all(20.h),
         children: [
-          DisplayImage(
-            imagePath: userImage ?? Assets.imagesCircleUser,
-            onPressed: () async {
-              Get.to(() => EditImageProfile());
-            },
-          ),
+          Obx(() {
+            if (profilePhotoController.isLoading.value) {
+              return Center(child: CircularProgressIndicator());
+            }
+
+            return DisplayImage(
+              imagePath: profilePhotoController.profileImage.value.isNotEmpty
+                  ? profilePhotoController.profileImage.value
+                  : Assets.imagesCircleUser,
+              onPressed: () async {
+                Get.to(() => EditImageProfile());
+              },
+            );
+          }),
           SizedBox(height: 20.h),
           Container(
             decoration: BoxDecoration(

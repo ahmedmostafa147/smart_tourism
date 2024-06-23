@@ -65,8 +65,13 @@ class RecommendationScreen extends StatelessWidget {
                       }).toList(),
                       leading: IconButton(
                         onPressed: () async {
-                          await controller.saveRecommendation(
-                            recommendation,
+                          await controller.saveRecommendation(recommendation,
+                              );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text('Recommendation saved successfully!'),
+                            ),
                           );
                         },
                         icon: Icon(Icons.bookmark_add_outlined),

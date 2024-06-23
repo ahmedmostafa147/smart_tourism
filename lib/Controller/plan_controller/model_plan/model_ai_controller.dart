@@ -38,16 +38,16 @@ class Recommendation {
   }
 }
 
-class RecommendationBackend {
+class Recommedtions {
   final int planNumber;
   final String hotel;
-  final double hotelPricePerDay;
-  final double totalHotelPrice;
-  final double totalPlanPrice;
+  final int hotelPricePerDay;
+  final int totalHotelPrice;
+  final int totalPlanPrice;
   final String additionalAmountNeeded;
   final List<List<String>> planRecommendations;
 
-  RecommendationBackend({
+  Recommedtions({
     required this.planNumber,
     required this.hotel,
     required this.hotelPricePerDay,
@@ -57,8 +57,8 @@ class RecommendationBackend {
     required this.planRecommendations,
   });
 
-  factory RecommendationBackend.fromJson(Map<String, dynamic> json) {
-    return RecommendationBackend(
+  factory Recommedtions.fromJson(Map<String, dynamic> json) {
+    return Recommedtions(
       planNumber: json['plan_number'],
       hotel: json['hotel'],
       hotelPricePerDay: json['hotel_price_per_day'],
@@ -66,7 +66,7 @@ class RecommendationBackend {
       totalPlanPrice: json['total_plan_price'],
       additionalAmountNeeded: json['additional_amount_needed'],
       planRecommendations:
-          List<List<String>>.from(json[['plan_recommendations']]),
+          List<List<String>>.from(json['plan_recommendations']),
     );
   }
 
@@ -270,7 +270,9 @@ class ModelAIController extends GetxController {
     }
   }
 
-  Future<void> saveRecommendation(Recommendation recommendation) async {
+  Future<void> saveRecommendation(
+    Recommendation recommendation,
+  ) async {
     final RxBool isLoadingSave = false.obs;
     try {
       isLoadingSave.value = true;
@@ -287,12 +289,12 @@ class ModelAIController extends GetxController {
       }
 
       // Create a RecommendationBackend object from the Recommendation object
-      final RecommendationBackend recommendationBackend = RecommendationBackend(
+      final Recommedtions recommendationBackend = Recommedtions(
         planNumber: recommendation.planNumber,
         hotel: recommendation.hotel,
-        hotelPricePerDay: recommendation.hotelPricePerDay,
-        totalHotelPrice: recommendation.totalHotelPrice,
-        totalPlanPrice: recommendation.totalPlanPrice,
+        hotelPricePerDay: recommendation.hotelPricePerDay.toInt(),
+        totalHotelPrice: recommendation.totalHotelPrice.toInt(),
+        totalPlanPrice: recommendation.totalPlanPrice.toInt(),
         additionalAmountNeeded: recommendation.additionalAmountNeeded,
         planRecommendations:
             recommendation.planRecommendations.map((rec) => [rec]).toList(),

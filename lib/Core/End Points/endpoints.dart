@@ -35,4 +35,7 @@ class _AuthEndPoints {
   final String discover_Hotels = "discover_hotels/";
   final String discover_Restaurants = "discover_restaurants/";
   final String upload_profile_photo = "upload-profile-photo";
+  
+
+
 }

@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_tourism/Controller/plan_controller/model_plan/model_ai_controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
 
@@ -101,6 +99,8 @@ class SavedPlansController extends GetxController {
       if (token == null) {
         throw 'User is not logged in';
       }
+
+      print((token));
 
       final response = await http.get(
         Uri.parse(url),
