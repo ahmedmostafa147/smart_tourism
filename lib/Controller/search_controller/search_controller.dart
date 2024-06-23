@@ -11,28 +11,32 @@ class SearchParameters {
   String? category;
   String? name;
 
-  SearchParameters({this.country, this.governorate, this.category, this.name});
+  SearchParameters({
+    this.country,
+    this.governorate,
+    this.category,
+    this.name,
+  });
 
-  factory SearchParameters.fromJson(Map<String, dynamic> json) {
-    return SearchParameters(
-      country: json['country'] as String?,
-      governorate: json['governorate'] as String?,
-      category: json['category'] as String?,
-      name: json['name'] as String?,
-    );
+  Map<String, dynamic> toMap() {
+    return {
+      'country': country ?? '',
+      'governorate': governorate ?? '',
+      'category': category ?? '',
+      'name': name ?? '',
+    };
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'country': country,
-      'governorate': governorate,
-      'category': category,
-      'name': name,
+      'country': country ?? '',
+      'governorate': governorate ?? '',
+      'category': category ?? '',
+      'name': name ?? '',
     };
   }
 }
 
-// Assuming SearchResult class exists as previously defined
 class SearchResult {
   final String type;
   final String name;
@@ -69,11 +73,12 @@ class SearchResult {
 }
 
 class SearchControllerOne extends GetxController {
-  TextEditingController searchController = TextEditingController();
-  RxList<SearchResult> searchResults = <SearchResult>[].obs;
-  RxList<String> recentSearches = <String>[].obs;
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var isLoading = false.obs;
+  var searchController = TextEditingController();
+  var searchResults = <SearchResult>[].obs;
+
+  var recentSearches = <SearchResult>[].obs;
 
   @override
   void onInit() {
@@ -82,21 +87,40 @@ class SearchControllerOne extends GetxController {
   }
 
   Future<void> loadRecentSearches() async {
-    final SharedPreferences prefs = await _prefs;
-    recentSearches.value = prefs.getStringList('recentSearches') ?? [];
-  }
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      final String? token = prefs.getString('token');
+      if (token == null) {
+        throw 'User is not authenticated';
+      }
 
-  Future<void> saveRecentSearch(String search) async {
-    final SharedPreferences prefs = await _prefs;
-    if (!recentSearches.contains(search)) {
-      recentSearches.add(search);
-      await prefs.setStringList('recentSearches', recentSearches);
+      final response = await http.get(
+        Uri.parse(
+            ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.recentSearches),
+        headers: {'Authorization': 'Bearer $token'},
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        List<SearchResult> recentSearchesList =
+            (data['recent_searches'] as List)
+                .map((item) => SearchResult.fromJson(item))
+                .toList();
+        recentSearches.assignAll(recentSearchesList);
+      } else {
+        throw Exception('Failed to load recent searches');
+      }
+    } catch (e) {
+      if (e is Exception) {
+        print(e.toString());
+      }
     }
   }
 
   Future<void> search(SearchParameters params) async {
     var headers = {'Content-Type': 'application/json'};
     try {
+      isLoading.value = true;
       final SharedPreferences prefs = await _prefs;
       final String? token = prefs.getString('token');
 
@@ -108,27 +132,42 @@ class SearchControllerOne extends GetxController {
 
       var url =
           Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.search);
+
+      // طباعة البيانات المرسلة للتحقق منها
+      print("Request URL: $url");
+      print("Request Headers: $headers");
+      print("Request Body: ${jsonEncode(params.toJson())}");
+
       http.Response response = await http.post(
         url,
         body: jsonEncode(params.toJson()),
         headers: headers,
       );
 
+      // طباعة حالة الاستجابة والبيانات المستلمة
+      print("Response Status Code: ${response.statusCode}");
+      print("Response Body: ${response.body}");
+
       if (response.statusCode == 200) {
-        dynamic jsonResponse = jsonDecode(response.body);
+        isLoading.value = false;
+        var jsonResponse = jsonDecode(response.body);
+
         print("Response JSON: $jsonResponse");
         if (jsonResponse is Map<String, dynamic> &&
             jsonResponse['results'] is List) {
           searchResults.value = (jsonResponse['results'] as List)
               .map((data) => SearchResult.fromJson(data))
               .toList();
+        } else {
+          // التعامل مع حالة عدم وجود نتائج
+          searchResults.clear();
+          Get.snackbar("Info", "No matching results found",
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.blue,
+              colorText: Colors.white);
         }
-        saveRecentSearch(jsonEncode(params.toJson()));
-        Get.snackbar("Success", "Search results loaded successfully",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.green,
-            colorText: Colors.white);
       } else if (response.statusCode == 401) {
+        isLoading.value = false;
         Get.snackbar("Error", "Unauthorized: Please login again",
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red,
@@ -150,11 +189,5 @@ class SearchControllerOne extends GetxController {
     final SharedPreferences prefs = await _prefs;
     recentSearches.clear();
     await prefs.remove('recentSearches');
-  }
-
-  void removeRecentSearch(String search) async {
-    final SharedPreferences prefs = await _prefs;
-    recentSearches.remove(search);
-    await prefs.setStringList('recentSearches', recentSearches);
   }
 }

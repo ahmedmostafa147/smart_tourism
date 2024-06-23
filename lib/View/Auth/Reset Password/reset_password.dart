@@ -68,8 +68,9 @@ class ResetPasswordScreen extends StatelessWidget {
                         () => CustomButtonAuth(
                           onPressed: () {
                             resetPasswordController.resetPassword(
-                                resetPasswordController.Email.text,
-                                resetPasswordController.NewPassword.text);
+                                resetPasswordController.Email.text.trim(),
+                                resetPasswordController.NewPassword.text
+                                    .trim());
                           },
                           title: resetPasswordController.isLoading.value
                               ? 'Loading...'.tr

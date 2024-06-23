@@ -14,7 +14,10 @@ class FavoritesScreen extends StatelessWidget {
         title: Text('Favorites'),
       ),
       body: Obx(() {
-        if (favoriteController.favorites.isEmpty) {
+        if (favoriteController.isLoading.value) {
+          return Center(
+              child: CircularProgressIndicator()); // Show loading indicator
+        } else if (favoriteController.favorites.isEmpty) {
           return Center(child: Text('No favorites found.'));
         } else {
           return ListView.builder(
@@ -24,56 +27,23 @@ class FavoritesScreen extends StatelessWidget {
               return ListTile(
                 title: Text(favorite.name),
                 subtitle: Text(favorite.location),
-                trailing: IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    favoriteController.deleteFavorite(favorite.id);
-                  },
-                ),
+                trailing: Obx(() {
+                  if (favoriteController.deletingIds.contains(favorite.favId)) {
+                    return CircularProgressIndicator(); // Show loading indicator while deleting
+                  } else {
+                    return IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        favoriteController.deleteFavorite(favorite.favId);
+                      },
+                    );
+                  }
+                }),
               );
             },
           );
         }
       }),
-    );
-  }
-
-  void _showAddFavoriteDialog(BuildContext context) {
-    final typeController = TextEditingController();
-    final nameController = TextEditingController();
-    final locationController = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Add Favorite'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                final type = typeController.text;
-                final name = nameController.text;
-                final location = locationController.text;
-                final place_id = 0;
-                final hotel_id = 0;
-                final rest_id = 0;
-
-                if (type.isNotEmpty &&
-                    name.isNotEmpty &&
-                    location.isNotEmpty &&
-                    place_id != 0 &&
-                    hotel_id != 0 &&
-                    rest_id != 0) {
-                  favoriteController.createFavorite(
-                      type, name, location, place_id, hotel_id, rest_id);
-                  Get.back();
-                }
-              },
-              child: Text('Add'),
-            ),
-          ],
-        );
-      },
     );
   }
 }

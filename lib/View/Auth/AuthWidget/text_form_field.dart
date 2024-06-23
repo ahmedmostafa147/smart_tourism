@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 class CustomTextForm extends StatefulWidget {
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String labelText;
   final String? Function(String?)? validator;
   final bool isPassword;
   final TextInputType? keyboardType;
-  final FocusNode? focusNode; 
+  final FocusNode? focusNode;
   final IconData? icon;
 
   CustomTextForm(
       {Key? key,
       required this.hintText,
-      required this.controller,
+      this.controller,
       required this.labelText,
       this.validator,
       required this.isPassword,

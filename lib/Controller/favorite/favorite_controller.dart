@@ -5,30 +5,27 @@ import 'dart:convert';
 import '../../Core/End%20Points/endpoints.dart';
 
 class Favorite {
-  final int id;
+  final int favId;
   final String type;
   final String name;
   final String location;
 
-  Favorite({
-    required this.id,
-    required this.type,
-    required this.name,
-    required this.location,
-  });
+  Favorite({required this.favId, required this.type, required this.name, required this.location});
 
   factory Favorite.fromJson(Map<String, dynamic> json) {
     return Favorite(
-      id: json['id'],
-      type: json['type'],
-      name: json['name'],
-      location: json['location'],
+      favId: json['fav_id'] as int? ?? 0, // Providing a default value of 0 if null
+      type: json['type'] as String,
+      name: json['name'] as String,
+      location: json['location'] as String,
     );
   }
 }
 
 class FavoriteController extends GetxController {
   var favorites = <Favorite>[].obs;
+  var isLoading = false.obs;
+  var deletingIds = <int>{}.obs; // Track IDs of items being deleted
 
   Future<void> createFavorite(String type, String name, String location,
       int place_id, int hotel_id, int rest_id) async {
@@ -60,13 +57,11 @@ class FavoriteController extends GetxController {
 
       if (response.statusCode == 200) {
         Get.snackbar("Success", "Favorite added successfully");
+        fetchFavorites(); // Refresh the favorites list
       } else {
-        print('Failed to add favorite. Response code: ${response.statusCode}');
-        print(response.body);
         Get.snackbar("Error", "Failed to add favorite");
       }
     } catch (e) {
-      print('Error adding favorite: $e');
       Get.snackbar("Error", "An error occurred while adding favorite");
     }
   }
@@ -79,6 +74,8 @@ class FavoriteController extends GetxController {
       Get.snackbar("Error", "User is not logged in");
       return;
     }
+
+    isLoading.value = true; // Start loading
 
     try {
       final response = await http.get(
@@ -93,25 +90,25 @@ class FavoriteController extends GetxController {
         List<dynamic> data = jsonDecode(response.body);
         favorites.value = data.map((item) => Favorite.fromJson(item)).toList();
       } else {
-        print(
-            'Failed to fetch favorites. Response code: ${response.statusCode}');
         Get.snackbar("Error", "Failed to fetch favorites");
       }
     } catch (e) {
-      print('Error fetching favorites: $e');
       Get.snackbar("Error", "An error occurred while fetching favorites");
+    } finally {
+      isLoading.value = false; // Stop loading
     }
   }
 
   Future<void> deleteFavorite(int id) async {
-    final url =
-        '${ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.favorites}$id';
+    final url = '${ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.favorites}?fav_id=$id';
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     if (token == null) {
       Get.snackbar("Error", "User is not logged in");
       return;
     }
+
+    deletingIds.add(id); // Start deleting this item
 
     try {
       final response = await http.delete(
@@ -126,13 +123,12 @@ class FavoriteController extends GetxController {
         Get.snackbar("Success", "Favorite deleted successfully");
         await fetchFavorites();
       } else {
-        print(
-            'Failed to delete favorite. Response code: ${response.statusCode}');
         Get.snackbar("Error", "Failed to delete favorite");
       }
     } catch (e) {
-      print('Error deleting favorite: $e');
       Get.snackbar("Error", "An error occurred while deleting favorite");
+    } finally {
+      deletingIds.remove(id); // Stop deleting this item
     }
   }
 
@@ -144,7 +140,7 @@ class FavoriteController extends GetxController {
     final index = favorites.indexWhere((favorite) => favorite.name == name);
     if (index != -1) {
       final favorite = favorites[index];
-      await deleteFavorite(favorite.id);
+      await deleteFavorite(favorite.favId);
       favorites.removeAt(index);
     }
   }

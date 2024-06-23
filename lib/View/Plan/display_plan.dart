@@ -65,7 +65,6 @@ class RecommendationScreen extends StatelessWidget {
                       }).toList(),
                       leading: IconButton(
                         onPressed: () async {
-                          print('Recommendation saved: ${recommendation}');
                           await controller.saveRecommendation(
                             recommendation,
                           );

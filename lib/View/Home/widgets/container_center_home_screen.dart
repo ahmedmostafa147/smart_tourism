@@ -48,7 +48,7 @@ class CustomOptionsWidget extends StatelessWidget {
                 label: 'Places'.tr),
             CustomOption(
                 onTap: () {
-                  Get.toNamed(AppRoute.RandomPlacesScreen);
+                  Get.toNamed(AppRoute.LocalPlanScreen);
                 },
                 icon: ImageIcon(AssetImage(Assets.imagesBallot)),
                 label: 'To Do List'.tr),

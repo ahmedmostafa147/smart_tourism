@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/Core/constants/images.dart';
 import 'package:smart_tourism/View/Profile/widget/Profile%20Personal%20Data/pages/edit_image.dart';
 import '../../../../../Core/constants/font.dart';
 import '../../../../../Controller/Auth_controller/user_information_controller.dart';
@@ -40,7 +41,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
         padding: EdgeInsets.all(20.h),
         children: [
           DisplayImage(
-            imagePath: userImage,
+            imagePath: userImage ?? Assets.imagesCircleUser,
             onPressed: () async {
               Get.to(() => EditImageProfile());
             },

@@ -9,6 +9,16 @@ class SavedPlansScreen extends StatelessWidget {
     controller.fetchSavedPlans();
   }
 
+  final List<Color> dayColors = [
+    Colors.blueGrey[900]!,
+    Colors.red[900]!,
+    Colors.green[900]!,
+    Colors.blue[900]!,
+    Colors.orange[900]!,
+    Colors.purple[900]!,
+    Colors.brown[900]!,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,35 +28,43 @@ class SavedPlansScreen extends StatelessWidget {
       body: Obx(
         () => controller.isLoading.value
             ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
+            : ListView.separated(
                 padding: const EdgeInsets.all(16.0),
                 itemCount: controller.savedPlans.length,
                 itemBuilder: (context, index) {
-                  final recommendation = controller.savedPlans[index];
-                  return Card(
-                    color: Colors.blueAccent[900],
-                    child: ExpansionTile(
-                      title: Text(
-                          'Plan #${recommendation.planNumber} - ${recommendation.hotel}'),
-                      subtitle: Text(
-                        'Total Plan Price: \$${recommendation.totalPlanPrice.toStringAsFixed(2)}\n'
-                        'Additional Amount Needed: ${recommendation.additionalAmountNeeded}',
-                      ),
-                      children: recommendation.planRecommendations
-                          .map((recommendation) {
-                        // Parse day and details from the recommendation string
-                        final parts = recommendation.split(':');
-                        final day = parts[0];
-                        final details = parts.length > 1 ? parts[1] : '';
+                  final plan = controller.savedPlans[index];
 
-                        return ListTile(
-                          title: Text(day),
-                          subtitle: Text(details.trim()),
-                        );
-                      }).toList(),
+                  Color cardColor;
+                  if (plan.planNumber >= 1 && plan.planNumber <= 7) {
+                    cardColor = dayColors[plan.planNumber - 1];
+                  } else {
+                    cardColor = Colors.white;
+                  }
+
+                  return Card(
+                    child: ExpansionTile(
+                      title: Text('Plan #${plan.planNumber} - ${plan.hotel}'),
+                      subtitle: Text(
+                        'Total Plan Price: \$${plan.totalPlanPrice}\n'
+                        'Additional Amount Needed: ${plan.additionalAmountNeeded}',
+                      ),
+                      children: plan.planRecommendations
+                          .map((recommendation) => ListTile(
+                                title: Text('Day ${recommendation.dayNumber}'),
+                                subtitle: Text(
+                                  '${recommendation.recommendationType}\n'
+                                  '${recommendation.recommendationDescription}\n'
+                                  'Price: \$${recommendation.recommendationPrice}',
+                                ),
+                              ))
+                          .toList(),
                     ),
                   );
                 },
+                separatorBuilder: (context, index) => Divider(
+                  color: Colors.blueGrey[700],
+                  thickness: 2.0,
+                ),
               ),
       ),
     );

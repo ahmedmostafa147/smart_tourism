@@ -15,8 +15,8 @@ class ResetPasswordController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Email.addListener(() => validateEmail(Email.text));
-    NewPassword.addListener(() => validatePassword(NewPassword.text));
+    Email.addListener(() => validateEmail(Email.text.trim()));
+    NewPassword.addListener(() => validatePassword(NewPassword.text.trim()));
   }
 
   @override
@@ -61,7 +61,7 @@ class ResetPasswordController extends GetxController {
     return emailError.value.isEmpty ? null : emailError.value;
   }
 
-  Future<void> resetPassword(String userIdentifier, String newPassword) async {
+  Future<void> resetPassword(String user_email, String newPassword) async {
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -70,7 +70,7 @@ class ResetPasswordController extends GetxController {
 
       final Uri url = Uri.parse(ApiEndPoints.baseUrl +
           ApiEndPoints.authEndpoints.resetPassword +
-          '?user_identifier=$userIdentifier&new_password=$newPassword');
+          '?user_identifier=$user_email&new_password=$newPassword');
 
       final http.Response response = await http.put(
         url,
@@ -78,7 +78,7 @@ class ResetPasswordController extends GetxController {
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
-          'user_identifier': userIdentifier,
+          'user_email': user_email,
           'new_password': newPassword,
         }),
       );

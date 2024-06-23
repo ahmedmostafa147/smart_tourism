@@ -13,7 +13,7 @@ class RandomRestaurantsScreen extends StatelessWidget {
         title: TextField(
           controller: countryController,
           decoration: InputDecoration(
-            hintText: 'Enter country...',
+            hintText: 'Search...',
             border: InputBorder.none,
             hintStyle: TextStyle(color: Colors.white60),
           ),

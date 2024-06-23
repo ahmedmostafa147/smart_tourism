@@ -119,7 +119,20 @@ class ModelAIController extends GetxController {
   final List<Map<String, dynamic>> governorates = [
     {
       "country": "Egypt",
-      "governorates": ["Cairo", "Alexandria", "Giza"]
+      "governorates": [
+        "Cairo",
+        "Giza",
+        "Alexandria",
+        "Aswan",
+        "Luxor",
+        "Fayyum",
+        "Ismailia",
+        "Matrouh",
+        "Naama",
+        "Red Sea and Sinai",
+        "Said",
+        "Suez",
+      ]
     },
     {
       "country": "Algeria",
@@ -305,7 +318,7 @@ class ModelAIController extends GetxController {
       if (response.statusCode == 200) {
         Get.snackbar("Success", "Recommendation saved successfully",
             snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.teal,
             colorText: Colors.white);
       } else {
         print('Failed to save recommendation: ${response.statusCode}');

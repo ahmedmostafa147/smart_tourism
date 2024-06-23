@@ -85,11 +85,19 @@ class _SurveyState extends State<Survey> {
               ),
               Obx(
                 () => surveyController.isLoading.value
-                    ? Text('Loading...'.tr)
+                    ? Center(child: CircularProgressIndicator())
                     : CustomMaterialButton(
                         buttonText: "Submit".tr,
                         onPressed: () async {
-                          await surveyController.submitSurvey(selectedTypes);
+                          if (selectedTypes.isEmpty) {
+                            Get.snackbar(
+                              'Error'.tr,
+                              'Please select at least Two type of tourism'.tr,
+                            );
+                            return;
+                          } else {
+                            surveyController.submitSurvey(selectedTypes);
+                          }
                         },
                       ),
               ),

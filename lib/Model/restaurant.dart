@@ -21,11 +21,11 @@ class Restaurant {
 
   factory Restaurant.fromJson(Map<String, dynamic> json) {
     return Restaurant(
-      restaurantName: json['restaurant_name'] ?? '',
+      restaurantName: json['rest_name'] ?? '',
       price: json['price'] ?? 0,
       governorate: json['governorate'] ?? '',
-      restaurantLoc: json['restaurant_loc'] ?? '',
-      restaurantImage: json['restaurant_image'] ?? '',
+      restaurantLoc: json['rest_loc'] ?? '',
+      restaurantImage: json['rest_image'] ?? '',
       rate: (json['rate'] ?? 0.0).toDouble(),
       rest_id: json['rest_id'] ?? 0,
       comment: json['comment'] ?? '',
@@ -34,11 +34,11 @@ class Restaurant {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['restaurant_name'] = this.restaurantName;
+    data['rest_name'] = this.restaurantName;
     data['price'] = this.price;
     data['governorate'] = this.governorate;
-    data['restaurant_loc'] = this.restaurantLoc;
-    data['restaurant_image'] = this.restaurantImage;
+    data['rest_loc'] = this.restaurantLoc;
+    data['rest_image'] = this.restaurantImage;
     data['rate'] = this.rate;
     data['rest_id'] = this.rest_id;
     data['comment'] = this.comment;

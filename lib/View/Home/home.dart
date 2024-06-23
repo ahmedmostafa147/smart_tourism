@@ -49,8 +49,8 @@ class HomeView extends StatelessWidget {
             child: Obx(() {
               if (controller.isLoading.value) {
                 return ListView.builder(
-                  scrollDirection: Axis.vertical, // استخدام الاتجاه الرأسي
-                  itemCount: 3, // عدد العناصر المشابهة لعرضها أثناء التحميل
+                  scrollDirection: Axis.vertical,
+                  itemCount: 3,
                   itemBuilder: (context, index) => ShimmerListTile(),
                 );
               } else {

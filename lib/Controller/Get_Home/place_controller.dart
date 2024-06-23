@@ -15,7 +15,7 @@ class PlaceController extends GetxController {
 
       final Uri url = Uri.parse(ApiEndPoints.baseUrl +
           ApiEndPoints.authEndpoints.discover_places +
-          '?governorate' +
+          '?governorate=' +
           governorate);
 
       var response = await http.get(url);
