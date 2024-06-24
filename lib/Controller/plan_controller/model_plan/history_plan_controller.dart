@@ -4,16 +4,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
 
-class RecommendationBackend {
+class Recommendation {
   final int planNumber;
   final String hotel;
   final double hotelPricePerDay;
   final double totalHotelPrice;
   final double totalPlanPrice;
   final String additionalAmountNeeded;
-  final List<PlanRecommendation> planRecommendations;
+  final List<String> planRecommendations;
 
-  RecommendationBackend({
+  Recommendation({
     required this.planNumber,
     required this.hotel,
     required this.hotelPricePerDay,
@@ -23,70 +23,26 @@ class RecommendationBackend {
     required this.planRecommendations,
   });
 
-  factory RecommendationBackend.fromJson(Map<String, dynamic> json) {
-    return RecommendationBackend(
+  factory Recommendation.fromJson(Map<String, dynamic> json) {
+    return Recommendation(
       planNumber: json['plan_number'],
       hotel: json['hotel'],
       hotelPricePerDay: json['hotel_price_per_day'],
       totalHotelPrice: json['total_hotel_price'],
       totalPlanPrice: json['total_plan_price'],
       additionalAmountNeeded: json['additional_amount_needed'],
-      planRecommendations: (json['plan_recommendations'] as List)
-          .map((item) => PlanRecommendation.fromJson(item))
-          .toList(),
+      planRecommendations: List<String>.from(json['plan_recommendations']),
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'plan_number': planNumber,
-      'hotel': hotel,
-      'hotel_price_per_day': hotelPricePerDay,
-      'total_hotel_price': totalHotelPrice,
-      'total_plan_price': totalPlanPrice,
-      'additional_amount_needed': additionalAmountNeeded,
-      'plan_recommendations':
-          planRecommendations.map((item) => item.toJson()).toList(),
-    };
-  }
-}
-
-class PlanRecommendation {
-  final int dayNumber;
-  final String recommendationType;
-  final String recommendationDescription;
-  final int recommendationPrice;
-
-  PlanRecommendation({
-    required this.dayNumber,
-    required this.recommendationType,
-    required this.recommendationDescription,
-    required this.recommendationPrice,
-  });
-
-  factory PlanRecommendation.fromJson(Map<String, dynamic> json) {
-    return PlanRecommendation(
-      dayNumber: json['day_number'],
-      recommendationType: json['recommendation_type'],
-      recommendationDescription: json['recommendation_description'],
-      recommendationPrice: json['recommendation_price'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'day_number': dayNumber,
-      'recommendation_type': recommendationType,
-      'recommendation_description': recommendationDescription,
-      'recommendation_price': recommendationPrice,
-    };
+  String _cleanText(String input) {
+    return input.replaceAll(
+        RegExp(r'[^\x00-\x7F]'), ''); // Remove non-ASCII characters
   }
 }
 
 class SavedPlansController extends GetxController {
   final RxBool isLoading = false.obs;
-  final RxList<RecommendationBackend> savedPlans =
-      <RecommendationBackend>[].obs;
+  final RxList<Recommendation> savedPlans = <Recommendation>[].obs;
 
   Future<void> fetchSavedPlans() async {
     try {
@@ -100,8 +56,6 @@ class SavedPlansController extends GetxController {
         throw 'User is not logged in';
       }
 
-      print((token));
-
       final response = await http.get(
         Uri.parse(url),
         headers: {
@@ -111,14 +65,14 @@ class SavedPlansController extends GetxController {
       );
 
       if (response.statusCode == 200) {
+        print(response.body);
         List<dynamic> data = jsonDecode(response.body);
 
-        List<RecommendationBackend> loadedPlans =
-            data.map((plan) => RecommendationBackend.fromJson(plan)).toList();
+        List<Recommendation> loadedPlans =
+            data.map((plan) => Recommendation.fromJson(plan)).toList();
 
         savedPlans.assignAll(loadedPlans);
 
-        print(data);
         print(savedPlans);
       } else {
         var responseBody = jsonDecode(response.body);

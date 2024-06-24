@@ -3,24 +3,21 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
 
 class Plan {
   final int planBudget;
-  final String planReview;
   final int planDuration;
   final String destination;
-  final bool planIsRecommended;
   final List<String> restaurantNames;
   final List<String> hotelNames;
   final List<String> placeNames;
 
   Plan({
     required this.planBudget,
-    required this.planReview,
     required this.planDuration,
     required this.destination,
-    required this.planIsRecommended,
     required this.restaurantNames,
     required this.hotelNames,
     required this.placeNames,
@@ -29,10 +26,8 @@ class Plan {
   Map<String, dynamic> toJson() {
     return {
       'plan_budget': planBudget,
-      'plan_review': planReview,
       'plan_duration': planDuration,
       'destination': destination,
-      'plan_is_recommended': planIsRecommended,
       'restaurant_names': restaurantNames,
       'hotel_names': hotelNames,
       'place_names': placeNames,
@@ -156,28 +151,39 @@ class PlanController extends GetxController {
 
     final newPlan = Plan(
       planBudget: int.parse(budgetController.text.trim()),
-      planReview: '', // يمكن تحديثه عند الحاجة
       planDuration: int.parse(numDaysController.text.trim()),
       destination: countryController.text.trim(),
-      planIsRecommended: false,
       restaurantNames: restaurantNames.text.trim().split(','),
       hotelNames: hotelNames.text.trim().split(','),
       placeNames: placeNames.text.trim().split(','),
     );
+
+     // Get the authentication token from shared preferences
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? token = prefs.getString('token');
+
+      // Make sure token exists
+      if (token == null) {
+        throw 'User is not logged in';
+      }
 
     try {
       isLoading.value = true;
       final url = ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.createPlan;
       final response = await http.post(
         Uri.parse(url),
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer $token"},
         body: jsonEncode(newPlan.toJson()),
       );
 
       if (response.statusCode == 200) {
         Get.snackbar("Success", "Plan created successfully");
       } else {
-        Get.snackbar("Error", "Failed to create plan");
+        print('Failed to Create : ${response.statusCode}');
+        print('Failed to Create: ${response.body}');
+        var responseBody = jsonDecode(response.body);
+        var errorMessage = responseBody["message"];
+        throw 'Error: $errorMessage';
       }
     } finally {
       isLoading.value = false;

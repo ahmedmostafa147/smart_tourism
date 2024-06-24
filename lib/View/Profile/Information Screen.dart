@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/View/Plan/history_plan.dart';
+import 'package:smart_tourism/View/Plan/history_select_plan.dart';
 import 'widget/about/about.dart';
 import 'widget/Logout/logout.dart';
 import 'widget/Notification/notifiction.dart';
@@ -47,7 +48,7 @@ class _ProfileState extends State<Profile> {
               ),
               RowOptions(
                   onTap: () {
-                    Get.to(() => SavedPlansScreen());
+                    Get.to(() => HistorySelectPlan());
                   },
                   text: "Plans".tr,
                   IconName: const ImageIcon(AssetImage(Assets.imagesBusiness))),

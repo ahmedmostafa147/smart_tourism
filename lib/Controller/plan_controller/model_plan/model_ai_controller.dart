@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:smart_tourism/Controller/Survay/survay_controller.dart';
-import 'package:smart_tourism/Core/End%20Points/endpoints.dart';
 
 class Recommendation {
   final int planNumber;
@@ -271,8 +270,7 @@ class ModelAIController extends GetxController {
           "Authorization": "Bearer $token",
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(
-            requestBody), // Encode the JSON-serializable map to JSON string
+        body: jsonEncode(requestBody),
       );
 
       if (response.statusCode == 200) {

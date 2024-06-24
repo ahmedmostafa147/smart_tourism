@@ -50,12 +50,7 @@ class SavedPlansScreen extends StatelessWidget {
                       ),
                       children: plan.planRecommendations
                           .map((recommendation) => ListTile(
-                                title: Text('Day ${recommendation.dayNumber}'),
-                                subtitle: Text(
-                                  '${recommendation.recommendationType}\n'
-                                  '${recommendation.recommendationDescription}\n'
-                                  'Price: \$${recommendation.recommendationPrice}',
-                                ),
+                                title: Text('Day ${recommendation}'),
                               ))
                           .toList(),
                     ),

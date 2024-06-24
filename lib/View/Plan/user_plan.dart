@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/Controller/plan_controller/user_plan/create_plan_controller.dart';
 import 'package:smart_tourism/View/Auth/AuthWidget/text_form_field.dart';
 import 'package:smart_tourism/View/Plan/widget/autocomplete.dart';
 import 'package:smart_tourism/widget/Custom%20Material%20Button/custom_material_button.dart';
-import '../../Controller/plan_controller/user_plan/create_plan_controller.dart';
 
 class LocalPlanScreen extends StatelessWidget {
   final PlanController controller = Get.put(PlanController());
@@ -22,7 +21,7 @@ class LocalPlanScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              SizedBox(height: 16.h),
+              SizedBox(height: 16),
               CustomTextForm(
                 hintText: "Plan Name",
                 controller: controller.planNameController,
@@ -35,26 +34,18 @@ class LocalPlanScreen extends StatelessWidget {
                   return null;
                 },
               ),
-              SizedBox(height: 25.h),
+              SizedBox(height: 25),
               AutocompleteField(
                 label: "Country",
                 options: controller.countries,
                 controller: controller.countryController,
                 hintText: 'Enter country name',
                 isValidSelection: controller.isValidCountry,
-                onSelected: (String selection) {},
+                onSelected: (String selection) {
+                  controller.showGovernoratesForSelectedCountry(selection);
+                },
               ),
-              SizedBox(height: 25.h),
-              Obx(
-                () => AutocompleteField(
-                  label: "Choose Governorate",
-                  options: controller.filteredGovernorates.toList(),
-                  controller: controller.governorateController,
-                  isValidSelection: controller.isValidGovernorate,
-                  hintText: 'Enter governorate name',
-                ),
-              ),
-              SizedBox(height: 25.h),
+              SizedBox(height: 25),
               AutocompleteField(
                 label: "Number of Days",
                 options: controller.numDays,
@@ -62,7 +53,7 @@ class LocalPlanScreen extends StatelessWidget {
                 isValidSelection: controller.isValidnumDays,
                 hintText: 'Enter number of days',
               ),
-              SizedBox(height: 25.h),
+              SizedBox(height: 25),
               AutocompleteField(
                 label: "Budget",
                 options: controller.budget,
@@ -70,36 +61,51 @@ class LocalPlanScreen extends StatelessWidget {
                 isValidSelection: controller.isValidbudget,
                 hintText: 'Enter budget',
               ),
-              SizedBox(height: 25.h),
-              AutocompleteField(
-                label: "Restaurant Names",
-                options: controller.budget,
+              SizedBox(height: 25),
+              CustomTextForm(
+                hintText: "Restaurant Names",
                 controller: controller.restaurantNames,
-                isValidSelection: controller.isValidbudget,
-                hintText: 'Enter budget',
+                labelText: "Restaurant Names",
+                isPassword: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter restaurant names';
+                  }
+                  return null;
+                },
               ),
-              SizedBox(height: 25.h),
-              AutocompleteField(
-                label: "Hotel Names",
-                options: controller.budget,
-                controller: controller.budgetController,
-                isValidSelection: controller.isValidbudget,
-                hintText: 'Enter budget',
+              SizedBox(height: 25),
+              CustomTextForm(
+                hintText: "Hotel Names",
+                controller: controller.hotelNames,
+                labelText: "Hotel Names",
+                isPassword: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter hotel names';
+                  }
+                  return null;
+                },
               ),
-              SizedBox(height: 25.h),
-              AutocompleteField(
-                label: "place Names",
-                options: controller.budget,
-                controller: controller.budgetController,
-                isValidSelection: controller.isValidbudget,
-                hintText: 'Enter budget',
+              SizedBox(height: 25),
+              CustomTextForm(
+                hintText: "Place Names",
+                controller: controller.placeNames,
+                labelText: "Place Names",
+                isPassword: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter place names';
+                  }
+                  return null;
+                },
               ),
-              SizedBox(height: 25.h),
+              SizedBox(height: 25),
               Obx(() => CustomMaterialButton(
                     buttonText:
                         controller.isLoading.value ? 'Loading...' : 'Save Plan',
                     onPressed: () async {
-                      controller.createPlan();
+                      await controller.createPlan();
                     },
                   )),
             ],
