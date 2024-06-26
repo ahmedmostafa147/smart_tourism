@@ -10,13 +10,18 @@ class SavedPlansScreen extends StatelessWidget {
   }
 
   final List<Color> dayColors = [
-    Colors.blueGrey[900]!,
-    Colors.red[900]!,
-    Colors.green[900]!,
-    Colors.blue[900]!,
-    Colors.orange[900]!,
-    Colors.purple[900]!,
-    Colors.brown[900]!,
+    Color(0xFF1976D2), // أزرق داكن
+    Color(0xFF4CAF50), // أخضر فاتح
+    Color(0xFFD32F2F),
+    Color(0xFF9C27B0),
+    Color(0xFF424242),
+    Color(0xFF4C566A),
+    Color(0xFFD08770),
+    Color(0xFFA3BE8C),
+    Color(0xFFB48EAD),
+    Color(0xFF88C0D0),
+    Color(0xFFBF616A),
+    Color(0xFFEBCB8B),
   ];
 
   @override
@@ -42,6 +47,7 @@ class SavedPlansScreen extends StatelessWidget {
                   }
 
                   return Card(
+                    color: cardColor,
                     child: ExpansionTile(
                       title: Text('Plan #${plan.planNumber} - ${plan.hotel}'),
                       subtitle: Text(
@@ -50,7 +56,7 @@ class SavedPlansScreen extends StatelessWidget {
                       ),
                       children: plan.planRecommendations
                           .map((recommendation) => ListTile(
-                                title: Text('Day ${recommendation}'),
+                                title: Text('${recommendation}'),
                               ))
                           .toList(),
                     ),

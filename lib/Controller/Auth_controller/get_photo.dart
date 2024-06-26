@@ -37,10 +37,6 @@ class PhotoController extends GetxController {
         throw 'Failed to get user information: $errorMessage';
       }
     } catch (error) {
-      Get.snackbar('Error', error.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white);
     } finally {
       isLoading.value = false;
     }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smart_tourism/Controller/Auth_controller/upload_profile_img.dart';
@@ -43,16 +44,15 @@ class _EditImageProfileState extends State<EditImageProfile> {
             if (_imageFile != null)
               Image.file(
                 _imageFile!,
-                width: 200,
-                height: 200,
+                width: 200.w,
+                height: 200.h,
               ),
-            SizedBox(height: 20),
+            SizedBox(height: 20.h),
             ElevatedButton(
               onPressed: _pickImage,
               child: Text('Pick Image'),
             ),
-            SizedBox(height: 20),
-            if (_imageFile != null) Text('Selected Image: ${_imageFile!.path}'),
+            SizedBox(height: 20.h),
             ElevatedButton(
               onPressed: () {
                 if (_imageFile != null) {

@@ -35,32 +35,45 @@ class LocalPlanScreen extends StatelessWidget {
                 },
               ),
               SizedBox(height: 25),
-              AutocompleteField(
-                label: "Country",
-                options: controller.countries,
+              CustomTextForm(
+                hintText: "Country Name",
                 controller: controller.countryController,
-                hintText: 'Enter country name',
-                isValidSelection: controller.isValidCountry,
-                onSelected: (String selection) {
-                  controller.showGovernoratesForSelectedCountry(selection);
+                labelText: "Country ",
+                isPassword: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter a Country  name';
+                  }
+                  return null;
                 },
               ),
               SizedBox(height: 25),
-              AutocompleteField(
-                label: "Number of Days",
-                options: controller.numDays,
-                controller: controller.numDaysController,
-                isValidSelection: controller.isValidnumDays,
-                hintText: 'Enter number of days',
+              CustomTextForm(
+                hintText: "Budget Amount",
+                controller: controller.budgetController,
+                labelText: "Budget Amount",
+                isPassword: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter a plan name';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 25),
-              AutocompleteField(
-                label: "Budget",
-                options: controller.budget,
-                controller: controller.budgetController,
-                isValidSelection: controller.isValidbudget,
-                hintText: 'Enter budget',
+              CustomTextForm(
+                hintText: "Num Days",
+                controller: controller.numDaysController,
+                labelText: "Num Days",
+                isPassword: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter a plan name';
+                  }
+                  return null;
+                },
               ),
+              SizedBox(height: 25),
               SizedBox(height: 25),
               CustomTextForm(
                 hintText: "Restaurant Names",

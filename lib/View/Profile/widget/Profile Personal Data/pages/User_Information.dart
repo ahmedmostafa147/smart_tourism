@@ -51,34 +51,38 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
         shrinkWrap: true,
         padding: EdgeInsets.all(20.h),
         children: [
-          Obx(() {
-            if (profilePhotoController.isLoading.value) {
-              return Center(child: CircularProgressIndicator());
-            }
-
-            return DisplayImage(
-              imagePath: profilePhotoController.profileImage.value.isNotEmpty
-                  ? profilePhotoController.profileImage.value
-                  : Assets.imagesCircleUser,
-              onPressed: () async {
-                Get.to(() => EditImageProfile());
-              },
-            );
-          }),
+          DisplayImage(
+            imagePath: profilePhotoController.profileImage.value,
+            onPressed: () {
+              Get.to(() => EditImageProfile());
+            },
+          ),
           SizedBox(height: 20.h),
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Column(children: [
-              UserInfoTile(
-                  label: 'First Name', value: user['first_name'] ?? 'N/A'),
-              UserInfoTile(
-                  label: 'Last Name', value: user['last_name'] ?? 'N/A'),
-              UserInfoTile(label: 'Email', value: user['email'] ?? 'N/A'),
-              UserInfoTile(label: 'Location', value: user['location'] ?? 'N/A'),
-            ]),
+            child: Column(
+              children: [
+                UserInfoTile(
+                  label: 'First Name',
+                  value: user['first_name'] ?? 'N/A',
+                ),
+                UserInfoTile(
+                  label: 'Last Name',
+                  value: user['last_name'] ?? 'N/A',
+                ),
+                UserInfoTile(
+                  label: 'Email',
+                  value: user['email'] ?? 'N/A',
+                ),
+                UserInfoTile(
+                  label: 'Location',
+                  value: user['location'] ?? 'N/A',
+                ),
+              ],
+            ),
           ),
         ],
       );
@@ -90,17 +94,23 @@ class UserInfoTile extends StatelessWidget {
   final String label;
   final String value;
 
-  const UserInfoTile({required this.label, required this.value});
+  const UserInfoTile({
+    required this.label,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(label,
-          style: TextStyle(
-              fontSize: 17.sp,
-              fontWeight: FontWeight.w400,
-              fontFamily: TextFontStyle.Mano),
-          textAlign: TextAlign.start),
+      title: Text(
+        label,
+        style: TextStyle(
+          fontSize: 17.sp,
+          fontWeight: FontWeight.w400,
+          fontFamily: TextFontStyle.Mano,
+        ),
+        textAlign: TextAlign.start,
+      ),
       subtitle: Text(
         value,
         style: TextStyle(

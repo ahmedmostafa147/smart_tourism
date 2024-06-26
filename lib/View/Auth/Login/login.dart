@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_tourism/Core/constants/font.dart';
 import '../../../Controller/Auth_controller/login_controller.dart';
-import '../AuthWidget/google_button.dart';
 import '../Register/register.dart';
 import '../Reset%20Password/reset_password.dart';
 
@@ -131,22 +130,6 @@ class LoginView extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    const Expanded(
-                      child: Divider(),
-                    ),
-                    SizedBox(width: 10.w),
-                    const Text("OR LOGIN with",
-                        style: TextStyle(color: Colors.grey)),
-                    SizedBox(width: 10.w),
-                    const Expanded(
-                      child: Divider(),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10.h),
-                GoogleLogin(),
                 SizedBox(height: 30.h),
                 InkWell(
                   onTap: () async {

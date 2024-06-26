@@ -10,17 +10,22 @@ class RecommendationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Define dark colors for each day
     final List<Color> dayColors = [
-      Colors.blueGrey[900]!, // Day 1
-      Colors.red[900]!, // Day 2
-      Colors.green[900]!, // Day 3
-      Colors.blue[900]!, // Day 4
-      Colors.orange[900]!, // Day 5
-      Colors.purple[900]!, // Day 6
-      Colors.brown[900]!, // Day 7
-    ];
+      Color(0xFF1976D2), // أزرق داكن
+      Color(0xFF4CAF50), // أخضر فاتح
+      Color(0xFFD32F2F), // أحمر داكن
+      Color(0xFF9C27B0),
 
+      Color(0xFF424242), // رمادي داكن
+
+      Color(0xFF4C566A),
+      Color(0xFFD08770),
+      Color(0xFFA3BE8C),
+      Color(0xFFB48EAD),
+      Color(0xFF88C0D0),
+      Color(0xFFBF616A),
+      Color(0xFFEBCB8B),
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text('Recommendations for $planName'),

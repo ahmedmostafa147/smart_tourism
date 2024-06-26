@@ -82,7 +82,7 @@ class PreferencesScreen extends StatelessWidget {
                 options: controller.numPlans,
                 controller: controller.num_plansController,
                 isValidSelection: controller.isValidnum_plans,
-                hintText: 'Enter budget',
+                hintText: 'Enter number of plans',
               ),
               SizedBox(height: 25.h),
               Obx(() => CustomMaterialButton(

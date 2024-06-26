@@ -53,7 +53,7 @@ class HotelController extends GetxController {
 
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
-        print("Response JSON: $jsonResponse");
+       
         if (jsonResponse is Map<String, dynamic> &&
             jsonResponse['hotels'] is List) {
           randomHotels.value = (jsonResponse['hotels'] as List)

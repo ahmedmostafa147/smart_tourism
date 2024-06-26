@@ -59,7 +59,7 @@ class PlaceController extends GetxController {
 
       if (response.statusCode == 200) {
         dynamic jsonResponse = jsonDecode(response.body);
-        print("Response JSON: $jsonResponse");
+       
         if (jsonResponse is Map<String, dynamic> &&
             jsonResponse['places'] is List) {
           randomPlaces.value = (jsonResponse['places'] as List)

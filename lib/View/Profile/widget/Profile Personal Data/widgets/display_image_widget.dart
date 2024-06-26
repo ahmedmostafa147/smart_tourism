@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_tourism/Core/constants/images.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DisplayImage extends StatelessWidget {
   final String imagePath;
@@ -19,13 +20,13 @@ class DisplayImage extends StatelessWidget {
         children: [
           buildImage(),
           Positioned(
-            right: 4,
-            bottom: 10,
+            right: 1,
+            bottom: 11,
             child: GestureDetector(
               onTap: onPressed,
               child: buildEditIcon(),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -33,31 +34,46 @@ class DisplayImage extends StatelessWidget {
 
   Widget buildImage() {
     return CircleAvatar(
-      backgroundImage: imagePath.isNotEmpty
-          ? NetworkImage(imagePath) as ImageProvider
-          : AssetImage(Assets.imagesCircleUser),
-      radius: 80.r,
+      radius: 40.r,
+      child: ClipOval(
+        child: CachedNetworkImage(
+          imageUrl: imagePath,
+          placeholder: (context, url) => CircularProgressIndicator(),
+          errorWidget: (context, url, error) => Image.asset(
+            Assets.imagesCircleUser,
+            width: 60.h,
+            height: 60.h,
+            fit: BoxFit.contain,
+            color: Colors.teal,
+          ),
+          imageBuilder: (context, imageProvider) => Container(
+            width: 60.h,
+            height: 60.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
-  Widget buildEditIcon() => buildCircle(
-        all: 8,
-        child: Icon(
-          Icons.camera_alt_outlined,
-          color: Colors.teal,
-          size: 30.r,
-        ),
-      );
-
-  Widget buildCircle({
-    required Widget child,
-    required double all,
-  }) =>
-      ClipOval(
-        child: Container(
-          padding: EdgeInsets.all(all),
+  Widget buildEditIcon() => Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
           color: Colors.white,
-          child: child,
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Icon(
+            Icons.camera_alt_outlined,
+            color: Colors.teal,
+            size: 10.r,
+          ),
         ),
       );
 }

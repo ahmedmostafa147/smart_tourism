@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smart_tourism/Controller/Auth_controller/get_photo.dart';
 import '../../../../Core/constants/font.dart';
 import '../../../../Controller/Auth_controller/user_information_controller.dart';
 import '../../../../Core/constants/images.dart';
 import '../../../../Controller/Location/location_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class RowUser extends StatelessWidget {
   final LocationController locationController = Get.find();
@@ -12,10 +14,20 @@ class RowUser extends StatelessWidget {
     UserInformationRow(),
   );
 
+  final PhotoController profilePhotoController = Get.put(PhotoController());
+
   RowUser({super.key});
 
   @override
   Widget build(BuildContext context) {
+    userInformation.getUserInfoRow().then((_) {
+      final user = userInformation.userInfo['user_info'] ?? {};
+      final userImage = user['profile_photo'];
+      if (userImage != null) {
+        profilePhotoController.GetProfileImage(userImage);
+      }
+    });
+
     return Obx(() {
       if (userInformation.isLoading.value) {
         return Center(
@@ -31,7 +43,6 @@ class RowUser extends StatelessWidget {
       }
 
       final user = userInfo['user_info'] ?? {};
-      final userImage = user['image'] ?? Assets.imagesCircleUser;
 
       return Container(
         height: 80.h,
@@ -43,15 +54,13 @@ class RowUser extends StatelessWidget {
         ),
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              child: Image.asset(
-                userImage,
-                width: 50.w,
-                height: 50.h,
-                fit: BoxFit.contain,
-                color: Theme.of(context).primaryColor,
+            CircleAvatar(
+              radius: 25.w,
+              backgroundImage: CachedNetworkImageProvider(
+                profilePhotoController.profileImage.value ??
+                    Assets.imagesCircleUser,
               ),
+              backgroundColor: Theme.of(context).primaryColor,
             ),
             SizedBox(width: 15.w),
             Column(

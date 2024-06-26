@@ -6,6 +6,7 @@ import 'package:smart_tourism/Controller/favorite/favorite_controller.dart';
 import 'package:smart_tourism/Model/hotel.dart';
 import 'package:smart_tourism/Model/place.dart';
 import 'package:smart_tourism/Model/restaurant.dart';
+import 'package:smart_tourism/Controller/may_like.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
@@ -149,6 +150,54 @@ class CustomListTile extends StatelessWidget {
   }
 }
 
+class MayLikedListView extends StatelessWidget {
+  final MayLikedController controller = Get.put(MayLikedController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return Center(child: CircularProgressIndicator());
+      } else if (controller.mayLikedItems.isEmpty) {
+        return Center(child: Text('No recommendations found'));
+      } else {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'You may like'.tr,
+              style: TextStyle(
+                color: Colors.teal,
+                fontSize: 20.sp,
+                height: 1.3.sp,
+              ),
+            ),
+            SizedBox(height: 10.h),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: controller.mayLikedItems.length,
+              itemBuilder: (context, index) {
+                final recommendation = controller.mayLikedItems[index];
+                return CustomListTile(
+                  title: recommendation.title,
+                  subtitle: recommendation.country,
+                  imageURL: recommendation.imgLink.startsWith('data:image')
+                      ? 'data:image/jpeg;base64,' +
+                          recommendation.imgLink.split(',')[1]
+                      : recommendation.imgLink,
+                  price: recommendation.price.toString(),
+                  rating: 0, // Assuming rating is not part of recommendation
+                );
+              },
+            ),
+          ],
+        );
+      }
+    });
+  }
+}
+
 class HotelListView extends StatelessWidget {
   final List<Hotel> hotels;
 
@@ -156,39 +205,44 @@ class HotelListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'You may like these Hotels'.tr,
-          style: TextStyle(
-            color: Colors.teal,
-            fontSize: 20.sp,
-            height: 1.3.sp,
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed('/RandomHotelsScreen');
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'You may like these Hotels'.tr,
+            style: TextStyle(
+              color: Colors.teal,
+              fontSize: 20.sp,
+              height: 1.3.sp,
+            ),
           ),
-        ),
-        SizedBox(height: 10.h),
-        SizedBox(
-          height: 250.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: hotels.length,
-            itemBuilder: (context, index) {
-              final hotel = hotels[index];
-              return Container(
-                width: 200.w,
-                child: CustomListTile(
-                  title: hotel.hotelName,
-                  subtitle: ' ${hotel.governorate} | ${hotel.hotelLoc}',
-                  imageURL: hotel.hotelImage,
-                  price: '${hotel.price}',
-                  rating: hotel.rate,
-                ),
-              );
-            },
+          SizedBox(height: 10.h),
+          SizedBox(
+            height: 250.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: hotels.length,
+              itemBuilder: (context, index) {
+                final hotel = hotels[index];
+                return Container(
+                  width: 200.w,
+                  child: CustomListTile(
+                    title: hotel.hotelName,
+                    subtitle: ' ${hotel.governorate} | ${hotel.hotelLoc}',
+                    imageURL: hotel.hotelImage,
+                    price: '${hotel.price}',
+                    rating: hotel.rate,
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -201,40 +255,45 @@ class RestaurantListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'You may like these Restaurants'.tr,
-          style: TextStyle(
-            color: Colors.teal,
-            fontSize: 20.sp,
-            height: 1.3.sp,
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed('/RandomRestaurantsScreen');
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'You may like these Restaurants'.tr,
+            style: TextStyle(
+              color: Colors.teal,
+              fontSize: 20.sp,
+              height: 1.3.sp,
+            ),
           ),
-        ),
-        SizedBox(height: 10.h),
-        SizedBox(
-          height: 250.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: restaurants.length,
-            itemBuilder: (context, index) {
-              final restaurant = restaurants[index];
-              return Container(
-                width: 200.w, // Ensure a fixed width for each item
-                child: CustomListTile(
-                  title: restaurant.restaurantName,
-                  subtitle:
-                      ' ${restaurant.governorate} | ${restaurant.restaurantLoc}',
-                  imageURL: restaurant.restaurantImage,
-                  price: '${restaurant.price}',
-                  rating: restaurant.rate,
-                ),
-              );
-            },
+          SizedBox(height: 10.h),
+          SizedBox(
+            height: 250.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: restaurants.length,
+              itemBuilder: (context, index) {
+                final restaurant = restaurants[index];
+                return Container(
+                  width: 200.w, // Ensure a fixed width for each item
+                  child: CustomListTile(
+                    title: restaurant.restaurantName,
+                    subtitle:
+                        ' ${restaurant.governorate} | ${restaurant.restaurantLoc}',
+                    imageURL: restaurant.restaurantImage,
+                    price: '${restaurant.price}',
+                    rating: restaurant.rate,
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -246,39 +305,44 @@ class PlaceListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'You may like these Places'.tr,
-          style: TextStyle(
-            color: Colors.teal,
-            fontSize: 20.sp,
-            height: 1.3.sp,
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed('/RandomPlacesScreen');
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'You may like these Places'.tr,
+            style: TextStyle(
+              color: Colors.teal,
+              fontSize: 20.sp,
+              height: 1.3.sp,
+            ),
           ),
-        ),
-        SizedBox(height: 10.h),
-        SizedBox(
-          height: 250.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: places.length,
-            itemBuilder: (context, index) {
-              final place = places[index];
-              return Container(
-                width: 200.w, // Ensure a fixed width for each item
-                child: CustomListTile(
-                  title: place.placeName,
-                  subtitle: '${place.placeLoc} | ${place.placeLoc}',
-                  imageURL: place.placeImage,
-                  price: '${place.price}',
-                  rating: place.rate,
-                ),
-              );
-            },
+          SizedBox(height: 10.h),
+          SizedBox(
+            height: 250.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: places.length,
+              itemBuilder: (context, index) {
+                final place = places[index];
+                return Container(
+                  width: 200.w, // Ensure a fixed width for each item
+                  child: CustomListTile(
+                    title: place.placeName,
+                    subtitle: '${place.placeLoc} | ${place.placeLoc}',
+                    imageURL: place.placeImage,
+                    price: '${place.price}',
+                    rating: place.rate,
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

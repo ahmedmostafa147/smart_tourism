@@ -60,11 +60,6 @@ class UploadProfilePhotoController extends GetxController {
       }
     } catch (error) {
       print(error.toString());
-      Get.snackbar("Error", error.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          duration: Duration(seconds: 5),
-          colorText: Colors.white);
     } finally {
       isLoading.value = false;
     }

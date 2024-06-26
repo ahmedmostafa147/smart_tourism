@@ -6,6 +6,8 @@ import 'package:smart_tourism/View/Profile/widget/Profile%20Personal%20Data/prof
 import 'package:smart_tourism/View/Restaurant/restaurant.dart';
 import 'package:smart_tourism/View/Search/result_search.dart';
 import 'package:smart_tourism/View/Survey/result_survey.dart';
+import 'package:smart_tourism/View/TODO/todo.dart';
+import 'package:smart_tourism/View/TODO/todo_home.dart';
 import 'package:smart_tourism/View/chat/chat.dart';
 import 'View/Auth/Register/register.dart';
 import 'View/Plan/plan.dart';
@@ -41,7 +43,9 @@ class AppRoute {
   static const String RandomPlacesScreen = "/RandomPlacesScreen";
   static const String RandomRestaurantsScreen = "/RandomRestaurantsScreen";
   static const String RandomHotelsScreen = "/RandomHotelsScreen";
-  static const String LocalPlanScreen = "/ LocalPlanScreen"; 
+  static const String LocalPlanScreen = "/ LocalPlanScreen";
+  static const String AddToDoScreen = "/ AddToDoScreen";
+  static const String TodoHome = "/ TodoHome";
 }
 
 Map<String, Widget Function(BuildContext)> routes = {
@@ -63,4 +67,6 @@ Map<String, Widget Function(BuildContext)> routes = {
   AppRoute.RandomRestaurantsScreen: (context) => RandomRestaurantsScreen(),
   AppRoute.RandomHotelsScreen: (context) => RandomHotelsScreen(),
   AppRoute.LocalPlanScreen: (context) => LocalPlanScreen(),
+  AppRoute.AddToDoScreen: (context) => AddToDoScreen(),
+  AppRoute.TodoHome: (context) => TodoHome(),
 };

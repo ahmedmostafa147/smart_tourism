@@ -109,44 +109,234 @@ class ModelAIController extends GetxController {
       ]
     },
     {
-      "country": "Algeria",
-      "governorates": ["Algiers"]
+      "country": "United Arab Emirates",
+      "governorates": [
+        "Dubai",
+        "Ajman",
+        "Ras Al Khaimah",
+        "Fujairah",
+        "Abu Dhabi",
+        "Umm Al-Quwain",
+        "Sharjah"
+      ]
     },
     {
-      "country": "Iraq",
-      "governorates": ["Baghdad"]
-    },
-    {
-      "country": "Jordan",
-      "governorates": ["Amman"]
+      "country": "Saudi Arabia",
+      "governorates": [
+        "Al Jawf",
+        "Al Bahah",
+        "Madinah",
+        "Northern Borders",
+        "Najran",
+        "Makkah",
+        "Al Qassim",
+        "Eastern Province",
+        "Hail",
+        "Jazan",
+        "Asir",
+        "Tabuk",
+        "Riyadh",
+        "Baha"
+      ]
     },
     {
       "country": "Lebanon",
-      "governorates": ["Beirut"]
+      "governorates": [
+        "South Lebanon",
+        "Beqaa",
+        "Akkar",
+        "Beirut",
+        "North Lebanon",
+        "Baalbek-Hermel",
+        "Mount Lebanon",
+        "Nabatieh"
+      ]
+    },
+    {
+      "country": "Qatar",
+      "governorates": [
+        "Al Daayen",
+        "Umm Salal",
+        "Al Khor",
+        "Al Rayyan",
+        "Al Wakrah",
+        "Ad Dawhah",
+        "Al Shamal"
+      ]
+    },
+    {
+      "country": "Tunisia",
+      "governorates": [
+        "Mahdia",
+        "Kasserine",
+        "Kef",
+        "Sidi Bouzid",
+        "Ariana",
+        "Gabes",
+        "Medenine",
+        "Siliana",
+        "Sfax",
+        "Monastir",
+        "Zaghouan",
+        "Beja",
+        "Manouba",
+        "Kairouan",
+        "Jendouba",
+        "Tunis",
+        "Gafsa",
+        "Kebili",
+        "Bizerte",
+        "Ben Arous",
+        "Nabeul",
+        "Tataouine",
+        "Tozeur",
+        "Sousse"
+      ]
+    },
+    {
+      "country": "Algeria",
+      "governorates": [
+        "Mostaganem",
+        "Ghardaia",
+        "Tebessa",
+        "Illizi",
+        "El Oued",
+        "Constantine",
+        "Khenchela",
+        "Tindouf",
+        "Souk Ahras",
+        "Ouargla",
+        "Bechar",
+        "Blida",
+        "Tipaza",
+        "Boumerdes",
+        "Guelma",
+        "El Tarf",
+        "Ain Temouchent",
+        "Biskra",
+        "Djelfa",
+        "Setif",
+        "Tlemcen",
+        "Bouira",
+        "Oran",
+        "Skikda",
+        "Relizane",
+        "Laghouat",
+        "Naama",
+        "Annaba",
+        "Bordj Bou Arreridj",
+        "Tamanghasset",
+        "El Bayadh",
+        "Chlef",
+        "Sidi Bel Abbes",
+        "Mascara",
+        "Oum El Bouaghi",
+        "Tissemsilt",
+        "Adrar",
+        "Jijel",
+        "Ain Defla",
+        "Mila",
+        "Algiers",
+        "Batna",
+        "Tiaret",
+        "Medea",
+        "M'Sila",
+        "Suez",
+        "Giza",
+        "Matrouh",
+        "Saida",
+        "Bejaia",
+        "Tizi Ouzou"
+      ]
+    },
+    {
+      "country": "Iraq",
+      "governorates": [
+        "Baghdad",
+        "Anbar",
+        "Al-Qadisiyyah",
+        "Ninawa",
+        "Muthanna",
+        "Diwaniyah",
+        "Halabja",
+        "Maysan",
+        "Erbil",
+        "Najaf",
+        "Diyala",
+        "Basrah",
+        "Salah ad-Din",
+        "Duhok",
+        "Kirkuk",
+        "Babil",
+        "Wasit",
+        "Karbala",
+        "Sulaymaniyah"
+      ]
+    },
+    {
+      "country": "Jordan",
+      "governorates": [
+        "Jerash",
+        "Madaba",
+        "Aqaba",
+        "Tafilah",
+        "Ajloun",
+        "Karak",
+        "Amman",
+        "Balqa",
+        "Mafraq",
+        "Ma'an",
+        "Irbid",
+        "Zarqa"
+      ]
     },
     {
       "country": "Morocco",
       "governorates": ["Casablanca", "Rabat"]
     },
     {
-      "country": "Saudi Arabia",
-      "governorates": ["Riyadh"]
-    },
-    {
       "country": "Oman",
-      "governorates": ["Muscat", "Salalah"]
-    },
-    {
-      "country": "Qatar",
-      "governorates": ["Doha", "Al Rayyan"]
+      "governorates": [
+        "Al Buraimi",
+        "Muscat",
+        "Al Wusta",
+        "Al Batinah South",
+        "Musandam",
+        "Al Dhahirah",
+        "Dhofar",
+        "Al Batinah North",
+        "Al Dakhiliyah",
+        "Ash Sharqiyah North",
+        "Ash Sharqiyah South"
+      ]
     },
     {
       "country": "Bahrain",
-      "governorates": ["Manama", "Muharraq"]
+      "governorates": [
+        "Capital Governorate",
+        "Northern Governorate",
+        "Muharraq Governorate",
+        "Southern Governorate"
+      ]
     },
     {
       "country": "Syria",
-      "governorates": ["Damascus", "Aleppo"]
+      "governorates": [
+        "As-Suwayda",
+        "Al-Hasakah",
+        "Daraa",
+        "Quneitra",
+        "Tartous",
+        "Rif Dimashq",
+        "Deir ez-Zor",
+        "Idlib",
+        "Homs",
+        "Aleppo",
+        "Raqqa",
+        "Latakia",
+        "Damascus",
+        "Hama"
+      ]
     }
   ];
 
